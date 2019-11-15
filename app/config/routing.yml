@@ -1,0 +1,5 @@
+obdulio:
+    resource: "@JcObdulioBundle/Resources/config/routing.yml"
+    #type:     annotation
+    prefix:   /
+

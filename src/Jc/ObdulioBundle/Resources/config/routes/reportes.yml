@@ -1,0 +1,3 @@
+reporte_operativo:
+    path:     /operativo
+    defaults: { _controller: JcObdulioBundle:Reportes:operativo }

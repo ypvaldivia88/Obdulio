@@ -1,0 +1,149 @@
+{% extends 'layout.html.twig' %}
+
+{% block wrapper %}
+    {{ parent() }}
+    <div class="content-wrapper">
+   
+    {{ include('JcObdulioBundle:Default:messages/success.html.twig') }}
+    {{ include('JcObdulioBundle:Default:messages/danger.html.twig') }}
+    
+        <section class="content-header">
+          <h1>
+            Editar Usuario
+            {#<small>it all starts here</small>#}
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
+            <li><a class="active">Cambio de Contraseña</a></li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+          <!-- Default box -->
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Editar</h3>
+            </div>
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                      <li><a href="{{ path('rh_usuarios_view', { id: user.id }) }}" data-toggle="">Perfil</a></li>
+                      {% if app.user.role == "ROLE_ADMINISTRADOR_NACIONAL" or app.user.role == "ROLE_ADMINISTRADOR_PROVINCIAL" or app.user.role == "ROLE_CAPITAL_HUMANO_NACIONAL" or app.user.role == "ROLE_CAPITAL_HUMANO_PROVINCIAL" or app.user.role == "ROLE_SEGURIDAD_SALUD" %}
+                          <li class="active"><a href="#tab_2" data-toggle="tab">Editar</a></li> 
+                      {% else %}
+                          <li class="active"><a href="#tab_2" data-toggle="tab">Cambiar Contraseña</a></li>                        {% endif %} 
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="tab_2">
+
+                            {{ form_start(form, {'attr': { 'novalidate':'novalidate', 'role' : 'form'}}) }} {#'novalidate': 'novalidate',#}
+                           {# <h4 class="text-danger">{{ form_errors(form) }}</h4> #}
+
+                            <fieldset>
+                                <div id="pass" class="form-group col-md-6">
+                                    <strong>Contraseña</strong>
+                                    {{ form_widget(form.password, {'attr': {
+                                    'class': 'form-control', 
+                                    'placeholder' : 'Contraseña'}}) }}
+                                </div>
+                                    
+                                <div id="repetir" class="form-group col-md-6">
+                                    <strong>Repetir Contraseña</strong>
+                                    {{ form_widget(form.repetir, {'attr': {
+                                    'class': 'form-control', 
+                                    'placeholder' : 'Repetir Contraseña'}}) }}
+                                </div>    
+
+                            </fieldset>
+                            
+                            <p> 
+                                <a href="{{ path('rh_usuarios_index') }}" class="btn btn-sm btn-danger"> 
+                                  <i class="fa fa-ban"></i> <strong>Cancelar</strong>
+                                </a>
+                                {{ form_widget(form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
+                            </p>
+                            <p>&zwnj;</p>
+
+                            {{ form_end(form) }}
+                      </div>
+                      <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div>
+            </div>
+            <!-- /.box-body -->
+            {#<div class="box-footer">
+              Footer
+            </div>#}
+            <!-- /.box-footer-->
+          </div>
+          <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
+      </div>
+<input type="hidden" value="usuarios" id="seleccion">
+{% endblock %}
+
+{% block javascripts  %}
+	{{ parent() }}
+        <script src="{{ asset('public/iCheck/icheck.min.js') }}"></script>
+        <script src="{{ asset('public/select2/dist/js/select2.full.min.js') }}"></script>
+        <script>
+          $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+            
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+              checkboxClass: 'icheckbox_square-yellow',
+              radioClass   : 'iradio_square-yellow',
+              //increaseArea: '20%' // optional
+            })
+            
+            $('#usuario_save').click(function() {
+                if($('#usuario_password').val().length<8){
+                    $('#message-danger').removeClass('hidden'); 
+                    $('#pass').addClass('has-error');
+                    $('#mensajeAjaxMal').html('<i class="icon fa fa-close"></i> La contraseña debe tener más de ocho caracteres.');
+                    return false;
+                }
+                else
+                    $('#pass').removeClass('has-error');
+                    
+                if($('#usuario_repetir').val().length<8){
+                    $('#message-danger').removeClass('hidden'); 
+                    $('#repetir').addClass('has-error');
+                    $('#mensajeAjaxMal').html('<i class="icon fa fa-close"></i> La contraseña debe tener más de ocho caracteres.');
+                    return false;
+                }
+                else
+                    $('#repetir').removeClass('has-error');
+                    
+                if($('#usuario_password').val() != $('#usuario_repetir').val()){
+                    $('#message-danger').removeClass('hidden');  
+                    $('#pass').addClass('has-error');   
+                    $('#repetir').addClass('has-error');
+                    $('#mensajeAjaxMal').html('<i class="icon fa fa-close"></i> Las contraseñas no coinciden.');
+                    return false;
+                }       
+                
+                $('#message-danger').addClass('hidden');
+                $('#pass').removeClass('has-error');   
+                $('#repetir').removeClass('has-error');
+                
+                //return false;
+              });
+              
+          })
+       </script>
+{% endblock %} 
+        
+{% block stylesheets %}
+	{{ parent() }}
+            <link rel="stylesheet" href="{{ asset('public/iCheck/all.css') }}">
+            <link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
+{% endblock %}      
+

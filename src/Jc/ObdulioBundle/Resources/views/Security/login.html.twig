@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>{% block title %}SISGOM{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('public/bootstrap/dist/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('public/font-awesome/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('public/Ionicons/css/ionicons.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('public/adminlte/css/AdminLTE.min.css') }}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('public/images/favicon.ico') }}" />
+    </head>
+    
+    <body class="hold-transition login-page">
+        <div class="login-box">
+          <div class="login-logo" style="padding-bottom: 10px;">
+            <p>Sistema de Gestión Obdulio Moralez</p>
+          </div>
+          <!-- /.login-logo -->
+  
+          <div class="login-box-body" style=" border-radius: 7px; border-bottom-right-radius: 5px; border-color: #e5e6e9 #dfe0e4; box-shadow: 0 2px 15px 3px rgba(0,0,0,.7) !important;
+">
+            <h3 align="center" class="form-signin-heading">Zona de Autentificación</h3>
+
+            <form action="{{ path('rh_usuarios_login_check') }}" method="post"  autocomplete="off">
+              {% if error %}
+                <div class="text-danger">
+                    <p>
+                        <strong>
+                            Credenciales Inválidas
+                        </strong>
+                    </p>
+                </div>
+              {% endif %}
+
+              <div class="form-group has-feedback">
+                <input style="border-radius: 5px;border-color: #e5e6e9 #dfe0e4;box-shadow: inset 0px 2px 8px 3px rgba(0,0,0,.5);" type="text" id="username" class="form-control" name="_username" value="{{ last_username }}" placeholder="Inserte su Usuario" required autofocus />
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+              </div>
+              <div class="form-group has-feedback">
+                <input style="border-radius: 5px;border-color: #e5e6e9 #dfe0e4;box-shadow: inset 0px 2px 8px 3px rgba(0,0,0,.5);" type="password" id="password" class="form-control" name="_password" placeholder="Inserte su Contraseña" required />
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+              </div>
+              <div class="row">
+                <div class="col-xs-4 pull-right">
+                  <input type="hidden" name="_target_path" value="inicio" />
+                  <button style="border-radius: 5px;box-shadow: 1px 4px 6px 2px rgba(0,0,0,.5);" type="submit" class="btn btn-primary btn-block btn-flat glyphicon glyphicon-log-in"><strong> Entrar</strong></button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </form>
+
+            {#<a href="#">He olvidado mi contraseña</a><br>#}
+
+          </div>
+          <!-- /.login-box-body -->
+        </div>
+            
+        {% block javascripts %}
+            <script src="{{ asset('public/jquery/dist/jquery.min.js') }}"></script>
+            <script src="{{ asset('public/bootstrap/dist/js/bootstrap.min.js') }}"></script> 
+        {% endblock %}    
+    </body>        

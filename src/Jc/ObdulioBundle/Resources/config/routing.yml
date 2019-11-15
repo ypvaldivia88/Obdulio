@@ -1,0 +1,27 @@
+rh_usuarios_user:
+    resource: "@JcObdulioBundle/Resources/config/routes/usuarios.yml"
+    prefix:   /usuarios
+
+reportes:
+    resource: "@JcObdulioBundle/Resources/config/routes/reportes.yml"
+    prefix:   /reportes
+    
+# Autentication
+
+inicio:
+    path:     /
+    defaults: { _controller: JcObdulioBundle:Usuarios:home }
+
+rh_usuarios_login:
+    path:     /login
+    defaults: { _controller: JcObdulioBundle:Security:login }
+
+rh_usuarios_login_check:
+    path:     /login_check
+    defaults: { _controller: JcObdulioBundle:Security:loginCheck }
+
+rh_usuarios_logout:
+    path:     /logout
+
+
+    
