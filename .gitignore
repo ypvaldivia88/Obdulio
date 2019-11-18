@@ -10,4 +10,4 @@
 #VS Code
 .vscode/*
 
-vendor/*
+#vendor/*
