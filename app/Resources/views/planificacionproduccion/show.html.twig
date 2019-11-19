@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Planificacionproduccion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ planificacionproduccion.id }}</td>
+            </tr>
+            <tr>
+                <th>Enero</th>
+                <td>{{ planificacionproduccion.enero }}</td>
+            </tr>
+            <tr>
+                <th>Febrero</th>
+                <td>{{ planificacionproduccion.febrero }}</td>
+            </tr>
+            <tr>
+                <th>Marzo</th>
+                <td>{{ planificacionproduccion.marzo }}</td>
+            </tr>
+            <tr>
+                <th>Abril</th>
+                <td>{{ planificacionproduccion.abril }}</td>
+            </tr>
+            <tr>
+                <th>Mayo</th>
+                <td>{{ planificacionproduccion.mayo }}</td>
+            </tr>
+            <tr>
+                <th>Junio</th>
+                <td>{{ planificacionproduccion.junio }}</td>
+            </tr>
+            <tr>
+                <th>Julio</th>
+                <td>{{ planificacionproduccion.julio }}</td>
+            </tr>
+            <tr>
+                <th>Agosto</th>
+                <td>{{ planificacionproduccion.agosto }}</td>
+            </tr>
+            <tr>
+                <th>Septiembre</th>
+                <td>{{ planificacionproduccion.septiembre }}</td>
+            </tr>
+            <tr>
+                <th>Octubre</th>
+                <td>{{ planificacionproduccion.octubre }}</td>
+            </tr>
+            <tr>
+                <th>Noviembre</th>
+                <td>{{ planificacionproduccion.noviembre }}</td>
+            </tr>
+            <tr>
+                <th>Diciembre</th>
+                <td>{{ planificacionproduccion.diciembre }}</td>
+            </tr>
+            <tr>
+                <th>Año</th>
+                <td>{{ planificacionproduccion.año }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('planificacionproduccion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('planificacionproduccion_edit', { 'id': planificacionproduccion.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

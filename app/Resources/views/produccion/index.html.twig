@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Produccions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Valor</th>
+                <th>Factura</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produccion in produccions %}
+            <tr>
+                <td><a href="{{ path('produccion_show', { 'id': produccion.id }) }}">{{ produccion.id }}</a></td>
+                <td>{% if produccion.fecha %}{{ produccion.fecha|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ produccion.valor }}</td>
+                <td>{{ produccion.factura }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('produccion_show', { 'id': produccion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('produccion_edit', { 'id': produccion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('produccion_new') }}">Create a new produccion</a>
+        </li>
+    </ul>
+{% endblock %}

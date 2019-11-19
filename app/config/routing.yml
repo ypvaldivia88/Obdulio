@@ -1,3 +1,27 @@
+jc_obdulio_unidad:
+    resource: "@JcObdulioBundle/Controller/UnidadController.php"
+    type:     annotation
+
+jc_obdulio_tipoproducto:
+    resource: "@JcObdulioBundle/Controller/TipoproductoController.php"
+    type:     annotation
+
+jc_obdulio_producto:
+    resource: "@JcObdulioBundle/Controller/ProductoController.php"
+    type:     annotation
+
+jc_obdulio_produccion:
+    resource: "@JcObdulioBundle/Controller/ProduccionController.php"
+    type:     annotation
+
+jc_obdulio_planificacionproduccion:
+    resource: "@JcObdulioBundle/Controller/PlanificacionproduccionController.php"
+    type:     annotation
+
+jc_obdulio_destino:
+    resource: "@JcObdulioBundle/Controller/DestinoController.php"
+    type:     annotation
+
 obdulio:
     resource: "@JcObdulioBundle/Resources/config/routing.yml"
     #type:     annotation

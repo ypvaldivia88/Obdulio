@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Planificacionproduccions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Enero</th>
+                <th>Febrero</th>
+                <th>Marzo</th>
+                <th>Abril</th>
+                <th>Mayo</th>
+                <th>Junio</th>
+                <th>Julio</th>
+                <th>Agosto</th>
+                <th>Septiembre</th>
+                <th>Octubre</th>
+                <th>Noviembre</th>
+                <th>Diciembre</th>
+                <th>Año</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planificacionproduccion in planificacionproduccions %}
+            <tr>
+                <td><a href="{{ path('planificacionproduccion_show', { 'id': planificacionproduccion.id }) }}">{{ planificacionproduccion.id }}</a></td>
+                <td>{{ planificacionproduccion.enero }}</td>
+                <td>{{ planificacionproduccion.febrero }}</td>
+                <td>{{ planificacionproduccion.marzo }}</td>
+                <td>{{ planificacionproduccion.abril }}</td>
+                <td>{{ planificacionproduccion.mayo }}</td>
+                <td>{{ planificacionproduccion.junio }}</td>
+                <td>{{ planificacionproduccion.julio }}</td>
+                <td>{{ planificacionproduccion.agosto }}</td>
+                <td>{{ planificacionproduccion.septiembre }}</td>
+                <td>{{ planificacionproduccion.octubre }}</td>
+                <td>{{ planificacionproduccion.noviembre }}</td>
+                <td>{{ planificacionproduccion.diciembre }}</td>
+                <td>{{ planificacionproduccion.año }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('planificacionproduccion_show', { 'id': planificacionproduccion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('planificacionproduccion_edit', { 'id': planificacionproduccion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('planificacionproduccion_new') }}">Create a new planificacionproduccion</a>
+        </li>
+    </ul>
+{% endblock %}
