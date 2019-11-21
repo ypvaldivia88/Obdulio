@@ -5,7 +5,10 @@ namespace Jc\ObdulioBundle\Controller;
 use Jc\ObdulioBundle\Entity\Producto;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Producto controller.
@@ -17,19 +20,19 @@ class ProductoController extends Controller
     /**
      * Lists all producto entities.
      *
-     * @Route("/", name="producto_index")
+     * @Route("/index", name="producto_index")
      * @Method("GET")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        if($this->getUser()==NULL){ return $this->redirectToRoute('rh_usuarios_logout');}
         $productos = $em->getRepository('JcObdulioBundle:Producto')->findAll();
-
-        return $this->render('producto/index.html.twig', array(
-            'productos' => $productos,
-        ));
+        $deleteFormAjax = $this->createCustomForm(':USER_ID', 'DELETE', 'producto_delete');
+        return $this->render('@JcObdulio/producto/index.html.twig', array(
+            'productos' => $productos,'delete_form_ajax' => $deleteFormAjax -> createView()));
     }
+
 
     /**
      * Creates a new producto entity.
@@ -40,6 +43,7 @@ class ProductoController extends Controller
     public function newAction(Request $request)
     {
         $producto = new Producto();
+        if($this->getUser()==NULL){ return $this->redirectToRoute('rh_usuarios_logout');}
         $form = $this->createForm('Jc\ObdulioBundle\Form\ProductoType', $producto);
         $form->handleRequest($request);
 
@@ -48,10 +52,11 @@ class ProductoController extends Controller
             $em->persist($producto);
             $em->flush();
 
-            return $this->redirectToRoute('producto_show', array('id' => $producto->getId()));
+            $this->addFlash('mensaje', 'El producto ha sido creado' );
+            return $this->redirectToRoute('producto_index');
         }
 
-        return $this->render('producto/new.html.twig', array(
+        return $this->render('@JcObdulio/producto/new.html.twig', array(
             'producto' => $producto,
             'form' => $form->createView(),
         ));
@@ -67,7 +72,7 @@ class ProductoController extends Controller
     {
         $deleteForm = $this->createDeleteForm($producto);
 
-        return $this->render('producto/show.html.twig', array(
+        return $this->render('@JcObdulio/producto/show.html.twig', array(
             'producto' => $producto,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -88,10 +93,11 @@ class ProductoController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('producto_edit', array('id' => $producto->getId()));
+            $this->addFlash('mensaje', 'El producto '.$producto->getNombre().' ha sido editado correctamente');
+            return $this->redirectToRoute('producto_index');
         }
 
-        return $this->render('producto/edit.html.twig', array(
+        return $this->render('@JcObdulio/producto/edit.html.twig', array(
             'producto' => $producto,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -111,11 +117,30 @@ class ProductoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($producto);
-            $em->flush();
+            if($request->isXMLHttpRequest()){
+                $res = $this->deleteProducto($em, $producto);
+                return new Response(
+                    json_encode(array('removed' => $res['removed'], 'message' => $res['message'])),
+                    200,
+                    array('Content-Type' => 'application/json')
+                );
+
+            }
+            $res = $this->deleteProducto($em, $producto);
+            $this->addFlash($res['alert'], $res['message']);
         }
 
         return $this->redirectToRoute('producto_index');
+    }
+    private function deleteProducto($em, $producto){
+        $em->remove($producto);
+        $em->flush();
+
+        $message = ('El producto '.$producto->getNombre().' ha sido eliminado.');
+        $removed = 1;
+        $alert = 'mensaje';
+
+        return array('removed' => $removed, 'message' => $message, 'alert' => $alert);
     }
 
     /**
@@ -132,5 +157,11 @@ class ProductoController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    private function createCustomForm($id, $method, $route){
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod($method)
+            ->getForm();
     }
 }

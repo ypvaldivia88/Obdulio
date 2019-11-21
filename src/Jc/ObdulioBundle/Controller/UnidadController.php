@@ -5,7 +5,10 @@ namespace Jc\ObdulioBundle\Controller;
 use Jc\ObdulioBundle\Entity\Unidad;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Unidad controller.
@@ -17,19 +20,19 @@ class UnidadController extends Controller
     /**
      * Lists all unidad entities.
      *
-     * @Route("/", name="unidad_index")
+     * @Route("/index", name="unidad_index")
      * @Method("GET")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        if($this->getUser()==NULL){ return $this->redirectToRoute('rh_usuarios_logout');}
         $unidads = $em->getRepository('JcObdulioBundle:Unidad')->findAll();
-
-        return $this->render('unidad/index.html.twig', array(
-            'unidads' => $unidads,
-        ));
+        $deleteFormAjax = $this->createCustomForm(':USER_ID', 'DELETE', 'unidad_delete');
+        return $this->render('@JcObdulio/unidad/index.html.twig', array(
+            'unidads' => $unidads,'delete_form_ajax' => $deleteFormAjax -> createView()));
     }
+
 
     /**
      * Creates a new unidad entity.
@@ -40,6 +43,7 @@ class UnidadController extends Controller
     public function newAction(Request $request)
     {
         $unidad = new Unidad();
+        if($this->getUser()==NULL){ return $this->redirectToRoute('rh_usuarios_logout');}
         $form = $this->createForm('Jc\ObdulioBundle\Form\UnidadType', $unidad);
         $form->handleRequest($request);
 
@@ -48,10 +52,11 @@ class UnidadController extends Controller
             $em->persist($unidad);
             $em->flush();
 
-            return $this->redirectToRoute('unidad_show', array('id' => $unidad->getId()));
+            $this->addFlash('mensaje', 'La unidad ha sido creada' );
+            return $this->redirectToRoute('unidad_index');
         }
 
-        return $this->render('unidad/new.html.twig', array(
+        return $this->render('@JcObdulio/unidad/new.html.twig', array(
             'unidad' => $unidad,
             'form' => $form->createView(),
         ));
@@ -67,7 +72,7 @@ class UnidadController extends Controller
     {
         $deleteForm = $this->createDeleteForm($unidad);
 
-        return $this->render('unidad/show.html.twig', array(
+        return $this->render('@JcObdulio/unidad/show.html.twig', array(
             'unidad' => $unidad,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -88,10 +93,11 @@ class UnidadController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('unidad_edit', array('id' => $unidad->getId()));
+            $this->addFlash('mensaje', 'La Unidad '.$unidad->getNombre().' ha sido editada correctamente');
+            return $this->redirectToRoute('unidad_index');
         }
 
-        return $this->render('unidad/edit.html.twig', array(
+        return $this->render('@JcObdulio/unidad/edit.html.twig', array(
             'unidad' => $unidad,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -111,11 +117,30 @@ class UnidadController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($unidad);
-            $em->flush();
+            if($request->isXMLHttpRequest()){
+                $res = $this->deleteUnidad($em, $unidad);
+                return new Response(
+                    json_encode(array('removed' => $res['removed'], 'message' => $res['message'])),
+                    200,
+                    array('Content-Type' => 'application/json')
+                );
+
+            }
+            $res = $this->deleteUnidad($em, $unidad);
+            $this->addFlash($res['alert'], $res['message']);
         }
 
         return $this->redirectToRoute('unidad_index');
+    }
+    private function deleteUnidad($em, $unidad){
+        $em->remove($unidad);
+        $em->flush();
+
+        $message = ('La unidad '.$unidad->getNombre().' ha sido eliminada.');
+        $removed = 1;
+        $alert = 'mensaje';
+
+        return array('removed' => $removed, 'message' => $message, 'alert' => $alert);
     }
 
     /**
@@ -132,5 +157,11 @@ class UnidadController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    private function createCustomForm($id, $method, $route){
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod($method)
+            ->getForm();
     }
 }

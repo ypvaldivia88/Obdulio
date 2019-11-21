@@ -5,7 +5,10 @@ namespace Jc\ObdulioBundle\Controller;
 use Jc\ObdulioBundle\Entity\Planificacionproduccion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Planificacionproduccion controller.
@@ -17,16 +20,16 @@ class PlanificacionproduccionController extends Controller
     /**
      * Lists all planificacionproduccion entities.
      *
-     * @Route("/", name="planificacionproduccion_index")
+     * @Route("/index", name="planificacionproduccion_index")
      * @Method("GET")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        if($this->getUser()==NULL){ return $this->redirectToRoute('rh_usuarios_logout');}
         $planificacionproduccions = $em->getRepository('JcObdulioBundle:Planificacionproduccion')->findAll();
-
-        return $this->render('planificacionproduccion/index.html.twig', array(
+        $deleteFormAjax = $this->createCustomForm(':USER_ID', 'DELETE', 'planificacionproduccion_delete');
+        return $this->render('@JcObdulio/planificacionproduccion/index.html.twig', array(
             'planificacionproduccions' => $planificacionproduccions,
         ));
     }
@@ -40,6 +43,7 @@ class PlanificacionproduccionController extends Controller
     public function newAction(Request $request)
     {
         $planificacionproduccion = new Planificacionproduccion();
+        if($this->getUser()==NULL){ return $this->redirectToRoute('rh_usuarios_logout');}
         $form = $this->createForm('Jc\ObdulioBundle\Form\PlanificacionproduccionType', $planificacionproduccion);
         $form->handleRequest($request);
 
@@ -48,10 +52,11 @@ class PlanificacionproduccionController extends Controller
             $em->persist($planificacionproduccion);
             $em->flush();
 
-            return $this->redirectToRoute('planificacionproduccion_show', array('id' => $planificacionproduccion->getId()));
+            $this->addFlash('mensaje', 'La planificación de la producción ha sido creada' );
+            return $this->redirectToRoute('planificacionproduccion_index');
         }
 
-        return $this->render('planificacionproduccion/new.html.twig', array(
+        return $this->render('@JcObdulio/planificacionproducto/new.html.twig', array(
             'planificacionproduccion' => $planificacionproduccion,
             'form' => $form->createView(),
         ));
@@ -67,7 +72,7 @@ class PlanificacionproduccionController extends Controller
     {
         $deleteForm = $this->createDeleteForm($planificacionproduccion);
 
-        return $this->render('planificacionproduccion/show.html.twig', array(
+        return $this->render('@JcObdulio/planificacionproduccion/show.html.twig', array(
             'planificacionproduccion' => $planificacionproduccion,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -88,10 +93,11 @@ class PlanificacionproduccionController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('planificacionproduccion_edit', array('id' => $planificacionproduccion->getId()));
+            $this->addFlash('mensaje', 'La planificación de la producción '.$planificacionproduccion->getFkProducto()->getNombre().' ha sido editada correctamente');
+            return $this->redirectToRoute('planificacionproduccion_index');
         }
 
-        return $this->render('planificacionproduccion/edit.html.twig', array(
+        return $this->render('@JcObdulio/planificacionproduccion/edit.html.twig', array(
             'planificacionproduccion' => $planificacionproduccion,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -111,11 +117,30 @@ class PlanificacionproduccionController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($planificacionproduccion);
-            $em->flush();
+            if($request->isXMLHttpRequest()){
+                $res = $this->deletePlanificacionproduccion($em, $planificacionproduccion);
+                return new Response(
+                    json_encode(array('removed' => $res['removed'], 'message' => $res['message'])),
+                    200,
+                    array('Content-Type' => 'application/json')
+                );
+
+            }
+            $res = $this->deletePlanificacionproduccion($em, $planificacionproduccion);
+            $this->addFlash($res['alert'], $res['message']);
         }
 
         return $this->redirectToRoute('planificacionproduccion_index');
+    }
+    private function deletePlanificacionproduccion($em, $planificacionproduccion){
+        $em->remove($planificacionproduccion);
+        $em->flush();
+
+        $message = ('La planificación de la producción '.$planificacionproduccion->getFkProducto()->getNombre().' ha sido eliminada.');
+        $removed = 1;
+        $alert = 'mensaje';
+
+        return array('removed' => $removed, 'message' => $message, 'alert' => $alert);
     }
 
     /**
@@ -132,5 +157,11 @@ class PlanificacionproduccionController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    private function createCustomForm($id, $method, $route){
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod($method)
+            ->getForm();
     }
 }

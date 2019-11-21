@@ -5,7 +5,10 @@ namespace Jc\ObdulioBundle\Controller;
 use Jc\ObdulioBundle\Entity\Tipoproducto;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Tipoproducto controller.
@@ -17,19 +20,19 @@ class TipoproductoController extends Controller
     /**
      * Lists all tipoproducto entities.
      *
-     * @Route("/", name="tipoproducto_index")
+     * @Route("/index", name="tipoproducto_index")
      * @Method("GET")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        if($this->getUser()==NULL){ return $this->redirectToRoute('rh_usuarios_logout');}
         $tipoproductos = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
-
-        return $this->render('tipoproducto/index.html.twig', array(
-            'tipoproductos' => $tipoproductos,
-        ));
+        $deleteFormAjax = $this->createCustomForm(':USER_ID', 'DELETE', 'tipoproducto_delete');
+        return $this->render('@JcObdulio/tipoproducto/index.html.twig', array(
+            'tipoproductos' => $tipoproductos,'delete_form_ajax' => $deleteFormAjax -> createView()));
     }
+
 
     /**
      * Creates a new tipoproducto entity.
@@ -40,6 +43,7 @@ class TipoproductoController extends Controller
     public function newAction(Request $request)
     {
         $tipoproducto = new Tipoproducto();
+        if($this->getUser()==NULL){ return $this->redirectToRoute('rh_usuarios_logout');}
         $form = $this->createForm('Jc\ObdulioBundle\Form\TipoproductoType', $tipoproducto);
         $form->handleRequest($request);
 
@@ -48,10 +52,11 @@ class TipoproductoController extends Controller
             $em->persist($tipoproducto);
             $em->flush();
 
-            return $this->redirectToRoute('tipoproducto_show', array('id' => $tipoproducto->getId()));
+            $this->addFlash('mensaje', 'El tipo producto ha sido creado' );
+            return $this->redirectToRoute('tipoproducto_index');
         }
 
-        return $this->render('tipoproducto/new.html.twig', array(
+        return $this->render('@JcObdulio/tipoproducto/new.html.twig', array(
             'tipoproducto' => $tipoproducto,
             'form' => $form->createView(),
         ));
@@ -67,7 +72,7 @@ class TipoproductoController extends Controller
     {
         $deleteForm = $this->createDeleteForm($tipoproducto);
 
-        return $this->render('tipoproducto/show.html.twig', array(
+        return $this->render('@JcObdulio/tipoproducto/show.html.twig', array(
             'tipoproducto' => $tipoproducto,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -88,10 +93,11 @@ class TipoproductoController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('tipoproducto_edit', array('id' => $tipoproducto->getId()));
+            $this->addFlash('mensaje', 'El tipo de producto '.$tipoproducto->getNombre().' ha sido editado correctamente');
+            return $this->redirectToRoute('tipoproducto_index');
         }
 
-        return $this->render('tipoproducto/edit.html.twig', array(
+        return $this->render('@JcObdulio/tipoproducto/edit.html.twig', array(
             'tipoproducto' => $tipoproducto,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -111,11 +117,30 @@ class TipoproductoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($tipoproducto);
-            $em->flush();
+            if($request->isXMLHttpRequest()){
+                $res = $this->deleteTipoproducto($em, $tipoproducto);
+                return new Response(
+                    json_encode(array('removed' => $res['removed'], 'message' => $res['message'])),
+                    200,
+                    array('Content-Type' => 'application/json')
+                );
+
+            }
+            $res = $this->deleteTipoproducto($em, $tipoproducto);
+            $this->addFlash($res['alert'], $res['message']);
         }
 
         return $this->redirectToRoute('tipoproducto_index');
+    }
+    private function deleteTipoproducto($em, $tipoproducto){
+        $em->remove($tipoproducto);
+        $em->flush();
+
+        $message = ('El tipo de producto '.$tipoproducto->getNombre().' ha sido eliminado.');
+        $removed = 1;
+        $alert = 'mensaje';
+
+        return array('removed' => $removed, 'message' => $message, 'alert' => $alert);
     }
 
     /**
@@ -132,5 +157,11 @@ class TipoproductoController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    private function createCustomForm($id, $method, $route){
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod($method)
+            ->getForm();
     }
 }
