@@ -13,7 +13,7 @@ class PlanificacionproduccionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('enero')->add('febrero')->add('marzo')->add('abril')->add('mayo')->add('junio')->add('julio')->add('agosto')->add('septiembre')->add('octubre')->add('noviembre')->add('diciembre')->add('año')->add('fkProducto')->add('fkUnidad');
+        $builder->add('enero')->add('febrero')->add('marzo')->add('abril')->add('mayo')->add('junio')->add('julio')->add('agosto')->add('septiembre')->add('octubre')->add('noviembre')->add('diciembre')->add('ano')->add('fkProducto')->add('fkUnidad');
     }/**
      * {@inheritdoc}
      */

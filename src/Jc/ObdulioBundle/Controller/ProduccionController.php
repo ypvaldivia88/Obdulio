@@ -30,8 +30,7 @@ class ProduccionController extends Controller
         $produccions = $em->getRepository('JcObdulioBundle:Produccion')->findAll();
         $deleteFormAjax = $this->createCustomForm(':USER_ID', 'DELETE', 'produccion_delete');
         return $this->render('@JcObdulio/produccion/index.html.twig', array(
-            'produccions' => $produccions,
-        ));
+            'produccions' => $produccions,'delete_form_ajax' => $deleteFormAjax -> createView()));
     }
 
     /**
