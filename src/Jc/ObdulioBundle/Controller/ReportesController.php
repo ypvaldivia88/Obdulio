@@ -44,41 +44,41 @@ class ReportesController extends Controller
         return $this->render('JcObdulioBundle:Reportes:operativo.html.twig', array('operativo' => $operativo, 'tiposProducto' => $tiposProducto));
     }
 
-    public function totalesAction($tipoProducto){
+    public function totalesAction($id){
         if($this->getUser()==NULL){return $this->redirectToRoute('rh_usuarios_login');}
 
         $em = $this->getDoctrine()->getManager();
 
         $query = $em->createQuery(
             "SELECT
-                Sum(produccion.valor) AS `real`,
-                tipoproducto.nombre AS tipo,
-                unidad.nombre AS unidad,
-                Sum(planificacionproduccion.enero) AS ene,
-                Sum(planificacionproduccion.febrero) AS feb,
-                Sum(planificacionproduccion.marzo) AS mar,
-                Sum(planificacionproduccion.abril) AS abr,
-                Sum(planificacionproduccion.mayo) AS may,
-                Sum(planificacionproduccion.junio) AS jun,
-                Sum(planificacionproduccion.julio) AS jul,
-                Sum(planificacionproduccion.agosto) AS ago,
-                Sum(planificacionproduccion.septiembre) AS sep,
-                Sum(planificacionproduccion.octubre) AS oct,
-                Sum(planificacionproduccion.noviembre) AS nov,
-                Sum(planificacionproduccion.diciembre) AS dic,
-                planificacionproduccion.`año`
+                Sum(p.valor) AS `real`,
+                tp.nombre AS tipo,
+                u.nombre AS unidad,
+                Sum(pl.enero) AS ene,
+                Sum(pl.febrero) AS feb,
+                Sum(pl.marzo) AS mar,
+                Sum(pl.abril) AS abr,
+                Sum(pl.mayo) AS may,
+                Sum(pl.junio) AS jun,
+                Sum(pl.julio) AS jul,
+                Sum(pl.agosto) AS ago,
+                Sum(pl.septiembre) AS sep,
+                Sum(pl.octubre) AS oct,
+                Sum(pl.noviembre) AS nov,
+                Sum(pl.diciembre) AS dic,
+                pl.`año`
                 FROM
-                produccion
-                INNER JOIN producto ON produccion.fk_producto = producto.id
-                INNER JOIN tipoproducto ON producto.fk_tipoproducto = tipoproducto.id
-                INNER JOIN unidad ON produccion.fk_unidad = unidad.id
-                INNER JOIN planificacionproduccion ON planificacionproduccion.fk_producto = producto.id AND planificacionproduccion.fk_unidad = unidad.id
+                JcObdulioBundle:Produccion AS p
+                INNER JOIN JcObdulioBundle:Producto AS pr ON p.fk_producto = pr.id
+                INNER JOIN JcObdulioBundle:Tipoproducto AS tp ON pr.fkTipoproducto = tp.id
+                INNER JOIN JcObdulioBundle:Unidad AS u ON p.fkUnidad = u.id
+                INNER JOIN JcObdulioBundle:Planificacionproduccion AS pl ON pl.fkProducto = pr.id AND pl.fk_unidad = u.id
                 WHERE
                 tipoproducto.id = 2
                 GROUP BY
                 tipoproducto.nombre,
                 unidad.nombre,
-                planificacionproduccion.`año`"   
+                pl.`año`"   
         );        
         
         $listado = $query->getResult();           
