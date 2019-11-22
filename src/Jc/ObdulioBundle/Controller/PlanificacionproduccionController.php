@@ -30,8 +30,7 @@ class PlanificacionproduccionController extends Controller
         $planificacionproduccions = $em->getRepository('JcObdulioBundle:Planificacionproduccion')->findAll();
         $deleteFormAjax = $this->createCustomForm(':USER_ID', 'DELETE', 'planificacionproduccion_delete');
         return $this->render('@JcObdulio/planificacionproduccion/index.html.twig', array(
-            'planificacionproduccions' => $planificacionproduccions,
-        ));
+            'planificacionproduccions' => $planificacionproduccions,'delete_form_ajax' => $deleteFormAjax -> createView()));
     }
 
     /**
@@ -56,7 +55,7 @@ class PlanificacionproduccionController extends Controller
             return $this->redirectToRoute('planificacionproduccion_index');
         }
 
-        return $this->render('@JcObdulio/planificacionproducto/new.html.twig', array(
+        return $this->render('@JcObdulio/planificacionproduccion/new.html.twig', array(
             'planificacionproduccion' => $planificacionproduccion,
             'form' => $form->createView(),
         ));
