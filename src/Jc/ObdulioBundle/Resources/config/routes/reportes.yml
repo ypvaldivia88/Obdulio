@@ -1,3 +1,6 @@
 reporte_operativo:
     path:     /operativo
     defaults: { _controller: JcObdulioBundle:Reportes:operativo }
+reporte_totales:
+    path:     /totales/{id}
+    defaults: { _controller: JcObdulioBundle:Reportes:totales }
