@@ -110,9 +110,11 @@ class Planificacionproduccion
     /**
      * @var int
      *
+     * @ORM\Column(name="anno", type="integer")
+     */
+    private $anno;
      * @ORM\Column(name="ano", type="integer")
      */
-    private $ano;
 
     /**
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="planificacionproduccion")
@@ -427,27 +429,26 @@ class Planificacionproduccion
     }
 
     /**
-     * Set ano
+     * Set anno
      *
-     * @param int $ano
+     * @param int $anno
      *
      * @return Planificacionproduccion
      */
-    public function setAno($ano)
+    public function setAnno($anno)
     {
-        $this->ano = $ano;
-
+        $this->anno = $anno;
         return $this;
     }
 
     /**
-     * Get ano
+     * Get anno
      *
      * @return int
      */
-    public function getAno()
+    public function getAnno()
     {
-        return $this->ano;
+        return $this->anno;
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace Jc\ObdulioBundle\Controller;
 
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\ORM\Query\ResultSetMapping;
 
 class ReportesController extends Controller
 {
@@ -11,6 +11,9 @@ class ReportesController extends Controller
         if($this->getUser()==NULL){return $this->redirectToRoute('rh_usuarios_login');}
 
         $em = $this->getDoctrine()->getManager();
+
+        $d = new DateTime('NOW');
+        $annoActual = $d->format('Y');
 
         $query = $em->createQuery(
             "SELECT
@@ -29,19 +32,23 @@ class ReportesController extends Controller
                 pl.diciembre,
                 p.nombre AS producto,
                 tp.nombre AS tipo,
-                u.nombre AS unidad
+                u.nombre AS unidad,
+                pl.anno
             FROM JcObdulioBundle:Produccion pr
             LEFT JOIN JcObdulioBundle:Producto p WHERE pr.fkProducto = p.id
             LEFT JOIN JcObdulioBundle:Planificacionproduccion pl WHERE pl.fkProducto = p.id
             LEFT JOIN JcObdulioBundle:Tipoproducto tp WHERE p.fkTipoproducto = tp.id
-            LEFT JOIN JcObdulioBundle:Unidad u WHERE pr.fkUnidad = u.id AND pl.fkUnidad = u.id"   
-        );        
+            LEFT JOIN JcObdulioBundle:Unidad u WHERE pr.fkUnidad = u.id AND pl.fkUnidad = u.id
+            Where pl.anno = ?1" 
+        );
 
-        $operativo = $query->getResult();      
+        $query->setParameter(1, $annoActual);        
+
+        $listado = $query->getResult();      
         $tiposProducto = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
      
         
-        return $this->render('JcObdulioBundle:Reportes:operativo.html.twig', array('operativo' => $operativo, 'tiposProducto' => $tiposProducto));
+        return $this->render('JcObdulioBundle:Reportes:operativo.html.twig', array('listado' => $listado, 'tiposProducto' => $tiposProducto));
     }
 
     public function totalesAction($id){
@@ -49,9 +56,12 @@ class ReportesController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        $d = new DateTime('NOW');
+        $annoActual = $d->format('Y');
+
         $query = $em->createQuery(
             "SELECT
-                Sum(p.valor) AS `real`,
+                Sum(p.valor) AS real,
                 tp.nombre AS tipo,
                 u.nombre AS unidad,
                 Sum(pl.enero) AS ene,
@@ -66,20 +76,23 @@ class ReportesController extends Controller
                 Sum(pl.octubre) AS oct,
                 Sum(pl.noviembre) AS nov,
                 Sum(pl.diciembre) AS dic,
-                pl.`año`
+                pl.anno
                 FROM
                 JcObdulioBundle:Produccion AS p
-                INNER JOIN JcObdulioBundle:Producto AS pr ON p.fk_producto = pr.id
-                INNER JOIN JcObdulioBundle:Tipoproducto AS tp ON pr.fkTipoproducto = tp.id
-                INNER JOIN JcObdulioBundle:Unidad AS u ON p.fkUnidad = u.id
-                INNER JOIN JcObdulioBundle:Planificacionproduccion AS pl ON pl.fkProducto = pr.id AND pl.fk_unidad = u.id
+                INNER JOIN JcObdulioBundle:Producto AS pr WHERE p.fkProducto = pr.id
+                INNER JOIN JcObdulioBundle:Tipoproducto AS tp WHERE pr.fkTipoproducto = tp.id
+                INNER JOIN JcObdulioBundle:Unidad AS u WHERE p.fkUnidad = u.id
+                INNER JOIN JcObdulioBundle:Planificacionproduccion AS pl WHERE pl.fkProducto = pr.id AND pl.fkUnidad = u.id
                 WHERE
-                tipoproducto.id = 2
+                tp.id = ?1 AND pl.anno = ?2
                 GROUP BY
-                tipoproducto.nombre,
-                unidad.nombre,
-                pl.`año`"   
+                tp.nombre,
+                u.nombre,
+                pl.anno"   
         );        
+        
+        $query->setParameter(1,$id);
+        $query->setParameter(2,$annoActual);
         
         $listado = $query->getResult();           
         

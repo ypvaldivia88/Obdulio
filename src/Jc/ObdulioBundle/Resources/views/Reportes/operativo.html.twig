@@ -45,7 +45,7 @@
                         </tr>
                      </thead>
                      <tbody>                     
-                     {% for item in operativo %}        
+                     {% for item in listado %}        
                         {% if "now"|date("m") == 1 %} 
                             {% set plan = item.enero %}      
                         {% endif %}        
@@ -109,7 +109,7 @@
         <div class="box-footer with-border">
             <div class="col-md-8 text-right"><label class="form-control">Ver totales por tipo de Producto</label></div>
             <div class="col-md-3">
-                <select class="form-control" name="tipoProducto">
+                <select class="form-control" id="selectTipos">
                     <option disabled selected>Seleccione el tipo de producto</option>
                     {% for tipo in tiposProducto %}
                         <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
@@ -117,7 +117,7 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <a href="#" class="btn btn-default">Ver total</a>
+                <a href="#" id="btnTotales" title="Seleccione un tipo de producto" class="btn btn-default" disabled>Ver total</a>
             </div>
         </div>
       </div>
@@ -133,8 +133,7 @@
 	{{ parent() }}
 	<script src="{{ asset('bundles/rh/js/delete-user.js') }}"></script>
         <script src="{{ asset('public/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('public/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-        
+        <script src="{{ asset('public/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>        
         <script src="{{ asset('public/export/buttons.html5.min.js') }}"></script>
         <script src="{{ asset('public/export/buttons.print.min.js') }}"></script>
         <script src="{{ asset('public/export/dataTables.buttons.min.js') }}"></script>
@@ -145,6 +144,11 @@
         
         <script>
             $(function () {
+                $("#selectTipos").change(function() {
+                    var idTipo = $(this).val();
+                    $("#btnTotales").attr( "disabled", false ).attr("title","Mostrar totales");
+                    $("#btnTotales").attr("href", "/reportes/totales/"+idTipo);
+                });
                 var table = $("#example1").DataTable({
                    paging       : true,
                    lengthChange : true,
