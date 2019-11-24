@@ -93,9 +93,6 @@
                                             {% if app.user.role == "ROLE_OPERADOR" %}
                                                 Operador
                                             {% endif %}
-                                            {% if app.user.role == "ROLE_RESPONSABLE" %}
-                                                Responsable
-                                            {% endif %}
                                             {% if app.user.role == "ROLE_CONSULTANTE" %}
                                                 Consultante
                                             {% endif %}
@@ -154,16 +151,98 @@
                                     <span>Usuarios</span>
                                 </a>
                             </li>
-                            <li id="Incidencias" class="treeview">
+                            <li id="nomencladores" class="treeview">
                                 <a href="#">
-                                    <i class="glyphicon glyphicon-alert"></i><span>Gestionar</span>
+                                    <i class="glyphicon glyphicon-check"></i><span>Nomencladores</span>
                                     <span class="pull-right-container">
                                   <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                                 </a>
                                 <ul class="treeview-menu" style="display: none;">
-
+                                    <li id="destino">
+                                        <a href="{{ path('destino_index') }}">
+                                            <span>Destino</span>
+                                        </a>
+                                    </li>
+                                    <li id="unidad">
+                                        <a href="{{ path('unidad_index') }}">
+                                            <span>Unidad</span>
+                                        </a>
+                                    </li>
+                                    <li id="tipoproducto">
+                                        <a href="{{ path('tipoproducto_index') }}">
+                                            <span>Tipo de Producto</span>
+                                        </a>
+                                    </li>
+                                    <li id="producto">
+                                        <a href="{{ path('producto_index') }}">
+                                            <span>Producto</span>
+                                        </a>
+                                    </li>
                                     </ul>
+
+                            </li>
+                            <li id="planificacion" class="treeview">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-edit"></i><span>Planificación</span>
+                                    <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu" style="display: none;">
+                                <li id="planificacionproduccion">
+                                    <a href="{{ path('planificacionproduccion_index') }}">
+                                        <span>Planificación Producción</span>
+                                    </a>
+                                </li>
+                                <li id="planificacionsiembra">
+                                    <a href="#">
+                                        <span>Planificación Siembra</span>
+                                    </a>
+                                </li>
+                                <li id="planificacionleche">
+                                    <a href="#">
+                                        <span>Planificación Leche</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+                            <li id="gestionar" class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-list-alt"></i><span>Gestionar</span>
+                                    <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                                </a>
+                                <ul class="treeview-menu" style="display: none;">
+                                    <li id="produccion">
+                                        <a href="{{ path('produccion_index') }}">
+                                            <span>Producción</span>
+                                        </a>
+                                    </li>
+                                    <li id="siembra">
+                                        <a href="#">
+                                            <span>Siembra</span>
+                                        </a>
+                                    </li>
+                                    <li id="leche">
+                                        <a href="#">
+                                            <span>Leche</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+                            <li id="reporte" class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-alert"></i><span>Reportes</span>
+                                    <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                                </a>
+                                <ul class="treeview-menu" style="display: none;">
+                                </ul>
                             </li>
 
 
@@ -171,30 +250,80 @@
 
                         {% if is_granted('ROLE_OPERADOR') %}
 
-                            <li id="Incidencias" class="treeview">
+                            <li id="planificacion" class="treeview">
                                 <a href="#">
-                                    <i class="glyphicon glyphicon-alert"></i><span>Gestionar</span>
+                                    <i class="glyphicon glyphicon-edit"></i><span>Planificación</span>
                                     <span class="pull-right-container">
                                   <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                                 </a>
                                 <ul class="treeview-menu" style="display: none;">
+                                    <li id="planificacionproduccion">
+                                        <a href="{{ path('planificacionproduccion_index') }}">
+                                            <span>Planificación Producción</span>
+                                        </a>
+                                    </li>
+                                    <li id="planificacionsiembra">
+                                        <a href="#">
+                                            <span>Planificación Siembra</span>
+                                        </a>
+                                    </li>
+                                    <li id="planificacionleche">
+                                        <a href="#">
+                                            <span>Planificación Leche</span>
+                                        </a>
+                                    </li>
+                                </ul>
 
+                            </li>
+                            <li id="gestionar" class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-list-alt"></i><span>Gestionar</span>
+                                    <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                                </a>
+                                <ul class="treeview-menu" style="display: none;">
+                                    <li id="produccion">
+                                        <a href="{{ path('produccion_index') }}">
+                                            <span>Producción</span>
+                                        </a>
+                                    </li>
+                                    <li id="siembra">
+                                        <a href="#">
+                                            <span>Siembra</span>
+                                        </a>
+                                    </li>
+                                    <li id="leche">
+                                        <a href="#">
+                                            <span>Leche</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+                            <li id="reporte" class="treeview">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-alert"></i><span>Reportes</span>
+                                    <span class="pull-right-container">
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                                </a>
+                                <ul class="treeview-menu" style="display: none;">
                                 </ul>
                             </li>
                         {% endif %}
 
 
                         {% if is_granted('ROLE_CONSULTANTE') %}
-                            <li id="Incidencias" class="treeview">
+                            <li id="reporte" class="treeview">
                                 <a href="#">
-                                    <i class="glyphicon glyphicon-alert"></i><span>Gestionar</span>
+                                    <i class="glyphicon glyphicon-alert"></i><span>Reportes</span>
                                     <span class="pull-right-container">
                                   <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                                 </a>
                                 <ul class="treeview-menu" style="display: none;">
-
                                 </ul>
                             </li>
                         {% endif %}
