@@ -4,7 +4,6 @@ namespace Jc\ObdulioBundle\Controller;
 
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\ORM\Query\ResultSetMapping;
 
 class ReportesController extends Controller
 {

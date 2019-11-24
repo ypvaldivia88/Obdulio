@@ -117,7 +117,7 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <a href="#" id="btnTotales" class="btn btn-default">Ver total</a>
+                <a href="#" id="btnTotales" title="Seleccione un tipo de producto" class="btn btn-default" disabled>Ver total</a>
             </div>
         </div>
       </div>
@@ -146,8 +146,8 @@
             $(function () {
                 $("#selectTipos").change(function() {
                     var idTipo = $(this).val();
-                    console.log(idTipo);
-                    $("#btnTotales").attr('href', "{{ path('reporte_totales', { id: 2}) }}");//no se como entrar un parametro a la conversion de la url
+                    $("#btnTotales").attr( "disabled", false ).attr("title","Mostrar totales");
+                    $("#btnTotales").attr("href", "/reportes/totales/"+idTipo);
                 });
                 var table = $("#example1").DataTable({
                    paging       : true,
