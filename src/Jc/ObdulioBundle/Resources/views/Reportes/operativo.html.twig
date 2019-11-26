@@ -33,7 +33,7 @@
       <div class="box">        
         <div class="box-body">
             {#<div class="table-responsive">#}
-                <table id="example1" class="table table-striped table-hover">
+                <table id="tb_operativos" class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>Unidad</th>
@@ -45,79 +45,41 @@
                         </tr>
                      </thead>
                      <tbody>                     
-                     {% for item in listado %}        
-                        {% if "now"|date("m") == 1 %} 
-                            {% set plan = item.enero %}      
-                        {% endif %}        
-                        {% if "now"|date("m") == 2 %} 
-                            {% set plan = item.febrero %}   
-                        {% endif %}           
-                        {% if "now"|date("m") == 3 %} 
-                            {% set plan = item.marzo %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 4 %} 
-                            {% set plan = item.abril %} 
-                        {% endif %}             
-                        {% if "now"|date("m") == 5 %} 
-                            {% set plan = item.mayo %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 6 %} 
-                            {% set plan = item.junio %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 7 %} 
-                            {% set plan = item.julio %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 8 %} 
-                            {% set plan = item.agosto %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 9 %} 
-                            {% set plan = item.septiembre %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 10 %} 
-                            {% set plan = item.octubre %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 11 %} 
-                            {% set plan = item.noviembre %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 12 %} 
-                            {% set plan = item.diciembre %} 
-                        {% endif %}             
+                     {% for item in listado %}       
                         <tr>
                             <td>{{ item.unidad }}</td>
                             <td>{{ item.tipo }}</td>
                             <td>{{ item.producto }}</td>
-                            <td>{{ plan }}</td>
+                            <td>{{ item.plan }}</td>
                             <td>{{ item.real }}</td>                            
-                            <td>{{ plan - item.real }}</td>                            
+                            <td>{{ item.plan - item.real }}</td>                            
                         </tr>
                     {% endfor %}
                      </tbody>
                      <tfoot>
                      <tr>
-                         <th rowspan="1" colspan="1"><input placeholder="Unidad" type="text"></th>
-                         <th rowspan="1" colspan="1"><input placeholder="Tipo Producto" type="text"></th>
-                         <th rowspan="1" colspan="1"><input placeholder="Producto" type="text"></th>
-                         <th rowspan="1" colspan="1"><input placeholder="Plan" type="text"></th>
-                         <th rowspan="1" colspan="1"><input placeholder="Real" type="text"></th>
-                         <th rowspan="1" colspan="1"><input placeholder="Diferencia" type="text"></th>  
-                         <th></th>
+                        <th rowspan="1" colspan="1"><input placeholder="Unidad" type="text"></th>
+                        <th rowspan="1" colspan="1"><input placeholder="Tipo Producto" type="text"></th>
+                        <th rowspan="1" colspan="1"><input placeholder="Producto" type="text"></th>
+                        <th rowspan="1" colspan="1"><input placeholder="Plan" type="text"></th>
+                        <th rowspan="1" colspan="1"><input placeholder="Real" type="text"></th>
+                        <th rowspan="1" colspan="1"><input placeholder="Diferencia" type="text"></th>  
                      </tr>
                      </tfoot>
                 </table>  
              </div>
         </div>
         <div class="box-footer with-border">
-            <div class="col-md-8 text-right"><label class="form-control">Ver totales por tipo de Producto</label></div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-md-offset-8">
                 <select class="form-control" id="selectTipos">
-                    <option disabled selected>Seleccione el tipo de producto</option>
+                    <option disabled selected>Totales por tipo de Producto</option>
                     {% for tipo in tiposProducto %}
                         <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-md-1">
-                <a href="#" id="btnTotales" title="Seleccione un tipo de producto" class="btn btn-default" disabled>Ver total</a>
+                <a href="#" id="btnTotales" title="Seleccione un tipo de producto" class="btn btn-default" disabled>Mostrar</a>
             </div>
         </div>
       </div>
@@ -132,105 +94,105 @@
 {% block javascripts  %}
 	{{ parent() }}
 	<script src="{{ asset('bundles/rh/js/delete-user.js') }}"></script>
-        <script src="{{ asset('public/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('public/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>        
-        <script src="{{ asset('public/export/buttons.html5.min.js') }}"></script>
-        <script src="{{ asset('public/export/buttons.print.min.js') }}"></script>
-        <script src="{{ asset('public/export/dataTables.buttons.min.js') }}"></script>
-        <script src="{{ asset('public/export/jszip.min.js') }}"></script>
-        <script src="{{ asset('public/export/pdfmake.min.js') }}"></script>
-        <script src="{{ asset('public/export/vfs_fonts.js') }}"></script>   
-        <script src="{{ asset('public/export/buttons.colVis.min.js') }}"></script>       
-        
-        <script>
-            $(function () {
-                $("#selectTipos").change(function() {
-                    var idTipo = $(this).val();
-                    $("#btnTotales").attr( "disabled", false ).attr("title","Mostrar totales");
-                    $("#btnTotales").attr("href", "/reportes/totales/"+idTipo);
-                });
-                var table = $("#example1").DataTable({
-                   paging       : true,
-                   lengthChange : true,
-                   searching    : true,
-                   ordering     : true,
-                   info         : true,
-                   autoWidth    : false,
-                   dom          : 'Blfrtip',                              
-                   buttons      : [
-                        {
-                            extend: 'copy',
-                            text: '<i class="fa fa-files-o"></i> Copiar',
-                            title: 'Reporte operativo',
-                            exportOptions: {
-                                columns: [ 1, 2, 3, 4 ]
-                            }
-                        }, 
-                        {
-                            extend: 'excel',
-                            text: '<i class="fa fa-file-excel-o"></i> Excel',
-                            title: 'Reporte operativo',
-                            exportOptions: {
-                                columns: [ 1, 2, 3, 4 ]
-                            }
-                        },
-                        {
-                            extend: 'pdf',
-                            text: '<i class="fa fa-file-pdf-o"></i> PDF',
-                            title: 'Reporte operativo',
-                            exportOptions: {
-                                columns: [ 1, 2, 3, 4 ]
-                            }
-                        }, 
-                        {
-                            extend: 'print',
-                            text: '<i class="fa fa-print"></i> Imprimir',
-                            title: 'Reporte operativo',
-                            exportOptions: {
-                                columns: [ 1, 2, 3, 4 ]
-                            }
-                        },
-                        {
-                            extend: 'colvis',
-                            text: '<i class="fa fa-eye"></i> Columnas Visibles'
-                        }
-                       ],
-                   language     : {
-                        buttons: {
-                            copyTitle: 'Copiado',
-                            copySuccess: {
-                                _: '%d filas al portapales',
-                                1: '1 fila al portapapeles'
-                            }
-                        }
-                       }
-                });
-
-                // Apply the search
-                table.columns().every( function () {
-                    var that = this;
-
-                    $( 'input', this.footer() ).on( 'keyup change', function () {
-                        if ( that.search() !== this.value ) {
-                            that
-                                .search( this.value )
-                                .draw();
-                        }
-                    } );
-                } );
-
-                $('#example1 tfoot tr').appendTo('#example1 thead');
-
-                $('input:text').attr('style', 'width: 100%');//ojo con esto, es importante sino salen muy grandes los search por columnas
-                $('.dt-button').removeClass('buttons-html5');
-                $('.dt-button').removeClass('buttons-copy');
-                $('.dt-button').removeClass('buttons-pdf');
-                $('.dt-button').removeClass('buttons-excel');
-                $('.dt-button').removeClass('buttons-print');
-                $('.dt-button').addClass('btn btn-sm btn-primary');
-                $('.dt-button').removeClass('dt-button');
+    <script src="{{ asset('public/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('public/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>        
+    <script src="{{ asset('public/export/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('public/export/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('public/export/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('public/export/jszip.min.js') }}"></script>
+    <script src="{{ asset('public/export/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('public/export/vfs_fonts.js') }}"></script>   
+    <script src="{{ asset('public/export/buttons.colVis.min.js') }}"></script>       
+    
+    <script>
+        $(function () {
+            $("#selectTipos").change(function() {
+                var idTipo = $(this).val();
+                $("#btnTotales").attr( "disabled", false ).attr("title","Mostrar totales");
+                $("#btnTotales").attr("href", "/reportes/totales/"+idTipo);
             });
-        </script>
+            var table = $("#tb_operativos").DataTable({
+                paging       : true,
+                lengthChange : true,
+                searching    : true,
+                ordering     : true,
+                info         : true,
+                autoWidth    : false,
+                dom          : 'Blfrtip',                              
+                buttons      : [
+                    {
+                        extend: 'copy',
+                        text: '<i class="fa fa-files-o"></i> Copiar',
+                        title: 'Reporte operativo',
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4 ]
+                        }
+                    }, 
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa fa-file-excel-o"></i> Excel',
+                        title: 'Reporte operativo',
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4 ]
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf-o"></i> PDF',
+                        title: 'Reporte operativo',
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4 ]
+                        }
+                    }, 
+                    {
+                        extend: 'print',
+                        text: '<i class="fa fa-print"></i> Imprimir',
+                        title: 'Reporte operativo',
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4 ]
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="fa fa-eye"></i> Columnas Visibles'
+                    }
+                    ],
+                language     : {
+                    buttons: {
+                        copyTitle: 'Copiado',
+                        copySuccess: {
+                            _: '%d filas al portapales',
+                            1: '1 fila al portapapeles'
+                        }
+                    }
+                    }
+            });
+
+            // Apply the search
+            table.columns().every( function () {
+                var that = this;
+
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+
+            $('#tb_operativos tfoot tr').appendTo('#tb_operativos thead');
+
+            $('input:text').attr('style', 'width: 100%');//ojo con esto, es importante sino salen muy grandes los search por columnas
+            $('.dt-button').removeClass('buttons-html5');
+            $('.dt-button').removeClass('buttons-copy');
+            $('.dt-button').removeClass('buttons-pdf');
+            $('.dt-button').removeClass('buttons-excel');
+            $('.dt-button').removeClass('buttons-print');
+            $('.dt-button').addClass('btn btn-sm btn-primary');
+            $('.dt-button').removeClass('dt-button');
+        });
+    </script>
 {% endblock %} 
         
 {% block stylesheets %}
