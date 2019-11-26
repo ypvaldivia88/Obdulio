@@ -17,7 +17,7 @@ class ReportesController extends Controller
 
         $d = new DateTime('NOW');
         $annoActual = $d->format('Y');
-        $mesActual = $d->format('mm');
+        $mesActual = $d->format('m');
 
         $query = $em->createQuery(
             "SELECT
@@ -68,6 +68,7 @@ class ReportesController extends Controller
 
         $d = new DateTime('NOW');
         $annoActual = $d->format('Y');
+        $mesActual = $d->format('m');
 
         $query = $em->createQuery(
             "SELECT
@@ -96,15 +97,16 @@ class ReportesController extends Controller
                 INNER JOIN JcObdulioBundle:Unidad AS u WHERE p.fkUnidad = u.id
                 INNER JOIN JcObdulioBundle:Planificacionproduccion AS pl WHERE pl.fkProducto = pr.id AND pl.fkUnidad = u.id
                 WHERE
-                tp.id = ?1 AND pl.anno = ?2
+                tp.id = ?2 AND pl.anno = ?3
                 GROUP BY
                 tp.nombre,
                 u.nombre,
                 pl.anno"
         );
 
-        $query->setParameter(1, $tipo);
-        $query->setParameter(2, $annoActual);
+        $query->setParameter(1, $mesActual);
+        $query->setParameter(2, $tipo);
+        $query->setParameter(3, $annoActual);
 
         $listado = $query->getResult();
 
