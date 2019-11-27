@@ -110,7 +110,7 @@
             $("#selectTipos").change(function() {
                 var idTipo = $(this).val();
                 $("#btnTotales").attr( "disabled", false ).attr("title","Mostrar totales");
-                $("#btnTotales").attr("href", "/app_dev.php/reportes/operativo/totales/"+idTipo);
+                $("#btnTotales").attr("href", "{{path('reportes_operativo')}}"+"/totales/"+idTipo);
             });
             var table = $("#tb_operativos").DataTable({
                 paging       : true,
