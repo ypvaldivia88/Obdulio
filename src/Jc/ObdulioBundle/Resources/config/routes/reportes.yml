@@ -1,6 +1,9 @@
-reporte_operativo:
+reportes_index:
+    path:     /index
+    defaults: { _controller: JcObdulioBundle:Reportes:index }
+reportes_operativo:
     path:     /operativo
     defaults: { _controller: JcObdulioBundle:Reportes:operativo }
-reporte_totales:
-    path:     /totales/{tipo}
-    defaults: { _controller: JcObdulioBundle:Reportes:totales }
+reportes_operativo_totales:
+    path:     /operativo/totales/{tipo}
+    defaults: { _controller: JcObdulioBundle:Reportes:operativoTotales }

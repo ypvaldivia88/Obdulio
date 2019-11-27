@@ -21,7 +21,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-        <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-copy"></i> Reportes</a></li>
+        <li><a href="{{ path('reportes_index') }}"><i class="glyphicon glyphicon-copy"></i> Reportes</a></li>
         <li><a class="active">Operativo</a></li>
       </ol>
     </section>
@@ -109,7 +109,7 @@
             $("#selectTipos").change(function() {
                 var idTipo = $(this).val();
                 $("#btnTotales").attr( "disabled", false ).attr("title","Mostrar totales");
-                $("#btnTotales").attr("href", "/app_dev.php/reportes/totales/"+idTipo);
+                $("#btnTotales").attr("href", "/app_dev.php/reportes/operativo/totales/"+idTipo);
             });
             var table = $("#tb_operativos").DataTable({
                 paging       : true,
