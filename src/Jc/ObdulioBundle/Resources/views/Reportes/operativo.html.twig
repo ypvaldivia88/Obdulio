@@ -21,7 +21,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-        <li><a href="{{ path('reportes_index') }}"><i class="glyphicon glyphicon-copy"></i> Reportes</a></li>
+        <li><a href="{{ path('reportes_index') }}"><i class="glyphicon glyphicon-list"></i> Reportes</a></li>
         <li><a class="active">Operativo</a></li>
       </ol>
     </section>
@@ -30,7 +30,21 @@
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">        
+      <div class="box">  
+        <div class="box-header with-border">
+            <div class="col-md-3 col-md-offset-8">
+                <select class="form-control" id="selectTipos">
+                    <option disabled selected>Totales por tipo de Producto</option>
+                    {% for tipo in tiposProducto %}
+                        <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-1">
+                <a href="#" id="btnTotales" title="Seleccione un tipo de producto" class="btn btn-default" disabled>Mostrar</a>
+            </div>
+        </div>
+            
         <div class="box-body">
             {#<div class="table-responsive">#}
                 <table id="tb_operativos" class="table table-striped table-hover">
@@ -69,21 +83,8 @@
                 </table>  
              </div>
         </div>
-        <div class="box-footer with-border">
-            <div class="col-md-3 col-md-offset-8">
-                <select class="form-control" id="selectTipos">
-                    <option disabled selected>Totales por tipo de Producto</option>
-                    {% for tipo in tiposProducto %}
-                        <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-1">
-                <a href="#" id="btnTotales" title="Seleccione un tipo de producto" class="btn btn-default" disabled>Mostrar</a>
-            </div>
-        </div>
-      </div>
-      <!-- /.box -->
+    </div>
+    <!-- /.box -->
 
     </section>
     <!-- /.content -->

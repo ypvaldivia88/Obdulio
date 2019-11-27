@@ -158,18 +158,28 @@
                                 <a href="#">
                                     <i class="glyphicon glyphicon-alert"></i><span>Gestionar</span>
                                     <span class="pull-right-container">
-                                  <i class="fa fa-angle-left pull-right"></i>
-                                </span>
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
                                 </a>
                                 <ul class="treeview-menu" style="display: none;">
 
-                                    </ul>
+                                </ul>
                             </li>
-                            <li id="reportes">
+                            <li id="reportes" class="treeview">
                                 <a href="{{ path('reportes_index') }}">
-                                    <i class="glyphicon glyphicon-list-alt"></i>
-                                    <span>Reportes</span>
+                                    <i class="glyphicon glyphicon-list"></i><span>Reportes</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
                                 </a>
+                                <ul class="treeview-menu" style="display: none;">
+                                    <li id="operativo">
+                                        <a href="{{ path('reportes_operativo') }}">
+                                            <i class="glyphicon glyphicon-copy"></i>
+                                            <span>Operativo</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                         {% endif %}
