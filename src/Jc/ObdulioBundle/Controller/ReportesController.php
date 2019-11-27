@@ -2,7 +2,6 @@
 
 namespace Jc\ObdulioBundle\Controller;
 
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Jc\ObdulioBundle\Repository\ReportesRepository;
 

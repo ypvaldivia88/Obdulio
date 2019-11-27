@@ -1,5 +1,5 @@
 reportes_index:
-    path:     /index
+    path:     /
     defaults: { _controller: JcObdulioBundle:Reportes:index }
 reportes_operativo:
     path:     /operativo
