@@ -5,6 +5,7 @@ namespace Jc\ObdulioBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class DestinoType extends AbstractType
 {
@@ -13,8 +14,9 @@ class DestinoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nombre');
-    }/**
+        $builder->add('nombre')->add('save', 'submit', array('label' => ''));
+    }
+/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

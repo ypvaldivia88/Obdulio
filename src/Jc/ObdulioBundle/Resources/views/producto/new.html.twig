@@ -1,16 +1,111 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block body %}
-    <h1>Producto creation</h1>
+{% block wrapper %}
+    {{ parent() }}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Nuevo Producto
+                {#<small>it all starts here</small>#}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
+                <li><a href="{{ path('producto_index') }}">Producto</a></li>
+                <li><a class="active">Nuevo</a></li>
+            </ol>
+        </section>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <!-- Main content -->
+        <section class="content">
 
-    <ul>
-        <li>
-            <a href="{{ path('producto_index') }}">Back to the list</a>
-        </li>
-    </ul>
+            <!-- Default box -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Nuevo</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_start(form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
+                    <fieldset>
+                        <div class="form-group col-md-6">
+                            <strong>Tipo Producto</strong>
+                            {{ form_widget(form.fkTipoproducto, {'attr': {
+                                'class': 'form-control select2',
+                                'style' : 'width:100%'
+
+                            }}) }}
+                            <span class="text-danger">{{ form_errors(form.fkTipoproducto) }}</span>
+                        </div>
+                        {% if not form_errors(form.nombre) %}
+                            <div class="form-group col-md-6">
+                                <strong>Nombre</strong>
+                                {{ form_widget(form.nombre, {'attr': {
+                                    'class': 'form-control',
+                                    'onKeyPress' : 'return ValidarNombre(event);',
+                                    'maxlength' : '100'
+                                }}) }}
+                            </div>
+                        {% endif %}
+                        {% if form_errors(form.nombre) %}
+                            <div class="form-group has-error col-md-6">
+                                <strong>Nombre</strong>
+                                {{ form_widget(form.nombre, {'attr': {
+                                    'class': 'form-control',
+                                    'onKeyPress' : 'return ValidarNombre(event);',
+                                    'maxlength' : '250'
+                                }}) }}
+                                <span class="text-danger">{{ form_errors(form.nombre) }}</span>
+                            </div>
+                        {% endif %}
+
+                    </fieldset>
+                    <hr>
+                    <br>
+
+                    <div class="col-md-4"> </div>
+                    <div class="col-md-4">
+                        <div class="col-md-6">
+
+                            {{ form_widget(form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{ path('producto_index') }}" class="btn btn-sm btn-danger">
+                                <i class="fa fa-ban"></i> <strong>Cancelar</strong>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4"> </div>
+                    <p>&zwnj;</p>
+                    <p>&zwnj;</p>
+                    <br>
+                    {{ form_end(form) }}
+                </div>
+                <!-- /.box-body -->
+                {#<div class="box-footer">
+                  Footer
+                </div>#}
+                <!-- /.box-footer-->
+            </div>
+            <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <input type="hidden" value="productos" id="seleccion">
+{% endblock %}
+
+{% block javascripts  %}
+    {{ parent() }}
+    <script src="{{ asset('public/select2/dist/js/select2.full.min.js') }}"></script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+        })
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
 {% endblock %}

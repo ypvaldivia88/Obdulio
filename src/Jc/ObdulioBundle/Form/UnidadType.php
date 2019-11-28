@@ -13,7 +13,7 @@ class UnidadType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nombre');
+        $builder->add('nombre')->add('save', 'submit', array('label' => ''));
     }/**
      * {@inheritdoc}
      */
