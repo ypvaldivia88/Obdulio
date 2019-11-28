@@ -155,8 +155,8 @@
                                 <a href="#">
                                     <i class="glyphicon glyphicon-check"></i><span>Nomencladores</span>
                                     <span class="pull-right-container">
-                                  <i class="fa fa-angle-left pull-right"></i>
-                                </span>
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
                                 </a>
                                 <ul class="treeview-menu" style="display: none;">
                                     <li id="destino">
@@ -244,7 +244,223 @@
                                 <ul class="treeview-menu" style="display: none;">
                                 </ul>
                             </li>
+                            <li id="reportes" class="treeview">
+                                <a href="{{ path('reportes_index') }}">
+                                    <i class="glyphicon glyphicon-list"></i><span>Reportes</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu" style="display: none;">
+                                    <li id="operativo">
+                                        <a href="{{ path('reportes_operativo') }}">
+                                            <i class="glyphicon glyphicon-copy"></i>
+                                            <span>Operativo Ventas</span>
+                                        </a>
+                                    </li>
+                                    <li id="operativo">
+                                        <a href="{{ path('reportes_operativo') }}">
+                                            <i class="glyphicon glyphicon-copy"></i>
+                                            <span>Operativo</span>
+                                        </a>
+                                    </li>
+                                    <li id="operativo">
+                                        <a href="{{ path('reportes_operativo') }}">
+                                            <i class="glyphicon glyphicon-copy"></i>
+                                            <span>Consejo Popular</span>
+                                        </a>
+                                    </li>
+                                    <li id="operativo">
+                                        <a href="{{ path('reportes_operativo') }}">
+                                            <i class="glyphicon glyphicon-copy"></i>
+                                            <span>Acumulado</span>
+                                        </a>
+                                    </li>
+                                    <li id="operativo">
+                                        <a href="{{ path('reportes_operativo') }}">
+                                            <i class="glyphicon glyphicon-copy"></i>
+                                            <span>Prod x Cultivo</span>
+                                        </a>
+                                    </li>
+                                    <li id="operativo">
+                                        <a href="{{ path('reportes_operativo') }}">
+                                            <i class="glyphicon glyphicon-copy"></i>
+                                            <span>Huevo</span>
+                                        </a>
+                                    </li>
 
+                                    <li id="ventas" class="treeview">
+                                        <a href="{{ path('reportes_index') }}">
+                                            <i class="glyphicon glyphicon-list"></i><span>Ventas</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu" style="display: none;">
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Viandas</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Hortalizas</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Granos</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Frutas</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Totales</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Estado Total</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Estado Diario</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li id="decenal" class="treeview">
+                                        <a href="{{ path('reportes_index') }}">
+                                            <i class="glyphicon glyphicon-list"></i><span>Producción Decenal</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu" style="display: none;">
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Semana 5</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Semana 4</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Semana 3</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Semana 2</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Semana 1</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li id="decenal" class="treeview">
+                                        <a href="{{ path('reportes_index') }}">
+                                            <i class="glyphicon glyphicon-list"></i><span>Sustitución Importaciones</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu" style="display: none;">
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Anual</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Mensual</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li id="decenal" class="treeview">
+                                        <a href="{{ path('reportes_index') }}">
+                                            <i class="glyphicon glyphicon-list"></i><span>Ventas al Estado</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu" style="display: none;">
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Plan Real</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Producción Total</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li id="decenal" class="treeview">
+                                        <a href="{{ path('reportes_index') }}">
+                                            <i class="glyphicon glyphicon-list"></i><span>Ratificado</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu" style="display: none;">
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Mes</span>
+                                                </a>
+                                            </li>
+                                            <li id="operativo">
+                                                <a href="{{ path('reportes_operativo') }}">
+                                                    <i class="glyphicon glyphicon-copy"></i>
+                                                    <span>Acumulado</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li id="operativo">
+                                        <a href="{{ path('reportes_operativo') }}">
+                                            <i class="glyphicon glyphicon-copy"></i>
+                                            <span>Turismo</span>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
 
                         {% endif %}
 

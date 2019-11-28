@@ -16,12 +16,13 @@
             
     <section class="content-header">
       <h1>
-        Reporte de Producción: Totales
+        Reporte de Producción: Operativo | Totales
         {#<small>it all starts here</small>#}
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-        <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-copy"></i> Reportes</a></li>
+        <li><a href="{{ path('reportes_index') }}"><i class="glyphicon glyphicon-list"></i> Reportes</a></li>
+        <li><a href="{{ path('reportes_operativo') }}"><i class="glyphicon glyphicon-copy"></i> Operativo</a></li>
         <li><a class="active">Totales</a></li>
       </ol>
     </section>
@@ -45,50 +46,14 @@
                         </tr>
                      </thead>
                      <tbody>                     
-                     {% for item in listado %}        
-                        {% if "now"|date("m") == 1 %} 
-                            {% set plan = item.ene %}      
-                        {% endif %}        
-                        {% if "now"|date("m") == 2 %} 
-                            {% set plan = item.feb %}   
-                        {% endif %}           
-                        {% if "now"|date("m") == 3 %} 
-                            {% set plan = item.mar %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 4 %} 
-                            {% set plan = item.abr %} 
-                        {% endif %}             
-                        {% if "now"|date("m") == 5 %} 
-                            {% set plan = item.may %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 6 %} 
-                            {% set plan = item.jun %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 7 %} 
-                            {% set plan = item.jul %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 8 %} 
-                            {% set plan = item.ago %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 9 %} 
-                            {% set plan = item.sept %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 10 %} 
-                            {% set plan = item.oct %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 11 %} 
-                            {% set plan = item.nov %}              
-                        {% endif %}
-                        {% if "now"|date("m") == 12 %} 
-                            {% set plan = item.dic %} 
-                        {% endif %}             
+                     {% for item in listado %}
                         <tr>
                             <td>{{ item.unidad }}</td>
                             <td>{{ item.tipo }}</td>
-                            <td>{{ plan }}</td>
+                            <td>{{ item.plan }}</td>
                             <td>{{ item.real }}</td>                            
-                            <td>{{ plan - item.real }}</td>                            
-                            <td>{{ (item.real * 100 / plan) |round(2,'common') }} %</td>                            
+                            <td>{{ item.plan - item.real }}</td>                            
+                            <td>{{ (item.real * 100 / item.plan) |round(2,'common') }} %</td>                            
                         </tr>
                     {% endfor %}
                      </tbody>
@@ -100,7 +65,6 @@
                          <th rowspan="1" colspan="1"><input placeholder="Real" type="text"></th>
                          <th rowspan="1" colspan="1"><input placeholder="Diferencia" type="text"></th>  
                          <th rowspan="1" colspan="1"><input placeholder="Porciento" type="text"></th>
-                         <th></th>
                      </tr>
                      </tfoot>
                 </table>  
