@@ -357,10 +357,10 @@
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.ano) %}
+                        {% if not form_errors(form.anno) %}
                             <div class="form-group col-md-6">
                                 <strong>Ano</strong>
-                                {{ form_widget(form.ano, {'attr': {
+                                {{ form_widget(form.anno, {'attr': {
                                     'class': 'form-control',
                                     'placeholder' : 'Escriba el plan de Ano',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
@@ -368,16 +368,16 @@
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.ano) %}
+                        {% if form_errors(form.anno) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Ano</strong>
-                                {{ form_widget(form.ano, {'attr': {
+                                {{ form_widget(form.anno, {'attr': {
                                     'class': 'form-control',
                                     'placeholder' : 'Escriba el plan de ano',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.ano) }}</span>
+                                <span class="text-danger">{{ form_errors(form.anno) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajeano') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}

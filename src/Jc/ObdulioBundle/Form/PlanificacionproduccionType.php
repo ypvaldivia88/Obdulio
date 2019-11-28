@@ -26,7 +26,7 @@ class PlanificacionproduccionType extends AbstractType
             ->add('octubre')
             ->add('noviembre')
             ->add('diciembre')
-            ->add('ano')
+            ->add('anno')
             ->add('fkProducto', 'entity', array(
                 'class' => 'Jc\ObdulioBundle\Entity\Producto',
                 'query_builder' => function(EntityRepository $er){

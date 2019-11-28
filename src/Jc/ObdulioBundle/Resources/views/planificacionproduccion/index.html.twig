@@ -76,7 +76,7 @@
                                         <td>{{ planificacionproduccion.octubre }}</td>
                                         <td>{{ planificacionproduccion.noviembre }}</td>
                                         <td>{{ planificacionproduccion.diciembre }}</td>
-                                        <td>{{ planificacionproduccion.ano }}</td>
+                                        <td>{{ planificacionproduccion.anno }}</td>
                                       <td style="width: 110px !important;">
                                           {% if is_granted('ROLE_ADMINISTRADOR') %}
                                               <a href="{{ path('planificacionproduccion_edit', { id: planificacionproduccion.id }) }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar">
