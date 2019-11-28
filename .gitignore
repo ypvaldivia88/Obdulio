@@ -10,8 +10,6 @@
 #VS Code
 .vscode/*
 
-vendor/*
-
 # Parameters
 /app/config/parameters.yml
 /app/config/parameters.ini
