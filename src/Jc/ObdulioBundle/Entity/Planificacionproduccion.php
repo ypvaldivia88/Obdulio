@@ -113,6 +113,8 @@ class Planificacionproduccion
      * @ORM\Column(name="anno", type="integer")
      */
     private $anno;
+     * @ORM\Column(name="ano", type="integer")
+     */
 
     /**
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="planificacionproduccion")
@@ -436,7 +438,6 @@ class Planificacionproduccion
     public function setAnno($anno)
     {
         $this->anno = $anno;
-
         return $this;
     }
 
