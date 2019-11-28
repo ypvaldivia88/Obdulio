@@ -92,7 +92,7 @@ class ProduccionController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('mensaje', 'La producción '.$produccion->getFkProducto()->getNombre().' ha sido editado correctamente');
+            $this->addFlash('mensaje', 'La produccion '.$produccion->getFkProducto()->getNombre().' ha sido editado correctamente');
             return $this->redirectToRoute('produccion_index');
         }
 
