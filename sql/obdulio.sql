@@ -31,6 +31,21 @@ CREATE TABLE `destino` (
 
 insert  into `destino`(`id`,`nombre`) values (1,'destino'),(2,'destino1');
 
+/*Table structure for table `medida` */
+
+DROP TABLE IF EXISTS `medida`;
+
+CREATE TABLE `medida` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_9C1C2A8C3A909126` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `medida` */
+
+insert  into `medida`(`id`,`nombre`) values (1,'libra');
+
 /*Table structure for table `planificacionproduccion` */
 
 DROP TABLE IF EXISTS `planificacionproduccion`;
@@ -97,15 +112,18 @@ CREATE TABLE `producto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_tipoproducto` int(11) DEFAULT NULL,
   `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fk_medida` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_A7BB06153A909126` (`nombre`),
   KEY `IDX_A7BB0615E1D7C4D1` (`fk_tipoproducto`),
+  KEY `IDX_A7BB0615BCB2421C` (`fk_medida`),
+  CONSTRAINT `FK_A7BB0615BCB2421C` FOREIGN KEY (`fk_medida`) REFERENCES `medida` (`id`),
   CONSTRAINT `FK_A7BB0615E1D7C4D1` FOREIGN KEY (`fk_tipoproducto`) REFERENCES `tipoproducto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `producto` */
 
-insert  into `producto`(`id`,`fk_tipoproducto`,`nombre`) values (1,2,'producto 0'),(2,1,'producto 1');
+insert  into `producto`(`id`,`fk_tipoproducto`,`nombre`,`fk_medida`) values (1,2,'producto 0',1),(2,1,'producto 1',1),(3,2,'producto 3',1),(8,1,'producto 4',1);
 
 /*Table structure for table `tipoproducto` */
 
@@ -161,7 +179,7 @@ CREATE TABLE `usuarios` (
 
 /*Data for the table `usuarios` */
 
-insert  into `usuarios`(`id`,`username`,`password`,`role`,`movil`,`imei`,`is_active`,`activo`,`creado`,`actualizado`,`ultimo_logueo`,`ultimo_deslogueo`,`nombre_completo`,`avatar`) values (1,'admin','$2y$12$RBtP90dX0AFEbG/wMxoate.Ock2wzdsgsN8jtm4weAJz2ZYyfucai','ROLE_ADMINISTRADOR',NULL,NULL,1,1,'2019-09-09 00:00:00','2019-11-28 19:42:16','2019-11-28 19:42:16','2019-11-28 19:38:29','Administrador','avatar.jpg'),(2,'operador','$2y$12$.k6KYevmTZcVxXJnZtPfYuE2oAyOgiyOtxT8bn.nnXcOmUh66qV2C','ROLE_OPERADOR',NULL,NULL,1,0,'2019-09-29 03:15:34','2019-11-28 19:42:10','2019-11-28 19:38:37','2019-11-28 19:42:10','operador','avatar.jpg'),(3,'consultor','$2y$12$vMQuC7opHyLMbMjh9K4haOR08YdBbN81eyTawafPwOhL9miLN1Qp2','ROLE_CONSULTANTE',NULL,NULL,1,0,'2019-09-29 03:16:12','2019-11-19 20:20:15','2019-11-19 20:20:08','2019-11-19 20:20:15','Consultor','avatar.jpg');
+insert  into `usuarios`(`id`,`username`,`password`,`role`,`movil`,`imei`,`is_active`,`activo`,`creado`,`actualizado`,`ultimo_logueo`,`ultimo_deslogueo`,`nombre_completo`,`avatar`) values (1,'admin','$2y$12$RBtP90dX0AFEbG/wMxoate.Ock2wzdsgsN8jtm4weAJz2ZYyfucai','ROLE_ADMINISTRADOR',NULL,NULL,1,1,'2019-09-09 00:00:00','2019-12-02 20:11:24','2019-12-02 20:11:24','2019-11-28 19:38:29','Administrador','avatar.jpg'),(2,'operador','$2y$12$.k6KYevmTZcVxXJnZtPfYuE2oAyOgiyOtxT8bn.nnXcOmUh66qV2C','ROLE_OPERADOR',NULL,NULL,1,0,'2019-09-29 03:15:34','2019-11-28 19:42:10','2019-11-28 19:38:37','2019-11-28 19:42:10','operador','avatar.jpg'),(3,'consultor','$2y$12$vMQuC7opHyLMbMjh9K4haOR08YdBbN81eyTawafPwOhL9miLN1Qp2','ROLE_CONSULTANTE',NULL,NULL,1,0,'2019-09-29 03:16:12','2019-11-19 20:20:15','2019-11-19 20:20:08','2019-11-19 20:20:15','Consultor','avatar.jpg');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

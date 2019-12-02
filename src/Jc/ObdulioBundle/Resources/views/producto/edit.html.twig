@@ -57,6 +57,15 @@
                                 <span class="text-danger">{{ form_errors(edit_form.nombre) }}</span>
                             </div>
                         {% endif %}
+                        <div class="form-group col-md-6">
+                            <strong>Unidad de Medidas</strong>
+                            {{ form_widget(edit_form.fkMedida, {'attr': {
+                                'class': 'form-control select2',
+                                'style' : 'width:100%'
+
+                            }}) }}
+                            <span class="text-danger">{{ form_errors(edit_form.fkMedida) }}</span>
+                        </div>
 
                     </fieldset>
                     <hr>

@@ -6,13 +6,13 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Nuevo Producto
+                Editar Medidas
                 {#<small>it all starts here</small>#}
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-                <li><a href="{{ path('producto_index') }}">Producto</a></li>
-                <li><a class="active">Nuevo</a></li>
+                <li><a href="{{ path('medida_index') }}">Medidas</a></li>
+                <li><a class="active">Editar</a></li>
             </ol>
         </section>
 
@@ -22,50 +22,32 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Nuevo</h3>
+                    <h3 class="box-title">Editar</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_start(form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
+                    {{ form_start(edit_form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
                     <fieldset>
-                        <div class="form-group col-md-6">
-                            <strong>Tipo Producto</strong>
-                            {{ form_widget(form.fkTipoproducto, {'attr': {
-                                'class': 'form-control select2',
-                                'style' : 'width:100%'
-
-                            }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkTipoproducto) }}</span>
-                        </div>
-                        {% if not form_errors(form.nombre) %}
+                        {% if not form_errors(edit_form.nombre) %}
                             <div class="form-group col-md-6">
                                 <strong>Nombre</strong>
-                                {{ form_widget(form.nombre, {'attr': {
+                                {{ form_widget(edit_form.nombre, {'attr': {
                                     'class': 'form-control',
                                     'onKeyPress' : 'return ValidarNombre(event);',
                                     'maxlength' : '100'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.nombre) %}
+                        {% if form_errors(edit_form.nombre) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Nombre</strong>
-                                {{ form_widget(form.nombre, {'attr': {
+                                {{ form_widget(edit_form.nombre, {'attr': {
                                     'class': 'form-control',
                                     'onKeyPress' : 'return ValidarNombre(event);',
                                     'maxlength' : '250'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.nombre) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.nombre) }}</span>
                             </div>
                         {% endif %}
-                        <div class="form-group col-md-6">
-                            <strong>Unidad de Medida</strong>
-                            {{ form_widget(form.fkMedida, {'attr': {
-                                'class': 'form-control select2',
-                                'style' : 'width:100%'
-
-                            }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkMedida) }}</span>
-                        </div>
 
                     </fieldset>
                     <hr>
@@ -75,10 +57,10 @@
                     <div class="col-md-4">
                         <div class="col-md-6">
 
-                            {{ form_widget(form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
+                            {{ form_widget(edit_form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ path('producto_index') }}" class="btn btn-sm btn-danger">
+                            <a href="{{ path('medida_index') }}" class="btn btn-sm btn-danger">
                                 <i class="fa fa-ban"></i> <strong>Cancelar</strong>
                             </a>
                         </div>
@@ -87,7 +69,7 @@
                     <p>&zwnj;</p>
                     <p>&zwnj;</p>
                     <br>
-                    {{ form_end(form) }}
+                    {{ form_end(edit_form) }}
                 </div>
                 <!-- /.box-body -->
                 {#<div class="box-footer">
@@ -100,7 +82,7 @@
         </section>
         <!-- /.content -->
     </div>
-    <input type="hidden" value="productos" id="seleccion">
+    <input type="hidden" value="medidas" id="seleccion">
 {% endblock %}
 
 {% block javascripts  %}

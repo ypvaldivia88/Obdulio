@@ -23,8 +23,17 @@ class ProductoType extends AbstractType
                 },
                 'choice_label' => 'getNombre','empty_value'=>"Seleccione un Tipo de producto"
             ))
+            ->add('fkMedida', 'entity', array(
+                'class' => 'Jc\ObdulioBundle\Entity\Medida',
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('j')
+                        ->orderBy('j.nombre','ASC');
+                },
+                'choice_label' => 'getNombre','empty_value'=>"Seleccione una Medida"
+            ))
             ->add('save', 'submit', array('label' => ''));
-    }/**
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

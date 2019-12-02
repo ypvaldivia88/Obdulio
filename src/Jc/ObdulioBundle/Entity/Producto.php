@@ -35,6 +35,11 @@ class Producto
      * @ORM\JoinColumn(name="fk_tipoproducto", referencedColumnName="id")
      */
     private $fkTipoproducto;
+    /**
+     * @ORM\ManyToOne(targetEntity="Medida", inversedBy="producto")
+     * @ORM\JoinColumn(name="fk_medida", referencedColumnName="id")
+     */
+    private $fkMedida;
 
     /**
      * @ORM\OneToMany(targetEntity="Produccion", mappedBy="fkProducto")
@@ -156,6 +161,30 @@ class Producto
     public function getPlanificacionproduccion()
     {
         return $this->planificacionproduccion;
+    }
+
+    /**
+     * Set fkMedida
+     *
+     * @param \Jc\ObdulioBundle\Entity\Medida $fkMedida
+     *
+     * @return Producto
+     */
+    public function setFkMedida(\Jc\ObdulioBundle\Entity\Medida $fkMedida = null)
+    {
+        $this->fkMedida = $fkMedida;
+
+        return $this;
+    }
+
+    /**
+     * Get fkMedida
+     *
+     * @return \Jc\ObdulioBundle\Entity\Medida
+     */
+    public function getFkMedida()
+    {
+        return $this->fkMedida;
     }
 }
 
