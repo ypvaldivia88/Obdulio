@@ -125,6 +125,19 @@ CREATE TABLE `producto` (
 
 insert  into `producto`(`id`,`fk_tipoproducto`,`nombre`,`fk_medida`) values (1,2,'producto 0',1),(2,1,'producto 1',1),(3,2,'producto 3',1),(8,1,'producto 4',1);
 
+/*Table structure for table `tipodeunidad` */
+
+DROP TABLE IF EXISTS `tipodeunidad`;
+
+CREATE TABLE `tipodeunidad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_CD98A33B3A909126` (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `tipodeunidad` */
+
 /*Table structure for table `tipoproducto` */
 
 DROP TABLE IF EXISTS `tipoproducto`;
@@ -147,13 +160,16 @@ DROP TABLE IF EXISTS `unidad`;
 CREATE TABLE `unidad` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fk_tipodeunidad` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_F3E6D02F3A909126` (`nombre`)
+  UNIQUE KEY `UNIQ_F3E6D02F3A909126` (`nombre`),
+  KEY `IDX_F3E6D02FEC45A122` (`fk_tipodeunidad`),
+  CONSTRAINT `FK_F3E6D02FEC45A122` FOREIGN KEY (`fk_tipodeunidad`) REFERENCES `tipodeunidad` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `unidad` */
 
-insert  into `unidad`(`id`,`nombre`) values (1,'Unidad1'),(2,'unidad2');
+insert  into `unidad`(`id`,`nombre`,`fk_tipodeunidad`) values (1,'Unidad1',NULL),(2,'unidad2',NULL);
 
 /*Table structure for table `usuarios` */
 

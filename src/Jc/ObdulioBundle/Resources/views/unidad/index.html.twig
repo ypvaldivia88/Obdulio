@@ -45,6 +45,7 @@
                         <tr>
                               <th>C&oacute;digo</th>
                               <th>Nombre</th>
+                              <th>Tipo de Unidad</th>
                               <th style="width: 110px !important;">Acciones</th>
                           </tr>
                        </thead>
@@ -53,6 +54,7 @@
                                   <tr data-id="{{ unidad.id }}">
                                       <td>{{ unidad.id }}</td>
                                       <td>{{ unidad.nombre }}</td>
+                                      <td>{{ unidad.FkTipodeunidad.nombre }}</td>
                                       <td style="width: 110px !important;">
                                           {% if is_granted('ROLE_ADMINISTRADOR') %}
                                               <a href="{{ path('unidad_edit', { id: unidad.id }) }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar">
@@ -70,6 +72,7 @@
                      <tr>
                          <th rowspan="1" colspan="1"><input placeholder="C&oacute;digo" type="text"></th>
                          <th rowspan="1" colspan="1"><input placeholder="Nombre" type="text"></th>
+                         <th rowspan="1" colspan="1"><input placeholder="Tipo de Unidad" type="text"></th>
                          <th style="width: 110px !important;"></th>
 
                      </tr>
@@ -119,7 +122,7 @@
                         text: '<i class="fa fa-files-o"></i> Copiar',
                         title: 'Reporte Unidad',
                         exportOptions: {
-                            columns: [ 0, 1]
+                            columns: [ 0, 1, 2]
                         }
                     },
                     {
@@ -127,7 +130,7 @@
                         text: '<i class="fa fa-file-excel-o"></i> Excel',
                         title: 'Reporte Unidad',
                         exportOptions: {
-                            columns: [ 0, 1]
+                            columns: [ 0, 1, 2]
                         }
                     },
                     {
@@ -135,7 +138,7 @@
                         text: '<i class="fa fa-file-pdf-o"></i> PDF',
                         title: 'Reporte Unidad',
                         exportOptions: {
-                            columns: [ 0, 1]
+                            columns: [ 0, 1, 2]
                         }
                     },
                     {
@@ -143,7 +146,7 @@
                         text: '<i class="fa fa-print"></i> Imprimir',
                         title: 'Reporte Unidad',
                         exportOptions: {
-                            columns: [ 0, 1]
+                            columns: [ 0, 1, 2]
                         }
                     },
                     {

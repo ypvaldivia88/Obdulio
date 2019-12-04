@@ -48,6 +48,15 @@
                                 <span class="text-danger">{{ form_errors(edit_form.nombre) }}</span>
                             </div>
                         {% endif %}
+                        <div class="form-group col-md-6">
+                            <strong>Tipo de Unidad</strong>
+                            {{ form_widget(edit_form.fkTipodeunidad, {'attr': {
+                                'class': 'form-control select2',
+                                'style' : 'width:100%'
+
+                            }}) }}
+                            <span class="text-danger">{{ form_errors(edit_form.fkTipodeunidad) }}</span>
+                        </div>
 
                     </fieldset>
                     <hr>

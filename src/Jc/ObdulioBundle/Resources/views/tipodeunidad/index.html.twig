@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tipodeunidads list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipodeunidad in tipodeunidads %}
+            <tr>
+                <td><a href="{{ path('tipodeunidad_show', { 'id': tipodeunidad.id }) }}">{{ tipodeunidad.id }}</a></td>
+                <td>{{ tipodeunidad.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('tipodeunidad_show', { 'id': tipodeunidad.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('tipodeunidad_edit', { 'id': tipodeunidad.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('tipodeunidad_new') }}">Create a new tipodeunidad</a>
+        </li>
+    </ul>
+{% endblock %}
