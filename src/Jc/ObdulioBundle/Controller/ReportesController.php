@@ -41,7 +41,11 @@ class ReportesController extends Controller
         switch ($reporte) {
             case 'operativo':
                 return $this->render('JcObdulioBundle:Reportes:detalles.html.twig',
-                    array('listado' => $repo->getOperativo($fechainicio, $fechafin, $idTipoProducto, $idUnidad))
+                    array(
+                        'listado' => $repo->getOperativo($fechainicio, $fechafin, $idTipoProducto, $idUnidad),
+                        'nombreReporte' => 'Operativo',
+                        'idReporte' => $reporte
+                    )
                 );
 
             default:
