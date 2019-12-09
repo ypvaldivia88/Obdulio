@@ -31,50 +31,50 @@
     <div class="box">
 
       <div class="box-header with-border">
-        <h4 class="header-title">Filtros</h4>
+        <h4 class="header-title">Seleccione un reporte y las fechas de inicio y fin</h4>
 
       </div>
 
       <div class="box-body">
 
-        <form class="form-inline" action="{{ path('reportes_detalles') }}">
+        <form class="form-inline" action="{{ path('reportes_detalles') }}">          
+          <div class="form-group">
+            <label class="sr-only" for="slReportes">Seleccionar reporte</label>
+            <select class="form-control input-lg" name="reporte" id="slReportes">
+              <option disabled selected>Seleccionar reporte</option>
+              <option value="operativo">            Operativo</option>
+              <option value="consejo_popular">      Consejo Popular</option>
+              <option value="acumulado">            Acumulado</option>
+              <option value="prod_cultivo">         Prod x Cultivo</option>
+              <option value="huevo">                Huevo</option>
+              <option value="ventas_viandas">       Ventas Viandas</option>
+              <option value="ventas_hortalizas">    Ventas Hortalizas</option>
+              <option value="ventas_granos">        Ventas Granos</option>
+              <option value="ventas_frutas">        Ventas Frutas</option>
+              <option value="ventas_totales">       Ventas Totales</option>
+              <option value="ventas_tot_est">       Ventas Totales al Estado</option>
+              <option value="ventas_tot_est_dia">   Ventas Totales al Estado Diario</option>
+              <option value="prod_dec_sem5">        Producción Decenal - Semana 5</option>
+              <option value="prod_dec_sem4">        Producción Decenal - Semana 4</option>
+              <option value="prod_dec_sem3">        Producción Decenal - Semana 3</option>
+              <option value="prod_dec_sem2">        Producción Decenal - Semana 2</option>
+              <option value="prod_dec_sem1">        Producción Decenal - Semana 1</option>
+              <option value="sust_imp_anual">       Sustitución Importaciones Anual</option>
+              <option value="sust_imp_mensual">     Sustitución Importaciones Mensual</option>
+              <option value="ventas_est_plan_real"> Ventas al Estado - Plan Real</option>
+              <option value="ventas_est_prod_total">Ventas al Estado - Producción Total</option>
+              <option value="ratificado_mes">       Ratificado Mes</option>
+              <option value="ratificado_acumulado"> Ratificado Acumulado</option>
+              <option value="turismo">              Turismo</option>
+            </select>
+          </div>
           <div class="form-group">
             <label class="sr-only" for="fechainicio">Fecha inicio</label>
-            <input type="datetime" class="form-control" id="fechainicio" placeholder="Fecha Inicio">
+            <input type="datetime" name="fechaInicio" class="form-control" id="fechainicio" placeholder="Fecha Inicio">
           </div>
           <div class="form-group">
             <label class="sr-only" for="fechafin">Fecha final</label>
-            <input type="datetime" class="form-control" id="fechafin" placeholder="Fecha Fin">
-          </div>
-          <div class="form-group">
-            <label class="sr-only" for="slReportes">Seleccionar reporte</label>
-            <select class="form-control input-lg" name="slReporte" id="slReportes">
-              <option disabled selected>Seleccionar reporte</option>
-              <option>Operativo</option>
-              <option>Consejo Popular</option>
-              <option>Acumulado</option>
-              <option>Prod x Cultivo</option>
-              <option>Huevo</option>
-              <option>Ventas Viandas</option>
-              <option>Ventas Hortalizas</option>
-              <option>Ventas Granos</option>
-              <option>Ventas Frutas</option>
-              <option>Ventas Totales</option>
-              <option>Ventas Totales al Estado</option>
-              <option>Ventas Totales al Estado Diario</option>
-              <option>Producción Decenal - Semana 5</option>
-              <option>Producción Decenal - Semana 4</option>
-              <option>Producción Decenal - Semana 3</option>
-              <option>Producción Decenal - Semana 2</option>
-              <option>Producción Decenal - Semana 1</option>
-              <option>Sustitución Importaciones Anual</option>
-              <option>Sustitución Importaciones Mensual</option>
-              <option>Ventas al Estado - Plan Real</option>
-              <option>Ventas al Estado - Producción Total</option>
-              <option>Ratificado Mes</option>
-              <option>Ratificado Acumulado</option>
-              <option>Turismo</option>
-            </select>
+            <input type="datetime" name="fechaFin" class="form-control" id="fechafin" placeholder="Fecha Fin">
           </div>
           <button type="submit" class="btn btn-primary">Ver Reporte</button>
 
@@ -87,7 +87,7 @@
             <div class="well">
               <div class="form-group">
                 <label class="sr-only" for="slTipoProd">Tipo de Producto</label>
-                <select class="form-control" id="slTipoProd">
+                <select class="form-control" name="TipoProducto" id="slTipoProd">
                   <option disabled selected>Tipo de Producto</option>
                   {% for tipo in tiposProducto %}
                   <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
@@ -96,7 +96,7 @@
               </div>
               <div class="form-group">
                 <label class="sr-only" for="slUnidad">Unidad</label>
-                <select class="form-control" id="slUnidad">
+                <select class="form-control" name="Unidad" id="slUnidad">
                   <option disabled selected>Unidad</option>
                   {% for tipo in unidades %}
                   <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>

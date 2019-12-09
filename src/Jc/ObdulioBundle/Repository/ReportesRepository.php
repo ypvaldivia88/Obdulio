@@ -66,22 +66,36 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
-    public function getOperativo(){
+    public function getOperativo($fechainicio,$fechafin,$idTipoProducto,$idUnidad){
+
+        if ($fechainicio == null) {
+            $fechainicio = date($this->annoActual.'-'.$this->mesActual.'-1');
+        }
+        if ($fechafin == null) {
+            $fechafin = date($this->annoActual.'-'.$this->mesActual.'-'.$this->fechaActual->format('d'));
+        }
+        if ($idTipoProducto == null) {
+            $idTipoProducto = '';
+        }
+        if ($idUnidad == null) {
+            $idUnidad = '';
+        }
+
         $query = $this->entityManager->createQuery(
             "SELECT
                 Sum( pr.valor ) AS real,	
                 CASE 
-                    WHEN :mesActual = 1 THEN pl.enero 
-                    WHEN :mesActual = 2 THEN pl.febrero 
-                    WHEN :mesActual = 3 THEN pl.marzo 
-                    WHEN :mesActual = 4 THEN pl.abril 
-                    WHEN :mesActual = 5 THEN pl.mayo 
-                    WHEN :mesActual = 6 THEN pl.junio 
-                    WHEN :mesActual = 7 THEN pl.julio 
-                    WHEN :mesActual = 8 THEN pl.agosto 
-                    WHEN :mesActual = 9 THEN pl.septiembre 
-                    WHEN :mesActual = 10 THEN pl.octubre 
-                    WHEN :mesActual = 11 THEN pl.noviembre 
+                    WHEN :mes = 1 THEN pl.enero 
+                    WHEN :mes = 2 THEN pl.febrero 
+                    WHEN :mes = 3 THEN pl.marzo 
+                    WHEN :mes = 4 THEN pl.abril 
+                    WHEN :mes = 5 THEN pl.mayo 
+                    WHEN :mes = 6 THEN pl.junio 
+                    WHEN :mes = 7 THEN pl.julio 
+                    WHEN :mes = 8 THEN pl.agosto 
+                    WHEN :mes = 9 THEN pl.septiembre 
+                    WHEN :mes = 10 THEN pl.octubre 
+                    WHEN :mes = 11 THEN pl.noviembre 
                     ELSE pl.diciembre 
                 END AS plan,
                 p.nombre AS producto,
@@ -93,18 +107,22 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
             LEFT JOIN JcObdulioBundle:Tipoproducto tp WHERE p.fkTipoproducto = tp.id
             LEFT JOIN JcObdulioBundle:Unidad u WHERE pr.fkUnidad = u.id AND pl.fkUnidad = u.id
             WHERE
-                pr.fecha >= :inicioMes
+                pr.fecha >= :fechainicio AND
+                pr.fecha <= :fechafin AND
+                tp.id = :idtp AND
+                u.id = :idu
             GROUP BY
                 p.nombre,
                 plan,
                 tp.nombre,
                 u.nombre"
         );
-        $inicioMes = date($this->annoActual.'-'.$this->mesActual.'-1');
-        
         $query->setParameters(array(
-            'mesActual' => $this->mesActual,
-            'inicioMes' => $inicioMes,
+            'mes' => $this->mesActual,
+            'fechainicio' => $fechainicio,
+            'fechafin' => $fechafin,
+            'idtp' => $idTipoProducto,
+            'idu' => $idUnidad,
         ));
         return $query->getResult();
     }

@@ -29,25 +29,31 @@ class ReportesController extends Controller
         );
     }
 
-    public function detallesAction()
+    public function detallesAction($reporte,$fechainicio,$fechafin,$idTipoProducto,$idUnidad)
     {
         if ($this->getUser() == NULL) {
             return $this->redirectToRoute('rh_usuarios_login');
         }
 
+        /* $reporte = $_GET['reporte'];
+        $fechainicio = $_GET['fechainicio'];
+        $fechafin = $_GET['fechafin'];
+        $idTipoProducto = $_GET['idTipoProducto'];
+        $idUnidad = $_GET['idUnidad']; */
+
         $em = $this->getDoctrine()->getManager();
         $repo = new ReportesRepository($em);
         $tiposProducto = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
 
-        /* switch ($idReporte) {
-            case 1:
-                $listado = $repo->getOperativo();
+        switch ($reporte) {
+            case 'operativo':
+                $listado = $repo->getOperativo($fechainicio,$fechafin,$idTipoProducto,$idUnidad);
                 break;
 
             default:
                 $listado = $repo->getMesActual();
                 break;
-        } */
+        }
 
         $listado = $repo->getOperativo();
 
