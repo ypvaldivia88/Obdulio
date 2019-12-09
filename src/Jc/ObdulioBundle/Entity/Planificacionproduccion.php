@@ -112,9 +112,7 @@ class Planificacionproduccion
      *
      * @ORM\Column(name="anno", type="integer")
      */
-    private $anno;
-     * @ORM\Column(name="ano", type="integer")
-     */
+    private $anno;     
 
     /**
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="planificacionproduccion")

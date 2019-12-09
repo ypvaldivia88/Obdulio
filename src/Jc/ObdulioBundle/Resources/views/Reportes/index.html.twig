@@ -1,52 +1,288 @@
 {% extends 'layout.html.twig' %}
 
 {% block wrapper %}
-    {{ parent() }}
-    <div class="content-wrapper">
-   
-    {{ include('JcObdulioBundle:Default:messages/success.html.twig') }}
-    {{ include('JcObdulioBundle:Default:messages/danger.html.twig') }}
-    
-        <section class="content-header">
-          <h1>
-            Reportes
-            {#<small>it all starts here</small>#}
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-            <li><a class="active">Reportes</a></li>
-          </ol>
-        </section>
+{{ parent() }}
+<div class="content-wrapper">
 
-        <!-- Main content -->
-        <section class="content">
+  {{ include('JcObdulioBundle:Default:messages/success.html.twig') }}
+  {{ include('JcObdulioBundle:Default:messages/danger.html.twig') }}
 
-          <!-- Default box -->
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Listado de reportes</h3>
-            </div>
-            <div class="box-body">
-                
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="tab_2">
-                            <a href="{{ path('reportes_operativo') }}">Reporte Operativo</a>
-                            
-                      </div>
-                      <!-- /.tab-pane -->
-                    </div>
-                    <!-- /.tab-content -->
-                  
-            </div>
-            <!-- /.box-body -->
-            {#<div class="box-footer">
-              Footer
-            </div>#}
-            <!-- /.box-footer-->
-          </div>
-          <!-- /.box -->
+  <section class="content-header">
+    <h1>
+      Reportes
+      {#<small>it all starts here</small>#}
+    </h1>
+    <ol class="breadcrumb">
+      <li>
+        <a href="{{ path('inicio') }}">
+          <i class="glyphicon glyphicon-home"></i>
+          Inicio</a>
+      </li>
+      <li>
+        <a class="active">Reportes</a>
+      </li>
+    </ol>
+  </section>
 
-        </section>
-        <!-- /.content -->
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Default box -->
+    <div class="box">
+
+      <div class="box-header with-border">
+        <h4 class="header-title">Filtros</h4>
+
       </div>
+
+      <div class="box-body">
+
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="sr-only" for="fechainicio">Fecha inicio</label>
+            <input type="datetime" class="form-control" id="fechainicio" placeholder="Fecha Inicio">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="fechafin">Fecha final</label>
+            <input type="datetime" class="form-control" id="fechafin" placeholder="Fecha Fin">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="slReportes">Seleccionar reporte</label>
+            <select class="form-control input-lg" id="slReportes">
+              <option disabled selected>Seleccionar reporte</option>
+              <option>Operativo</option>
+              <option>Consejo Popular</option>
+              <option>Acumulado</option>
+              <option>Prod x Cultivo</option>
+              <option>Huevo</option>
+              <option>Ventas Viandas</option>
+              <option>Ventas Hortalizas</option>
+              <option>Ventas Granos</option>
+              <option>Ventas Frutas</option>
+              <option>Ventas Totales</option>
+              <option>Ventas Totales al Estado</option>
+              <option>Ventas Totales al Estado Diario</option>
+              <option>Producción Decenal - Semana 5</option>
+              <option>Producción Decenal - Semana 4</option>
+              <option>Producción Decenal - Semana 3</option>
+              <option>Producción Decenal - Semana 2</option>
+              <option>Producción Decenal - Semana 1</option>
+              <option>Sustitución Importaciones Anual</option>
+              <option>Sustitución Importaciones Mensual</option>
+              <option>Ventas al Estado - Plan Real</option>
+              <option>Ventas al Estado - Producción Total</option>
+              <option>Ratificado Mes</option>
+              <option>Ratificado Acumulado</option>
+              <option>Turismo</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Ver Reporte</button>
+
+          <button class="btn btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
+            aria-expanded="false" aria-controls="collapseFiltros">
+            Más filtros
+          </button>
+
+          <div class="collapse" id="collapseFiltros">
+            <div class="well">
+              <div class="form-group">
+                <label class="sr-only" for="slTipoProd">Tipo de Producto</label>
+                <select class="form-control" id="slTipoProd">
+                  <option disabled selected>Tipo de Producto</option>
+                  {% for tipo in tiposProducto %}
+                  <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="slUnidad">Unidad</label>
+                <select class="form-control" id="slUnidad">
+                  <option disabled selected>Unidad</option>
+                  {% for tipo in unidades %}
+                  <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+
+    <!-- Default box -->
+    <div class="box">
+
+      <div class="box-header with-border">
+        <h2 class="header-title">Listado de todos los prductos por unidades</h2>
+      </div>
+
+      <div class="box-body">
+        <div class="table-responsive">
+          <table id="tb_operativos" class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Unidad</th>
+                <th>Tipo Producto</th>
+                <th>Producto</th>
+                <th>Plan</th>
+                <th>Real</th>
+                <th>Diferencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in listado %}
+              <tr>
+                <td>{{ item.unidad }}</td>
+                <td>{{ item.tipo }}</td>
+                <td>{{ item.producto }}</td>
+                <td>{{ item.plan }}</td>
+                <td>{{ item.real }}</td>
+                <td>{{ item.plan - item.real }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th rowspan="1" colspan="1"><input placeholder="Unidad" type="text"></th>
+                <th rowspan="1" colspan="1"><input placeholder="Tipo Producto" type="text"></th>
+                <th rowspan="1" colspan="1"><input placeholder="Producto" type="text"></th>
+                <th rowspan="1" colspan="1"><input placeholder="Plan" type="text"></th>
+                <th rowspan="1" colspan="1"><input placeholder="Real" type="text"></th>
+                <th rowspan="1" colspan="1"><input placeholder="Diferencia" type="text"></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+
+  </section>
+  <!-- /.content -->
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('public/select2/dist/js/select2.min.js') }}"></script>
+<script src="{{ asset('public/select2/dist/js/i18n/es.js') }}"></script>
+<script src="{{ asset('public/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('public/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js') }}"></script>
+<script src="{{ asset('bundles/rh/js/delete-user.js') }}"></script>
+<script src="{{ asset('public/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('public/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('public/export/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('public/export/buttons.print.min.js') }}"></script>
+<script src="{{ asset('public/export/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('public/export/jszip.min.js') }}"></script>
+<script src="{{ asset('public/export/pdfmake.min.js') }}"></script>
+<script src="{{ asset('public/export/vfs_fonts.js') }}"></script>
+<script src="{{ asset('public/export/buttons.colVis.min.js') }}"></script>
+
+<script>
+  $(function () {
+    $('#slReportes, #slTipoProd, #slUnidad').select2();
+    $('#fechainicio').datepicker();
+    $('#fechafin').datepicker();
+    var table = $("#tb_operativos").DataTable({
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      ordering: true,
+      info: true,
+      autoWidth: false,
+      dom: 'Blfrtip',
+      buttons: [{
+          extend: 'copy',
+          text: '<i class="fa fa-files-o"></i> Copiar',
+          title: 'Reporte operativo',
+          exportOptions: {
+            columns: [1, 2, 3, 4]
+          }
+        },
+        {
+          extend: 'excel',
+          text: '<i class="fa fa-file-excel-o"></i> Excel',
+          title: 'Reporte operativo',
+          exportOptions: {
+            columns: [1, 2, 3, 4]
+          }
+        },
+        {
+          extend: 'pdf',
+          text: '<i class="fa fa-file-pdf-o"></i> PDF',
+          title: 'Reporte operativo',
+          exportOptions: {
+            columns: [1, 2, 3, 4]
+          }
+        },
+        {
+          extend: 'print',
+          text: '<i class="fa fa-print"></i> Imprimir',
+          title: 'Reporte operativo',
+          exportOptions: {
+            columns: [1, 2, 3, 4]
+          }
+        }, {
+          extend: 'colvis',
+          text: '<i class="fa fa-eye"></i> Columnas Visibles'
+        }
+      ],
+      language: {
+        buttons: {
+          copyTitle: 'Copiado',
+          copySuccess: {
+            _: '%d filas al portapales',
+            1: '1 fila al portapapeles'
+          }
+        }
+      }
+    });
+
+    // Apply the search
+    table.columns().every(function () {
+      var that = this;
+
+      $('input', this.footer()).on('keyup change', function () {
+        if (that.search() !== this.value) {
+          that.search(this.value).draw();
+        }
+      });
+    });
+
+    $('#tb_operativos tfoot tr').appendTo('#tb_operativos thead');
+
+    $('input:text').attr('style',
+      'width: 100%'); // ojo con esto, es importante sino salen muy grandes los search por columnas
+    $('.dt-button').removeClass('buttons-html5');
+    $('.dt-button').removeClass('buttons-copy');
+    $('.dt-button').removeClass('buttons-pdf');
+    $('.dt-button').removeClass('buttons-excel');
+    $('.dt-button').removeClass('buttons-print');
+    $('.dt-button').addClass('btn btn-sm btn-primary');
+    $('.dt-button').removeClass('dt-button');
+  });
+</script>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('public/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/export/buttons.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+<style type="text/css" class="init">
+  tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+  }
+</style>
 {% endblock %}
