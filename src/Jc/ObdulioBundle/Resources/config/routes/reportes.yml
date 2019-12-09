@@ -1,6 +1,9 @@
 reportes_index:
     path:     /
     defaults: { _controller: JcObdulioBundle:Reportes:index }
+reportes_detalles:
+    path:     /detalles/{reporte}{fechainicio}{fechafin}{idTipoProducto}{idUnidad}
+    defaults: { _controller: JcObdulioBundle:Reportes:detalles }
 reportes_operativo:
     path:     /operativo
     defaults: { _controller: JcObdulioBundle:Reportes:operativo }

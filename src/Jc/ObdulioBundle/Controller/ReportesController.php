@@ -9,7 +9,48 @@ class ReportesController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('JcObdulioBundle:Reportes:index.html.twig');
+        if ($this->getUser() == NULL) {
+            return $this->redirectToRoute('rh_usuarios_login');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = new ReportesRepository($em);
+        $tiposProducto = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
+        $unidades = $em->getRepository('JcObdulioBundle:Unidad')->findAll();
+
+
+        return $this->render(
+            'JcObdulioBundle:Reportes:index.html.twig',
+            array(
+                'listado' => $repo->getMesActual(),
+                'tiposProducto' => $tiposProducto,
+                'unidades' => $unidades,
+            )
+        );
+    }
+
+    public function detallesAction($reporte, $fechainicio, $fechafin, $idTipoProducto, $idUnidad)
+    {
+        if ($this->getUser() == NULL) {
+            return $this->redirectToRoute('rh_usuarios_login');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = new ReportesRepository($em);
+
+        switch ($reporte) {
+            case 'operativo':
+                return $this->render('JcObdulioBundle:Reportes:detalles.html.twig',
+                    array(
+                        'listado' => $repo->getOperativo($fechainicio, $fechafin, $idTipoProducto, $idUnidad),
+                        'nombreReporte' => 'Operativo',
+                        'idReporte' => $reporte
+                    )
+                );
+
+            default:
+                return $this->render('JcObdulioBundle:Reportes:index.html.twig');
+        }
     }
 
     public function operativoAction()
@@ -19,14 +60,14 @@ class ReportesController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $repo = new ReportesRepository($em);        
+        $repo = new ReportesRepository($em);
         $tiposProducto = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
 
 
         return $this->render(
-            'JcObdulioBundle:Reportes:operativo.html.twig', 
+            'JcObdulioBundle:Reportes:operativo.html.twig',
             array(
-                'listado' => $repo->getOperativo(), 
+                'listado' => $repo->getOperativo(),
                 'tiposProducto' => $tiposProducto
             )
         );
@@ -42,7 +83,8 @@ class ReportesController extends Controller
         $repo = new ReportesRepository($em);
 
         return $this->render(
-            'JcObdulioBundle:Reportes:totales.html.twig', 
-            array('listado' => $repo->getTotales($tipo)));
+            'JcObdulioBundle:Reportes:totales.html.twig',
+            array('listado' => $repo->getTotales($tipo))
+        );
     }
 }

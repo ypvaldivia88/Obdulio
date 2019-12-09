@@ -1,11 +1,8 @@
 <?php
-
 namespace Jc\ObdulioBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Planificacionproduccion
  *
@@ -22,112 +19,94 @@ class Planificacionproduccion
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var float
      *
      * @ORM\Column(name="enero", type="float")
      */
     private $enero;
-
     /**
      * @var float
      *
      * @ORM\Column(name="febrero", type="float")
      */
     private $febrero;
-
     /**
      * @var float
      *
      * @ORM\Column(name="marzo", type="float")
      */
     private $marzo;
-
     /**
      * @var float
      *
      * @ORM\Column(name="abril", type="float")
      */
     private $abril;
-
     /**
      * @var float
      *
      * @ORM\Column(name="mayo", type="float")
      */
     private $mayo;
-
     /**
      * @var float
      *
      * @ORM\Column(name="junio", type="float")
      */
     private $junio;
-
     /**
      * @var float
      *
      * @ORM\Column(name="julio", type="float")
      */
     private $julio;
-
     /**
      * @var float
      *
      * @ORM\Column(name="agosto", type="float")
      */
     private $agosto;
-
     /**
      * @var float
      *
      * @ORM\Column(name="septiembre", type="float")
      */
     private $septiembre;
-
     /**
      * @var float
      *
      * @ORM\Column(name="octubre", type="float")
      */
     private $octubre;
-
     /**
      * @var float
      *
      * @ORM\Column(name="noviembre", type="float")
      */
     private $noviembre;
-
     /**
      * @var float
      *
      * @ORM\Column(name="diciembre", type="float")
      */
     private $diciembre;
-
     /**
      * @var int
      *
      * @ORM\Column(name="anno", type="integer")
      */
     private $anno;
-
     /**
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="planificacionproduccion")
      * @ORM\JoinColumn(name="fk_producto", referencedColumnName="id")
      */
     private $fkProducto;
-
     /**
      * @ORM\ManyToOne(targetEntity="Unidad", inversedBy="planificacionproduccion")
      * @ORM\JoinColumn(name="fk_unidad", referencedColumnName="id")
      */
     private $fkUnidad;
-
-
-
     /**
      * Get id
      *
@@ -137,7 +116,6 @@ class Planificacionproduccion
     {
         return $this->id;
     }
-
     /**
      * Set enero
      *
@@ -148,10 +126,8 @@ class Planificacionproduccion
     public function setEnero($enero)
     {
         $this->enero = $enero;
-
         return $this;
     }
-
     /**
      * Get enero
      *
@@ -161,7 +137,6 @@ class Planificacionproduccion
     {
         return $this->enero;
     }
-
     /**
      * Set febrero
      *
@@ -172,10 +147,8 @@ class Planificacionproduccion
     public function setFebrero($febrero)
     {
         $this->febrero = $febrero;
-
         return $this;
     }
-
     /**
      * Get febrero
      *
@@ -185,7 +158,6 @@ class Planificacionproduccion
     {
         return $this->febrero;
     }
-
     /**
      * Set marzo
      *
@@ -196,10 +168,8 @@ class Planificacionproduccion
     public function setMarzo($marzo)
     {
         $this->marzo = $marzo;
-
         return $this;
     }
-
     /**
      * Get marzo
      *
@@ -209,7 +179,6 @@ class Planificacionproduccion
     {
         return $this->marzo;
     }
-
     /**
      * Set abril
      *
@@ -220,10 +189,8 @@ class Planificacionproduccion
     public function setAbril($abril)
     {
         $this->abril = $abril;
-
         return $this;
     }
-
     /**
      * Get abril
      *
@@ -233,7 +200,6 @@ class Planificacionproduccion
     {
         return $this->abril;
     }
-
     /**
      * Set mayo
      *
@@ -244,10 +210,8 @@ class Planificacionproduccion
     public function setMayo($mayo)
     {
         $this->mayo = $mayo;
-
         return $this;
     }
-
     /**
      * Get mayo
      *
@@ -257,7 +221,6 @@ class Planificacionproduccion
     {
         return $this->mayo;
     }
-
     /**
      * Set junio
      *
@@ -268,10 +231,8 @@ class Planificacionproduccion
     public function setJunio($junio)
     {
         $this->junio = $junio;
-
         return $this;
     }
-
     /**
      * Get junio
      *
@@ -281,7 +242,6 @@ class Planificacionproduccion
     {
         return $this->junio;
     }
-
     /**
      * Set julio
      *
@@ -292,10 +252,8 @@ class Planificacionproduccion
     public function setJulio($julio)
     {
         $this->julio = $julio;
-
         return $this;
     }
-
     /**
      * Get julio
      *
@@ -305,7 +263,6 @@ class Planificacionproduccion
     {
         return $this->julio;
     }
-
     /**
      * Set agosto
      *
@@ -316,10 +273,8 @@ class Planificacionproduccion
     public function setAgosto($agosto)
     {
         $this->agosto = $agosto;
-
         return $this;
     }
-
     /**
      * Get agosto
      *
@@ -329,7 +284,6 @@ class Planificacionproduccion
     {
         return $this->agosto;
     }
-
     /**
      * Set septiembre
      *
@@ -340,10 +294,8 @@ class Planificacionproduccion
     public function setSeptiembre($septiembre)
     {
         $this->septiembre = $septiembre;
-
         return $this;
     }
-
     /**
      * Get septiembre
      *
@@ -353,7 +305,6 @@ class Planificacionproduccion
     {
         return $this->septiembre;
     }
-
     /**
      * Set octubre
      *
@@ -364,10 +315,8 @@ class Planificacionproduccion
     public function setOctubre($octubre)
     {
         $this->octubre = $octubre;
-
         return $this;
     }
-
     /**
      * Get octubre
      *
@@ -377,7 +326,6 @@ class Planificacionproduccion
     {
         return $this->octubre;
     }
-
     /**
      * Set noviembre
      *
@@ -388,10 +336,8 @@ class Planificacionproduccion
     public function setNoviembre($noviembre)
     {
         $this->noviembre = $noviembre;
-
         return $this;
     }
-
     /**
      * Get noviembre
      *
@@ -401,7 +347,6 @@ class Planificacionproduccion
     {
         return $this->noviembre;
     }
-
     /**
      * Set diciembre
      *
@@ -412,10 +357,8 @@ class Planificacionproduccion
     public function setDiciembre($diciembre)
     {
         $this->diciembre = $diciembre;
-
         return $this;
     }
-
     /**
      * Get diciembre
      *
@@ -425,7 +368,6 @@ class Planificacionproduccion
     {
         return $this->diciembre;
     }
-
     /**
      * Set anno
      *
@@ -436,10 +378,8 @@ class Planificacionproduccion
     public function setAnno($anno)
     {
         $this->anno = $anno;
-
         return $this;
     }
-
     /**
      * Get anno
      *
@@ -449,7 +389,6 @@ class Planificacionproduccion
     {
         return $this->anno;
     }
-
     /**
      * Set fkProducto
      *
@@ -460,10 +399,8 @@ class Planificacionproduccion
     public function setFkProducto(\Jc\ObdulioBundle\Entity\Producto $fkProducto = null)
     {
         $this->fkProducto = $fkProducto;
-
         return $this;
     }
-
     /**
      * Get fkProducto
      *
@@ -473,8 +410,6 @@ class Planificacionproduccion
     {
         return $this->fkProducto;
     }
-
-
     /**
      * Set fkUnidad
      *
@@ -485,10 +420,8 @@ class Planificacionproduccion
     public function setFkUnidad(\Jc\ObdulioBundle\Entity\Unidad $fkUnidad = null)
     {
         $this->fkUnidad = $fkUnidad;
-
         return $this;
     }
-
     /**
      * Get fkUnidad
      *
@@ -499,4 +432,3 @@ class Planificacionproduccion
         return $this->fkUnidad;
     }
 }
-
