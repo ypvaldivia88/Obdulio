@@ -29,41 +29,24 @@ class ReportesController extends Controller
         );
     }
 
-    public function detallesAction($reporte,$fechainicio,$fechafin,$idTipoProducto,$idUnidad)
+    public function detallesAction($reporte, $fechainicio, $fechafin, $idTipoProducto, $idUnidad)
     {
         if ($this->getUser() == NULL) {
             return $this->redirectToRoute('rh_usuarios_login');
         }
 
-        /* $reporte = $_GET['reporte'];
-        $fechainicio = $_GET['fechainicio'];
-        $fechafin = $_GET['fechafin'];
-        $idTipoProducto = $_GET['idTipoProducto'];
-        $idUnidad = $_GET['idUnidad']; */
-
         $em = $this->getDoctrine()->getManager();
         $repo = new ReportesRepository($em);
-        $tiposProducto = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
 
         switch ($reporte) {
             case 'operativo':
-                $listado = $repo->getOperativo($fechainicio,$fechafin,$idTipoProducto,$idUnidad);
-                break;
+                return $this->render('JcObdulioBundle:Reportes:detalles.html.twig',
+                    array('listado' => $repo->getOperativo($fechainicio, $fechafin, $idTipoProducto, $idUnidad))
+                );
 
             default:
-                $listado = $repo->getMesActual();
-                break;
+                return $this->render('JcObdulioBundle:Reportes:index.html.twig');
         }
-
-        $listado = $repo->getOperativo();
-
-        return $this->render(
-            'JcObdulioBundle:Reportes:detalles.html.twig',
-            array(
-                'listado' => $listado,
-                'tiposProducto' => $tiposProducto
-            )
-        );
     }
 
     public function operativoAction()
