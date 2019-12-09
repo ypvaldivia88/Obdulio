@@ -37,7 +37,7 @@
 
       <div class="box-body">
 
-        <form class="form-inline">
+        <form class="form-inline" action="{{ path('reportes_detalles') }}">
           <div class="form-group">
             <label class="sr-only" for="fechainicio">Fecha inicio</label>
             <input type="datetime" class="form-control" id="fechainicio" placeholder="Fecha Inicio">
@@ -48,7 +48,7 @@
           </div>
           <div class="form-group">
             <label class="sr-only" for="slReportes">Seleccionar reporte</label>
-            <select class="form-control input-lg" id="slReportes">
+            <select class="form-control input-lg" name="slReporte" id="slReportes">
               <option disabled selected>Seleccionar reporte</option>
               <option>Operativo</option>
               <option>Consejo Popular</option>

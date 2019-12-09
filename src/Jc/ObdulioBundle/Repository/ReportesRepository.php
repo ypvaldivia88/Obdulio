@@ -25,6 +25,7 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
     }
 
     public function getMesActual(){
+        $inicioMes = date($this->annoActual.'-'.$this->mesActual.'-1');
         $query = $this->entityManager->createQuery(
             "SELECT
                 Sum( pr.valor ) AS real,	
@@ -58,8 +59,6 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
                 tp.nombre,
                 u.nombre"
         );
-        $inicioMes = date($this->annoActual.'-'.$this->mesActual.'-1');
-        
         $query->setParameters(array(
             'mesActual' => $this->mesActual,
             'inicioMes' => $inicioMes,
