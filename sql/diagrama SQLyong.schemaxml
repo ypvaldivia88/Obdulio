@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_bin">obdulio</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="destino" view="colnames">
+<left>424</left>
+<top>179</top>
+<width>90</width>
+<height>107</height>
+<sql_create_table>CREATE TABLE `destino` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_81F64EFA3A909126` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="medida" view="colnames">
+<left>323</left>
+<top>233</top>
+<width>90</width>
+<height>107</height>
+<sql_create_table>CREATE TABLE `medida` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_9C1C2A8C3A909126` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="planificacionproduccion" view="colnames">
+<left>159</left>
+<top>249</top>
+<width>114</width>
+<height>306</height>
+<sql_create_table>CREATE TABLE `planificacionproduccion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_producto` int(11) DEFAULT NULL,
+  `fk_unidad` int(11) DEFAULT NULL,
+  `enero` double NOT NULL,
+  `febrero` double NOT NULL,
+  `marzo` double NOT NULL,
+  `abril` double NOT NULL,
+  `mayo` double NOT NULL,
+  `junio` double NOT NULL,
+  `julio` double NOT NULL,
+  `agosto` double NOT NULL,
+  `septiembre` double NOT NULL,
+  `octubre` double NOT NULL,
+  `noviembre` double NOT NULL,
+  `diciembre` double NOT NULL,
+  `anno` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_60B16643959345CB` (`fk_producto`),
+  KEY `IDX_60B16643D348B8BF` (`fk_unidad`),
+  CONSTRAINT `FK_60B16643959345CB` FOREIGN KEY (`fk_producto`) REFERENCES `producto` (`id`),
+  CONSTRAINT `FK_60B16643D348B8BF` FOREIGN KEY (`fk_unidad`) REFERENCES `unidad` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="produccion" view="colnames">
+<left>538</left>
+<top>56</top>
+<width>114</width>
+<height>192</height>
+<sql_create_table>CREATE TABLE `produccion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_producto` int(11) DEFAULT NULL,
+  `fk_destino` int(11) DEFAULT NULL,
+  `fk_unidad` int(11) DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `valor` double NOT NULL,
+  `factura` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_1E23DEC6F9EBA009` (`factura`),
+  KEY `IDX_1E23DEC6959345CB` (`fk_producto`),
+  KEY `IDX_1E23DEC671D973D6` (`fk_destino`),
+  KEY `IDX_1E23DEC6D348B8BF` (`fk_unidad`),
+  CONSTRAINT `FK_1E23DEC671D973D6` FOREIGN KEY (`fk_destino`) REFERENCES `destino` (`id`),
+  CONSTRAINT `FK_1E23DEC6959345CB` FOREIGN KEY (`fk_producto`) REFERENCES `producto` (`id`),
+  CONSTRAINT `FK_1E23DEC6D348B8BF` FOREIGN KEY (`fk_unidad`) REFERENCES `unidad` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="producto" view="colnames">
+<left>11</left>
+<top>26</top>
+<width>135</width>
+<height>141</height>
+<sql_create_table>CREATE TABLE `producto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_tipoproducto` int(11) DEFAULT NULL,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fk_medida` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_A7BB06153A909126` (`nombre`),
+  KEY `IDX_A7BB0615E1D7C4D1` (`fk_tipoproducto`),
+  KEY `IDX_A7BB0615BCB2421C` (`fk_medida`),
+  CONSTRAINT `FK_A7BB0615BCB2421C` FOREIGN KEY (`fk_medida`) REFERENCES `medida` (`id`),
+  CONSTRAINT `FK_A7BB0615E1D7C4D1` FOREIGN KEY (`fk_tipoproducto`) REFERENCES `tipoproducto` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="tipodeunidad" view="colnames">
+<left>718</left>
+<top>335</top>
+<width>90</width>
+<height>107</height>
+<sql_create_table>CREATE TABLE `tipodeunidad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_CD98A33B3A909126` (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="tipoproducto" view="colnames">
+<left>316</left>
+<top>115</top>
+<width>90</width>
+<height>107</height>
+<sql_create_table>CREATE TABLE `tipoproducto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_C00AC6C83A909126` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="unidad" view="colnames">
+<left>335</left>
+<top>399</top>
+<width>137</width>
+<height>124</height>
+<sql_create_table>CREATE TABLE `unidad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fk_tipodeunidad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_F3E6D02F3A909126` (`nombre`),
+  KEY `IDX_F3E6D02FEC45A122` (`fk_tipodeunidad`),
+  CONSTRAINT `FK_F3E6D02FEC45A122` FOREIGN KEY (`fk_tipodeunidad`) REFERENCES `tipodeunidad` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+<table name="usuarios" view="colnames">
+<left>709</left>
+<top>10</top>
+<width>149</width>
+<height>306</height>
+<sql_create_table>CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` enum('ROLE_ADMINISTRADOR','ROLE_OPERADOR','ROLE_CONSULTANTE') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `movil` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `imei` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `activo` tinyint(1) NOT NULL,
+  `creado` datetime NOT NULL,
+  `actualizado` datetime NOT NULL,
+  `ultimo_logueo` datetime DEFAULT NULL,
+  `ultimo_deslogueo` datetime DEFAULT NULL,
+  `nombre_completo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

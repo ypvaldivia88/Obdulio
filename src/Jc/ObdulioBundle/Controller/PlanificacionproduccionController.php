@@ -51,7 +51,7 @@ class PlanificacionproduccionController extends Controller
             $em->persist($planificacionproduccion);
             $em->flush();
 
-            $this->addFlash('mensaje', 'La planificación de la producción ha sido creada' );
+            $this->addFlash('mensaje', 'La planificaci&oacute;n de la producci&oacute;n ha sido creada' );
             return $this->redirectToRoute('planificacionproduccion_index');
         }
 
@@ -92,7 +92,7 @@ class PlanificacionproduccionController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('mensaje', 'La planificación de la producción '.$planificacionproduccion->getFkProducto()->getNombre().' ha sido editada correctamente');
+            $this->addFlash('mensaje', 'La planificaci&oacute;n de la producci&oacute;n '.$planificacionproduccion->getFkProducto()->getNombre().' ha sido editada correctamente');
             return $this->redirectToRoute('planificacionproduccion_index');
         }
 
@@ -135,7 +135,7 @@ class PlanificacionproduccionController extends Controller
         $em->remove($planificacionproduccion);
         $em->flush();
 
-        $message = ('La planificación de la producción '.$planificacionproduccion->getFkProducto()->getNombre().' ha sido eliminada.');
+        $message = ('La planificaci&oacute;n de la producci&oacute;n '.$planificacionproduccion->getFkProducto()->getNombre().' ha sido eliminada.');
         $removed = 1;
         $alert = 'mensaje';
 

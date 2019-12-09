@@ -13,7 +13,16 @@ class UnidadType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nombre');
+        $builder->add('nombre')
+            ->add('fkTipodeunidad', 'entity', array(
+                'class' => 'Jc\ObdulioBundle\Entity\Tipodeunidad',
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('j')
+                        ->orderBy('j.nombre','ASC');
+                },
+                'choice_label' => 'getNombre','empty_value'=>"Seleccione un Tipo de unidad"
+            ))
+            ->add('save', 'submit', array('label' => ''));
     }/**
      * {@inheritdoc}
      */

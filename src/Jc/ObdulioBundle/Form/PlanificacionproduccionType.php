@@ -5,6 +5,7 @@ namespace Jc\ObdulioBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class PlanificacionproduccionType extends AbstractType
 {
@@ -13,8 +14,38 @@ class PlanificacionproduccionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('enero')->add('febrero')->add('marzo')->add('abril')->add('mayo')->add('junio')->add('julio')->add('agosto')->add('septiembre')->add('octubre')->add('noviembre')->add('diciembre')->add('ano')->add('fkProducto')->add('fkUnidad');
-    }/**
+        $builder->add('enero')
+            ->add('febrero')
+            ->add('marzo')
+            ->add('abril')
+            ->add('mayo')
+            ->add('junio')
+            ->add('julio')
+            ->add('agosto')
+            ->add('septiembre')
+            ->add('octubre')
+            ->add('noviembre')
+            ->add('diciembre')
+            ->add('anno')
+            ->add('fkProducto', 'entity', array(
+                'class' => 'Jc\ObdulioBundle\Entity\Producto',
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('j')
+                        ->orderBy('j.nombre','ASC');
+                },
+                'choice_label' => 'getNombre','empty_value'=>"Seleccione un Producto"
+            ))
+            ->add('fkUnidad', 'entity', array(
+                'class' => 'Jc\ObdulioBundle\Entity\Unidad',
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('j')
+                        ->orderBy('j.nombre','ASC');
+                },
+                'choice_label' => 'getNombre','empty_value'=>"Seleccione una Unidad"
+            ))
+            ->add('save', 'submit', array('label' => ''));
+    }
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

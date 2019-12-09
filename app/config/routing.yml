@@ -1,3 +1,11 @@
+jc_obdulio_tipodeunidad:
+    resource: "@JcObdulioBundle/Controller/TipodeunidadController.php"
+    type:     annotation
+
+jc_obdulio_medida:
+    resource: "@JcObdulioBundle/Controller/MedidaController.php"
+    type:     annotation
+
 jc_obdulio_unidad:
     resource: "@JcObdulioBundle/Controller/UnidadController.php"
     type:     annotation

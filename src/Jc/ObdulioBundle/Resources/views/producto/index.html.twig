@@ -46,6 +46,7 @@
                               <th>C&oacute;digo</th>
                               <th>Nombre</th>
                               <th>Tipo de Producto</th>
+                               <th>Unidad de Medida</th>
                               <th style="width: 110px !important;">Acciones</th>
                           </tr>
                        </thead>
@@ -55,6 +56,7 @@
                                       <td>{{ producto.id }}</td>
                                       <td>{{ producto.nombre }}</td>
                                       <td>{{ producto.fktipoproducto.nombre }}</td>
+                                      <td>{{ producto.fkmedida.nombre }}</td>
                                       <td style="width: 110px !important;">
                                           {% if is_granted('ROLE_ADMINISTRADOR') %}
                                               <a href="{{ path('producto_edit', { id: producto.id }) }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar">
@@ -73,6 +75,8 @@
                          <th rowspan="1" colspan="1"><input placeholder="C&oacute;digo" type="text"></th>
                          <th rowspan="1" colspan="1"><input placeholder="Nombre" type="text"></th>
                           <th rowspan="1" colspan="1"><input placeholder="Tipo de Producto" type="text"></th>
+                             <th rowspan="1" colspan="1"><input placeholder="Unidad de Medida" type="text"></th>
+
                          <th style="width: 110px !important;"></th>
 
                      </tr>
@@ -122,7 +126,7 @@
                         text: '<i class="fa fa-files-o"></i> Copiar',
                         title: 'Reporte Producto',
                         exportOptions: {
-                            columns: [ 0, 1, 2]
+                            columns: [ 0, 1, 2, 3]
                         }
                     },
                     {
@@ -130,7 +134,7 @@
                         text: '<i class="fa fa-file-excel-o"></i> Excel',
                         title: 'Reporte Producto',
                         exportOptions: {
-                            columns: [ 0, 1, 2]
+                            columns: [ 0, 1, 2, 3]
                         }
                     },
                     {
@@ -138,7 +142,7 @@
                         text: '<i class="fa fa-file-pdf-o"></i> PDF',
                         title: 'Reporte Producto',
                         exportOptions: {
-                            columns: [ 0, 1, 2]
+                            columns: [ 0, 1, 2, 3]
                         }
                     },
                     {
@@ -146,7 +150,7 @@
                         text: '<i class="fa fa-print"></i> Imprimir',
                         title: 'Reporte Producto',
                         exportOptions: {
-                            columns: [ 0, 1, 2]
+                            columns: [ 0, 1, 2, 3]
                         }
                     },
                     {

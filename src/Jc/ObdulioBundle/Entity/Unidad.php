@@ -29,6 +29,11 @@ class Unidad
      * @ORM\Column(name="nombre", type="string", length=255, unique=true)
      */
     private $nombre;
+    /**
+     * @ORM\ManyToOne(targetEntity="Tipodeunidad", inversedBy="unidad")
+     * @ORM\JoinColumn(name="fk_tipodeunidad", referencedColumnName="id")
+     */
+    private $fkTipodeunidad;
 
     /**
      * @ORM\OneToMany(targetEntity="Produccion", mappedBy="fkUnidad")
@@ -125,6 +130,29 @@ class Unidad
     public function getPlanificacionproduccion()
     {
         return $this->planificacionproduccion;
+    }
+    /**
+     * Set fkTipodeunidad
+     *
+     * @param \Jc\ObdulioBundle\Entity\Tipodeunidad $fkTipodeunidad
+     *
+     * @return Unidad
+     */
+    public function setFkTipodeunidad(\Jc\ObdulioBundle\Entity\Tipodeunidad $fkTipodeunidad = null)
+    {
+        $this->fkTipodeunidad = $fkTipodeunidad;
+
+        return $this;
+    }
+
+    /**
+     * Get fkTipodeunidad
+     *
+     * @return \Jc\ObdulioBundle\Entity\Tipodeunidad
+     */
+    public function getFkTipodeunidad()
+    {
+        return $this->fkTipodeunidad;
     }
 }
 
