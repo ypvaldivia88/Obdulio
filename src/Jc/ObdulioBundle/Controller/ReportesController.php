@@ -4,27 +4,100 @@ namespace Jc\ObdulioBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Jc\ObdulioBundle\Repository\ReportesRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class ReportesController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if ($this->getUser() == NULL) {
             return $this->redirectToRoute('rh_usuarios_login');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $repo = new ReportesRepository($em);
-        $tiposProducto = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
-        $unidades = $em->getRepository('JcObdulioBundle:Unidad')->findAll();
+        $manager = $this->getDoctrine()->getManager();
+        $repo = new ReportesRepository($manager);
+        $listado = $repo->getMesActual();
 
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+            ->add('reporte', 'choice', array(
+                'choices' => array(
+                    'operativo'             => 'Operativo',
+                    'consejo_popular'       => 'Consejo Popular',
+                    'acumulado'             => 'Acumulado',
+                    'prod_cultivo'          => 'Prod x Cultivo',
+                    'huevo'                 => 'Huevo',
+                    'ventas_viandas'        => 'Ventas Viandas',
+                    'ventas_hortalizas'     => 'Ventas Hortalizas',
+                    'ventas_granos'         => 'Ventas Granos',
+                    'ventas_frutas'         => 'Ventas Frutas',
+                    'ventas_totales'        => 'Ventas Totales',
+                    'ventas_tot_est'        => 'Ventas Totales al Estado',
+                    'ventas_tot_est_dia'    => 'Ventas Totales al Estado Diario',
+                    'prod_dec_sem5'         => 'Producción Decenal - Semana 5',
+                    'prod_dec_sem4'         => 'Producción Decenal - Semana 4',
+                    'prod_dec_sem3'         => 'Producción Decenal - Semana 3',
+                    'prod_dec_sem2'         => 'Producción Decenal - Semana 2',
+                    'prod_dec_sem1'         => 'Producción Decenal - Semana 1',
+                    'sust_imp_anual'        => 'Sustitución Importaciones Anual',
+                    'sust_imp_mensual'      => 'Sustitución Importaciones Mensual',
+                    'ventas_est_plan_real'  => 'Ventas al Estado - Plan Real',
+                    'ventas_est_prod_total' => 'Ventas al Estado - Producción Total',
+                    'ratificado_mes'        => 'Ratificado Mes',
+                    'ratificado_acumulado'  => 'Ratificado Acumulado',
+                    'turismo'               => 'Turismo',
+
+                ),
+                'required'    => true,
+                'empty_value' => 'Selecciona un reporte',
+                'empty_data'  => null
+            ))
+            ->add('fechainicio', 'date')
+            ->add('fechafin', 'date')
+            ->add('tipoproducto', 'entity', array(
+                'class' => 'JcObdulioBundle:Tipoproducto',
+                'property' => 'nombre',
+                'required'    => false,
+                'empty_value' => 'Selecciona un tipo de prudcto',
+                'empty_data'  => null
+            ))
+            ->add('unidad', 'entity', array(
+                'class' => 'JcObdulioBundle:Unidad',
+                'property' => 'nombre',
+                'required'    => false,
+                'empty_value' => 'Selecciona una unidad',
+                'empty_data'  => null
+            ))
+            ->add('tipounidad', 'entity', array(
+                'class' => 'JcObdulioBundle:Tipodeunidad',
+                'property' => 'nombre',
+                'required'    => false,
+                'empty_value' => 'Selecciona un tipo de unidad',
+                'empty_data'  => null
+            ))
+            ->getForm();
+
+        $form->handleRequest($request);
+        
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $listado = $repo->getListadoReporte($data);  
+            
+            return $this->render(
+                'JcObdulioBundle:Reportes:index.html.twig',
+                array(
+                    'id_reporte' => $data['reporte'],
+                    'listado' => $listado,
+                    'form' => $form->createView(),
+                )
+            );
+        }
 
         return $this->render(
             'JcObdulioBundle:Reportes:index.html.twig',
             array(
-                'listado' => $repo->getMesActual(),
-                'tiposProducto' => $tiposProducto,
-                'unidades' => $unidades,
+                'listado' => $listado,
+                'form' => $form->createView(),
             )
         );
     }
@@ -40,7 +113,8 @@ class ReportesController extends Controller
 
         switch ($reporte) {
             case 'operativo':
-                return $this->render('JcObdulioBundle:Reportes:detalles.html.twig',
+                return $this->render(
+                    'JcObdulioBundle:Reportes:detalles.html.twig',
                     array(
                         'listado' => $repo->getOperativo($fechainicio, $fechafin, $idTipoProducto, $idUnidad),
                         'nombreReporte' => 'Operativo',

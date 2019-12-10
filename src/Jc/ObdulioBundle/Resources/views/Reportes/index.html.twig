@@ -37,45 +37,23 @@
 
       <div class="box-body">
 
-        <form class="form-inline">          
+        <form class="form-inline">
           <div class="form-group">
-            <label class="sr-only" for="slReportes">Seleccionar reporte</label>
-            <select class="form-control input-lg" name="reporte" id="slReportes">
-              <option disabled selected>Seleccionar reporte</option>
-              <option value="operativo">            Operativo</option>
-              <option value="consejo_popular">      Consejo Popular</option>
-              <option value="acumulado">            Acumulado</option>
-              <option value="prod_cultivo">         Prod x Cultivo</option>
-              <option value="huevo">                Huevo</option>
-              <option value="ventas_viandas">       Ventas Viandas</option>
-              <option value="ventas_hortalizas">    Ventas Hortalizas</option>
-              <option value="ventas_granos">        Ventas Granos</option>
-              <option value="ventas_frutas">        Ventas Frutas</option>
-              <option value="ventas_totales">       Ventas Totales</option>
-              <option value="ventas_tot_est">       Ventas Totales al Estado</option>
-              <option value="ventas_tot_est_dia">   Ventas Totales al Estado Diario</option>
-              <option value="prod_dec_sem5">        Producción Decenal - Semana 5</option>
-              <option value="prod_dec_sem4">        Producción Decenal - Semana 4</option>
-              <option value="prod_dec_sem3">        Producción Decenal - Semana 3</option>
-              <option value="prod_dec_sem2">        Producción Decenal - Semana 2</option>
-              <option value="prod_dec_sem1">        Producción Decenal - Semana 1</option>
-              <option value="sust_imp_anual">       Sustitución Importaciones Anual</option>
-              <option value="sust_imp_mensual">     Sustitución Importaciones Mensual</option>
-              <option value="ventas_est_plan_real"> Ventas al Estado - Plan Real</option>
-              <option value="ventas_est_prod_total">Ventas al Estado - Producción Total</option>
-              <option value="ratificado_mes">       Ratificado Mes</option>
-              <option value="ratificado_acumulado"> Ratificado Acumulado</option>
-              <option value="turismo">              Turismo</option>
-            </select>
+            {{ form_label(form.reporte) }}
+            {{ form_errors(form.reporte) }}
+            {{ form_widget(form.reporte, { 'attr': {'class': 'form-control input-lg'} }) }}
           </div>
           <div class="form-group">
-            <label class="sr-only" for="fechainicio">Fecha inicio</label>
-            <input type="datetime" name="fechaInicio" class="form-control" id="fechainicio" placeholder="Fecha Inicio">
+            {{ form_label(form.fechainicio) }}
+            {{ form_errors(form.fechainicio) }}
+            {{ form_widget(form.fechainicio, { 'attr': {'class': 'form-control input-lg'} }) }}
           </div>
           <div class="form-group">
-            <label class="sr-only" for="fechafin">Fecha final</label>
-            <input type="datetime" name="fechaFin" class="form-control" id="fechafin" placeholder="Fecha Fin">
+            {{ form_label(form.fechafin) }}
+            {{ form_errors(form.fechafin) }}
+            {{ form_widget(form.fechafin, { 'attr': {'class': 'form-control input-lg'} }) }}
           </div>
+
           <button type="submit" class="btn btn-primary">Ver Reporte</button>
 
           <button class="btn btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
@@ -86,22 +64,19 @@
           <div class="collapse" id="collapseFiltros">
             <div class="well">
               <div class="form-group">
-                <label class="sr-only" for="slTipoProd">Tipo de Producto</label>
-                <select class="form-control" name="TipoProducto" id="slTipoProd">
-                  <option disabled selected>Tipo de Producto</option>
-                  {% for tipo in tiposProducto %}
-                  <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
-                  {% endfor %}
-                </select>
+                {{ form_label(form.tipoproducto) }}
+                {{ form_errors(form.tipoproducto) }}
+                {{ form_widget(form.tipoproducto, { 'attr': {'class': 'form-control input-lg'} }) }}
               </div>
               <div class="form-group">
-                <label class="sr-only" for="slUnidad">Unidad</label>
-                <select class="form-control" name="Unidad" id="slUnidad">
-                  <option disabled selected>Unidad</option>
-                  {% for tipo in unidades %}
-                  <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
-                  {% endfor %}
-                </select>
+                {{ form_label(form.unidad) }}
+                {{ form_errors(form.unidad) }}
+                {{ form_widget(form.unidad, { 'attr': {'class': 'form-control input-lg'} }) }}
+              </div>
+              <div class="form-group">
+                {{ form_label(form.tipounidad) }}
+                {{ form_errors(form.tipounidad) }}
+                {{ form_widget(form.tipounidad, { 'attr': {'class': 'form-control input-lg'} }) }}
               </div>
             </div>
           </div>
@@ -117,46 +92,22 @@
     <div class="box">
 
       <div class="box-header with-border">
-        <h2 class="header-title">Listado de todos los prductos por unidades</h2>
+        <h2 class="header-title">Reporte de Producción</h2>
       </div>
 
       <div class="box-body">
-        <div class="table-responsive">
-          <table id="tb_operativos" class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Unidad</th>
-                <th>Tipo Producto</th>
-                <th>Producto</th>
-                <th>Plan</th>
-                <th>Real</th>
-                <th>Diferencia</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for item in listado %}
-              <tr>
-                <td>{{ item.unidad }}</td>
-                <td>{{ item.tipo }}</td>
-                <td>{{ item.producto }}</td>
-                <td>{{ item.plan }}</td>
-                <td>{{ item.real }}</td>
-                <td>{{ item.plan - item.real }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-            <tfoot>
-              <tr>
-                <th rowspan="1" colspan="1"><input placeholder="Unidad" type="text"></th>
-                <th rowspan="1" colspan="1"><input placeholder="Tipo Producto" type="text"></th>
-                <th rowspan="1" colspan="1"><input placeholder="Producto" type="text"></th>
-                <th rowspan="1" colspan="1"><input placeholder="Plan" type="text"></th>
-                <th rowspan="1" colspan="1"><input placeholder="Real" type="text"></th>
-                <th rowspan="1" colspan="1"><input placeholder="Diferencia" type="text"></th>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
+        {% switch reporte %}
+
+          {% case "operativo" %}
+            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+
+          {% case "value2" %}
+            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+
+          {% default %}
+            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+
+        {% endswitch %}
 
       </div>
       <!-- /.box-body -->
@@ -166,7 +117,7 @@
   </section>
   <!-- /.content -->
 </div>
-{% endblock %}
+{% endblock wrapper %}
 
 
 {% block javascripts %}
@@ -188,7 +139,7 @@
 
 <script>
   $(function () {
-    $('#slReportes, #slTipoProd, #slUnidad').select2();
+    $('#reporte, #tipoproducto, #unidad, #tipounidad').select2();
     $('#fechainicio').datepicker();
     $('#fechafin').datepicker();
     var table = $("#tb_operativos").DataTable({

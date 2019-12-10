@@ -66,7 +66,7 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
-    public function getOperativo($fechainicio,$fechafin,$idTipoProducto,$idUnidad){
+    public function getReporteFiltrado($fechainicio,$fechafin,$tipoproducto,$unidad,$tipounidad){
 
         if ($fechainicio == null) {
             $fechainicio = date($this->annoActual.'-'.$this->mesActual.'-1');
@@ -74,11 +74,15 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         if ($fechafin == null) {
             $fechafin = date($this->annoActual.'-'.$this->mesActual.'-'.$this->fechaActual->format('d'));
         }
-        if ($idTipoProducto == null) {
-            $idTipoProducto = '';
+        if ($tipoproducto == null) {
+            $tipoproducto = '';
         }
-        if ($idUnidad == null) {
-            $idUnidad = '';
+        if ($unidad == null) {
+            $unidad = '';
+        }
+
+        if ($tipounidad == null) {
+            $tipounidad = '';
         }
 
         $query = $this->entityManager->createQuery(
@@ -106,11 +110,13 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
             LEFT JOIN JcObdulioBundle:Planificacionproduccion pl WHERE pl.fkProducto = p.id
             LEFT JOIN JcObdulioBundle:Tipoproducto tp WHERE p.fkTipoproducto = tp.id
             LEFT JOIN JcObdulioBundle:Unidad u WHERE pr.fkUnidad = u.id AND pl.fkUnidad = u.id
+            LEFT JOIN JcObdulioBundle:Tipodeunidad tu WHERE tu.id = u.fkTipodeunidad
             WHERE
                 pr.fecha >= :fechainicio AND
                 pr.fecha <= :fechafin AND
                 tp.id = :idtp AND
-                u.id = :idu
+                u.id = :idu AND
+                tu.id = :idtu
             GROUP BY
                 p.nombre,
                 plan,
@@ -121,8 +127,9 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
             'mes' => $this->mesActual,
             'fechainicio' => $fechainicio,
             'fechafin' => $fechafin,
-            'idtp' => $idTipoProducto,
-            'idu' => $idUnidad,
+            'idtp' => $tipoproducto,
+            'idu' => $unidad,
+            'idtu' => $tipounidad,
         ));
         return $query->getResult();
     }
@@ -171,5 +178,53 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         ));
 
         return $query->getResult();
+    }
+
+    public function getListadoReporte($data)
+    {
+        switch ($data['reporte']) {
+            case 'operativo':
+            case 'consejo_popular':
+            case 'acumulado':
+            case 'prod_cultivo':
+            case 'huevo':
+            case 'ventas_viandas':
+            case 'ventas_hortalizas':
+            case 'ventas_granos':
+            case 'ventas_frutas':
+            case 'ventas_totales':
+            case 'ventas_tot_est':
+            case 'ventas_tot_est_dia':
+            case 'prod_dec_sem5':
+            case 'prod_dec_sem4':
+            case 'prod_dec_sem3':
+            case 'prod_dec_sem2':
+            case 'prod_dec_sem1':
+            case 'sust_imp_anual':
+            case 'sust_imp_mensual':
+            case 'ventas_est_plan_real':
+            case 'ventas_est_prod_total':
+            case 'ratificado_mes':
+            case 'ratificado_acumulado':
+            case 'turismo':
+                return $this->getReporteFiltrado(
+                    $data['fechainicio'],
+                    $data['fechafin'],
+                    $data['tipoproducto'],
+                    $data['unidad'],
+                    $data['tipounidad']
+                );
+                break;
+
+            default:
+                return $this->getReporteFiltrado(
+                    $data['fechainicio'],
+                    $data['fechafin'],
+                    $data['tipoproducto'],
+                    $data['unidad'],
+                    $data['tipounidad']
+                );
+                break;
+        }
     }
 }
