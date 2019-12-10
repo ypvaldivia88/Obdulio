@@ -96,18 +96,25 @@
       </div>
 
       <div class="box-body">
-        {% switch reporte %}
+        {#         {% switch reporte %}
+					
+					          {% case "operativo" %}
+					            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+					
+					          {% case "value2" %}
+					            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+					
+					          {% default %}
+					            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+					
+					        {% endswitch %} #}
 
-          {% case "operativo" %}
-            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+                  {% if reporte == 'operativo' %}
+                    {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+                  {% else %}
+                    {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
+                  {% endif %}
 
-          {% case "value2" %}
-            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
-
-          {% default %}
-            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
-
-        {% endswitch %}
 
       </div>
       <!-- /.box-body -->
@@ -211,7 +218,7 @@
     $('#tb_operativos tfoot tr').appendTo('#tb_operativos thead');
 
     $('input:text').attr('style',
-      'width: 100%'); // ojo con esto, es importante sino salen muy grandes los search por columnas
+    'width: 100%'); // ojo con esto, es importante sino salen muy grandes los search por columnas
     $('.dt-button').removeClass('buttons-html5');
     $('.dt-button').removeClass('buttons-copy');
     $('.dt-button').removeClass('buttons-pdf');

@@ -86,7 +86,7 @@ class ReportesController extends Controller
             return $this->render(
                 'JcObdulioBundle:Reportes:index.html.twig',
                 array(
-                    'id_reporte' => $data['reporte'],
+                    'reporte' => $data['reporte'],
                     'listado' => $listado,
                     'form' => $form->createView(),
                 )
@@ -96,6 +96,7 @@ class ReportesController extends Controller
         return $this->render(
             'JcObdulioBundle:Reportes:index.html.twig',
             array(
+                'reporte' => null,
                 'listado' => $listado,
                 'form' => $form->createView(),
             )
