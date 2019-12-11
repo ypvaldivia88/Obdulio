@@ -10,7 +10,8 @@
   <!-- FILTROS -->
   <div class="box-info">
     <div class="box-body">
-      <form class="form-inline">
+      {{ form_start(form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'class': 'form-inline'} }) }}
+      
         <div class="form-group">
           {{ form_errors(form.reporte) }}
           {{ form_widget(form.reporte, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
@@ -24,7 +25,7 @@
           {{ form_widget(form.fechafin, { 'attr': {'class': 'form-control datepicker', 'placeholder': 'Filtro Fecha fin'} }) }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Ver Reporte</button>
+        <input type="submit" class="btn btn-primary" />
 
         <button class="btn btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
           aria-expanded="false" aria-controls="collapseFiltros">
@@ -46,7 +47,7 @@
           </div>
         </div>
 
-      </form>
+        {{ form_end(form) }}
     </div>
     <!-- /.box-body -->
   </div>

@@ -10,6 +10,7 @@ class ReportesController extends Controller
 {
     public function indexAction(Request $request)
     {
+        //var_dump($request);
         if ($this->getUser() == NULL) {
             return $this->redirectToRoute('rh_usuarios_login');
         }
@@ -78,7 +79,7 @@ class ReportesController extends Controller
             ->getForm();
 
         $form->handleRequest($request);
-        
+        //var_dump($form->getData());
         if ($form->isValid()) {
             $data = $form->getData();
             $listado = $repo->getListadoReporte($data);            
