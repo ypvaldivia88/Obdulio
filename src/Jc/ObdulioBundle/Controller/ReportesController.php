@@ -49,30 +49,30 @@ class ReportesController extends Controller
 
                 ),
                 'required'    => true,
-                'empty_value' => 'Selecciona un reporte',
+                'empty_value' => 'Filtrar por Reporte',
                 'empty_data'  => null
             ))
-            ->add('fechainicio', 'date')
-            ->add('fechafin', 'date')
+            ->add('fechainicio', 'text')
+            ->add('fechafin', 'text')
             ->add('tipoproducto', 'entity', array(
                 'class' => 'JcObdulioBundle:Tipoproducto',
                 'property' => 'nombre',
                 'required'    => false,
-                'empty_value' => 'Selecciona un tipo de prudcto',
+                'empty_value' => 'Filtrar por Tipo de Producto',
                 'empty_data'  => null
             ))
             ->add('unidad', 'entity', array(
                 'class' => 'JcObdulioBundle:Unidad',
                 'property' => 'nombre',
                 'required'    => false,
-                'empty_value' => 'Selecciona una unidad',
+                'empty_value' => 'Filtrar por Unidad',
                 'empty_data'  => null
             ))
             ->add('tipounidad', 'entity', array(
                 'class' => 'JcObdulioBundle:Tipodeunidad',
                 'property' => 'nombre',
                 'required'    => false,
-                'empty_value' => 'Selecciona un tipo de unidad',
+                'empty_value' => 'Filtrar por Tipo de Unidad',
                 'empty_data'  => null
             ))
             ->getForm();
@@ -81,8 +81,7 @@ class ReportesController extends Controller
         
         if ($form->isValid()) {
             $data = $form->getData();
-            $listado = $repo->getListadoReporte($data);  
-            
+            $listado = $repo->getListadoReporte($data);            
             return $this->render(
                 'JcObdulioBundle:Reportes:index.html.twig',
                 array(

@@ -7,122 +7,83 @@
   {{ include('JcObdulioBundle:Default:messages/success.html.twig') }}
   {{ include('JcObdulioBundle:Default:messages/danger.html.twig') }}
 
-  <section class="content-header">
-    <h1>
-      Reportes
-      {#<small>it all starts here</small>#}
-    </h1>
-    <ol class="breadcrumb">
-      <li>
-        <a href="{{ path('inicio') }}">
-          <i class="glyphicon glyphicon-home"></i>
-          Inicio</a>
-      </li>
-      <li>
-        <a class="active">Reportes</a>
-      </li>
-    </ol>
-  </section>
+  <!-- FILTROS -->
+  <div class="box-info">
+    <div class="box-body">
+      <form class="form-inline">
+        <div class="form-group">
+          {{ form_errors(form.reporte) }}
+          {{ form_widget(form.reporte, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
+        </div>
+        <div class="form-group">
+          {{ form_errors(form.fechainicio) }}
+          {{ form_widget(form.fechainicio, { 'attr': {'class': 'form-control datepicker', 'placeholder': 'Filtro Fecha inicio'} }) }}
+        </div>
+        <div class="form-group">
+          {{ form_errors(form.fechafin) }}
+          {{ form_widget(form.fechafin, { 'attr': {'class': 'form-control datepicker', 'placeholder': 'Filtro Fecha fin'} }) }}
+        </div>
 
-  <!-- Main content -->
-  <section class="content">
+        <button type="submit" class="btn btn-primary">Ver Reporte</button>
 
-    <!-- Default box -->
-    <div class="box">
+        <button class="btn btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
+          aria-expanded="false" aria-controls="collapseFiltros">
+          Más filtros
+        </button>
+        <div class="collapse" id="collapseFiltros">
 
-      <div class="box-header with-border">
-        <h4 class="header-title">Seleccione un reporte y las fechas de inicio y fin</h4>
-
-      </div>
-
-      <div class="box-body">
-
-        <form class="form-inline">
           <div class="form-group">
-            {{ form_label(form.reporte) }}
-            {{ form_errors(form.reporte) }}
-            {{ form_widget(form.reporte, { 'attr': {'class': 'form-control input-lg'} }) }}
+            {{ form_errors(form.tipoproducto) }}
+            {{ form_widget(form.tipoproducto, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
           </div>
           <div class="form-group">
-            {{ form_label(form.fechainicio) }}
-            {{ form_errors(form.fechainicio) }}
-            {{ form_widget(form.fechainicio, { 'attr': {'class': 'form-control input-lg'} }) }}
+            {{ form_errors(form.unidad) }}
+            {{ form_widget(form.unidad, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
           </div>
           <div class="form-group">
-            {{ form_label(form.fechafin) }}
-            {{ form_errors(form.fechafin) }}
-            {{ form_widget(form.fechafin, { 'attr': {'class': 'form-control input-lg'} }) }}
+            {{ form_errors(form.tipounidad) }}
+            {{ form_widget(form.tipounidad, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
           </div>
+        </div>
 
-          <button type="submit" class="btn btn-primary">Ver Reporte</button>
-
-          <button class="btn btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
-            aria-expanded="false" aria-controls="collapseFiltros">
-            Más filtros
-          </button>
-
-          <div class="collapse" id="collapseFiltros">
-            <div class="well">
-              <div class="form-group">
-                {{ form_label(form.tipoproducto) }}
-                {{ form_errors(form.tipoproducto) }}
-                {{ form_widget(form.tipoproducto, { 'attr': {'class': 'form-control input-lg'} }) }}
-              </div>
-              <div class="form-group">
-                {{ form_label(form.unidad) }}
-                {{ form_errors(form.unidad) }}
-                {{ form_widget(form.unidad, { 'attr': {'class': 'form-control input-lg'} }) }}
-              </div>
-              <div class="form-group">
-                {{ form_label(form.tipounidad) }}
-                {{ form_errors(form.tipounidad) }}
-                {{ form_widget(form.tipounidad, { 'attr': {'class': 'form-control input-lg'} }) }}
-              </div>
-            </div>
-          </div>
-
-        </form>
-
-      </div>
-      <!-- /.box-body -->
+      </form>
     </div>
-    <!-- /.box -->
+    <!-- /.box-body -->
+  </div>
+  <!-- /.FILTROS -->
 
-    <!-- Default box -->
-    <div class="box">
+  {% if reporte == null %}{{ include('JcObdulioBundle:Reportes:general.html.twig') }}{% endif %}
+  {% if reporte == 'operativo' %} {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }} {% endif %}
+  {% if reporte == 'consejo_popular' %} {{ include('JcObdulioBundle:Reportes:consejo_popular.html.twig') }} {% endif %}
+  {% if reporte == 'acumulado' %} {{ include('JcObdulioBundle:Reportes:acumulado.html.twig') }} {% endif %}
+  {% if reporte == 'prod_cultivo' %} {{ include('JcObdulioBundle:Reportes:prod_cultivo.html.twig') }} {% endif %}
+  {% if reporte == 'huevo' %} {{ include('JcObdulioBundle:Reportes:huevo.html.twig') }} {% endif %}
+  {% if reporte == 'ventas_viandas' %} {{ include('JcObdulioBundle:Reportes:ventas_viandas.html.twig') }} {% endif %}
+  {% if reporte == 'ventas_hortalizas' %} {{ include('JcObdulioBundle:Reportes:ventas_hortalizas.html.twig') }}
+  {% endif %}
+  {% if reporte == 'ventas_granos' %} {{ include('JcObdulioBundle:Reportes:ventas_granos.html.twig') }} {% endif %}
+  {% if reporte == 'ventas_frutas' %} {{ include('JcObdulioBundle:Reportes:ventas_frutas.html.twig') }} {% endif %}
+  {% if reporte == 'ventas_totales' %} {{ include('JcObdulioBundle:Reportes:ventas_totales.html.twig') }} {% endif %}
+  {% if reporte == 'ventas_tot_est' %} {{ include('JcObdulioBundle:Reportes:ventas_tot_est.html.twig') }} {% endif %}
+  {% if reporte == 'ventas_tot_est_dia' %}
+  {{ include('JcObdulioBundle:Reportes:ventas_tot_est_dia.html.twig') }}{% endif %}
+  {% if reporte == 'prod_dec_sem5' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem5.html.twig') }} {% endif %}
+  {% if reporte == 'prod_dec_sem4' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem4.html.twig') }} {% endif %}
+  {% if reporte == 'prod_dec_sem3' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem3.html.twig') }} {% endif %}
+  {% if reporte == 'prod_dec_sem2' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem2.html.twig') }} {% endif %}
+  {% if reporte == 'prod_dec_sem1' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem1.html.twig') }} {% endif %}
+  {% if reporte == 'sust_imp_anual' %} {{ include('JcObdulioBundle:Reportes:sust_imp_anual.html.twig') }}{% endif %}
+  {% if reporte == 'sust_imp_mensual' %} {{ include('JcObdulioBundle:Reportes:sust_imp_mensual.html.twig') }}{% endif %}
+  {% if reporte == 'ventas_est_plan_real' %} {{ include('JcObdulioBundle:Reportes:ventas_est_plan_real.html.twig') }}
+  {% endif %}
+  {% if reporte == 'ventas_est_prod_total' %} {{ include('JcObdulioBundle:Reportes:ventas_est_prod_total.html.twig') }}
+  {% endif %}
+  {% if reporte == 'ratificado_mes' %} {{ include('JcObdulioBundle:Reportes:ratificado_mes.html.twig') }} {% endif %}
+  {% if reporte == 'ratificado_acumulado' %} {{ include('JcObdulioBundle:Reportes:ratificado_acumulado.html.twig') }}
+  {% endif %}
+  {% if reporte == 'turismo' %} {{ include('JcObdulioBundle:Reportes:turismo.html.twig') }} {% endif %}
 
-      <div class="box-header with-border">
-        <h2 class="header-title">Reporte de Producción</h2>
-      </div>
 
-      <div class="box-body">
-        {#         {% switch reporte %}
-					
-					          {% case "operativo" %}
-					            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
-					
-					          {% case "value2" %}
-					            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
-					
-					          {% default %}
-					            {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
-					
-					        {% endswitch %} #}
-
-                  {% if reporte == 'operativo' %}
-                    {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
-                  {% else %}
-                    {{ include('JcObdulioBundle:Reportes:operativo.html.twig') }}
-                  {% endif %}
-
-
-      </div>
-      <!-- /.box-body -->
-    </div>
-    <!-- /.box -->
-
-  </section>
-  <!-- /.content -->
 </div>
 {% endblock wrapper %}
 
@@ -133,7 +94,6 @@
 <script src="{{ asset('public/select2/dist/js/i18n/es.js') }}"></script>
 <script src="{{ asset('public/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('public/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js') }}"></script>
-<script src="{{ asset('bundles/rh/js/delete-user.js') }}"></script>
 <script src="{{ asset('public/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('public/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('public/export/buttons.html5.min.js') }}"></script>
@@ -146,10 +106,9 @@
 
 <script>
   $(function () {
-    $('#reporte, #tipoproducto, #unidad, #tipounidad').select2();
-    $('#fechainicio').datepicker();
-    $('#fechafin').datepicker();
-    var table = $("#tb_operativos").DataTable({
+    $('.select2-single').select2();
+    $('.datepicker').datepicker();
+    var table = $(".datatable").DataTable({
       paging: true,
       lengthChange: true,
       searching: true,
@@ -162,7 +121,7 @@
           text: '<i class="fa fa-files-o"></i> Copiar',
           title: 'Reporte operativo',
           exportOptions: {
-            columns: [1, 2, 3, 4]
+            columns: [1, 2, 3, 4, 5, 6]
           }
         },
         {
@@ -170,7 +129,7 @@
           text: '<i class="fa fa-file-excel-o"></i> Excel',
           title: 'Reporte operativo',
           exportOptions: {
-            columns: [1, 2, 3, 4]
+            columns: [1, 2, 3, 4, 5, 6]
           }
         },
         {
@@ -178,7 +137,7 @@
           text: '<i class="fa fa-file-pdf-o"></i> PDF',
           title: 'Reporte operativo',
           exportOptions: {
-            columns: [1, 2, 3, 4]
+            columns: [1, 2, 3, 4, 5, 6]
           }
         },
         {
@@ -186,7 +145,7 @@
           text: '<i class="fa fa-print"></i> Imprimir',
           title: 'Reporte operativo',
           exportOptions: {
-            columns: [1, 2, 3, 4]
+            columns: [1, 2, 3, 4, 5, 6]
           }
         }, {
           extend: 'colvis',
@@ -218,7 +177,7 @@
     $('#tb_operativos tfoot tr').appendTo('#tb_operativos thead');
 
     $('input:text').attr('style',
-    'width: 100%'); // ojo con esto, es importante sino salen muy grandes los search por columnas
+      'width: 100%'); // ojo con esto, es importante sino salen muy grandes los search por columnas
     $('.dt-button').removeClass('buttons-html5');
     $('.dt-button').removeClass('buttons-copy');
     $('.dt-button').removeClass('buttons-pdf');

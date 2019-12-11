@@ -1,36 +1,42 @@
-<div class="table-responsive">
-	<table id="tb_reporte" class="table table-striped table-hover">
-		<thead>
-			<tr>
-				<th>Unidad</th>
-				<th>Tipo Producto</th>
-				<th>Producto</th>
-				<th>Plan</th>
-				<th>Real</th>
-				<th>Diferencia</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for item in listado %}
+<div class="box-header with-border">
+	<h2 class="header-title">Reporte de Producción: Operativo</h2>
+</div>
+
+<div class="box-body">
+	<div class="table-responsive">
+		<table id="tb_reporte" class="table table-striped table-hover">
+			<thead>
 				<tr>
-					<td>{{ item.unidad }}</td>
-					<td>{{ item.tipo }}</td>
-					<td>{{ item.producto }}</td>
-					<td>{{ item.plan }}</td>
-					<td>{{ item.real }}</td>
-					<td>{{ item.plan - item.real }}</td>
+					<th>Unidad</th>
+					<th>Tipo Producto</th>
+					<th>Producto</th>
+					<th>Plan</th>
+					<th>Real</th>
+					<th>Diferencia</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-		<tfoot>
-			<tr>
-				<th rowspan="1" colspan="1"><input placeholder="Unidad" type="text"></th>
-				<th rowspan="1" colspan="1"><input placeholder="Tipo Producto" type="text"></th>
-				<th rowspan="1" colspan="1"><input placeholder="Producto" type="text"></th>
-				<th rowspan="1" colspan="1"><input placeholder="Plan" type="text"></th>
-				<th rowspan="1" colspan="1"><input placeholder="Real" type="text"></th>
-				<th rowspan="1" colspan="1"><input placeholder="Diferencia" type="text"></th>
-			</tr>
-		</tfoot>
-	</table>
+			</thead>
+			<tbody>
+				{% for item in listado %}
+					<tr>
+						<td>{{ item.unidad }}</td>
+						<td>{{ item.tipo }}</td>
+						<td>{{ item.producto }}</td>
+						<td>{{ item.plan }}</td>
+						<td>{{ item.real }}</td>
+						<td>{{ item.plan - item.real }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th rowspan="1" colspan="1"><input placeholder="Unidad" type="text"></th>
+					<th rowspan="1" colspan="1"><input placeholder="Tipo Producto" type="text"></th>
+					<th rowspan="1" colspan="1"><input placeholder="Producto" type="text"></th>
+					<th rowspan="1" colspan="1"><input placeholder="Plan" type="text"></th>
+					<th rowspan="1" colspan="1"><input placeholder="Real" type="text"></th>
+					<th rowspan="1" colspan="1"><input placeholder="Diferencia" type="text"></th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
 </div>
