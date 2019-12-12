@@ -2,9 +2,11 @@ rh_usuarios_user:
     resource: "@JcObdulioBundle/Resources/config/routes/usuarios.yml"
     prefix:   /usuarios
 
+# Reportes
+
 reportes:
-    resource: "@JcObdulioBundle/Resources/config/routes/reportes.yml"
-    prefix:   /reportes
+    path:     /
+    defaults: { _controller: JcObdulioBundle:Reportes:index }
     
 # Autentication
 
