@@ -5,7 +5,7 @@ rh_usuarios_user:
 # Reportes
 
 reportes:
-    path:     /
+    path:     /reportes
     defaults: { _controller: JcObdulioBundle:Reportes:index }
     
 # Autentication

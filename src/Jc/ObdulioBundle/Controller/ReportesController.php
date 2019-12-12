@@ -17,22 +17,23 @@ class ReportesController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $repo = new ReportesRepository($em);
-        $listado = $repo->getMesActual();
+        $reporte = $repo->getMesActual();
+        $totales = $repo->getTotales();
         $tipos = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
         
         $form = $this->createForm('Jc\ObdulioBundle\Form\ReporteType');
         $form->handleRequest($request);
 
-        //var_dump($form->getData());
         if ($form->isValid()) {
-            $data = $form->getData();
-            $listado = $repo->getListadoReporte($data);            
+            $filtro = $form->getData();
+            $reporte = $repo->getReporte($filtro);            
             return $this->render(
                 'JcObdulioBundle:Reportes:index.html.twig',
                 array(
                     'form' => $form->createView(),
-                    'reporte' => $data['reporte'],
-                    'listado' => $listado,
+                    'reporte_nombre' => $filtro['reporte'],
+                    'reporte_datos' => $reporte,
+                    'totales' => $totales,
                     'tipos_producto' => $tipos,
                 )
             );
@@ -42,8 +43,9 @@ class ReportesController extends Controller
             'JcObdulioBundle:Reportes:index.html.twig',
             array(
                 'form' => $form->createView(),
-                'reporte' => null,
-                'listado' => $listado,
+                'reporte_nombre' => null,
+                'reporte_datos' => $reporte,
+                'totales' => $totales,
                 'tipos_producto' => $tipos,
             )
         );

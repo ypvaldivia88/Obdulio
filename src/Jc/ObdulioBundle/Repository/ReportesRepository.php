@@ -66,7 +66,49 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
-    public function getReporteFiltrado($fechainicio,$fechafin,$tipoproducto,$unidad,$tipounidad){
+    public function getReporte($filtro)
+    {
+        switch ($filtro['reporte']) {
+            case 'operativo':
+            case 'consejo_popular':
+            case 'acumulado':
+            case 'prod_cultivo':
+            case 'huevo':
+            case 'ventas_viandas':
+            case 'ventas_hortalizas':
+            case 'ventas_granos':
+            case 'ventas_frutas':
+            case 'ventas_totales':
+            case 'ventas_tot_est':
+            case 'ventas_tot_est_dia':
+            case 'prod_dec_sem5':
+            case 'prod_dec_sem4':
+            case 'prod_dec_sem3':
+            case 'prod_dec_sem2':
+            case 'prod_dec_sem1':
+            case 'sust_imp_anual':
+            case 'sust_imp_mensual':
+            case 'ventas_est_plan_real':
+            case 'ventas_est_prod_total':
+            case 'ratificado_mes':
+            case 'ratificado_acumulado':
+            case 'turismo':
+                return $this->getGeneralFiltrado($filtro);
+                break;
+
+            default:
+                return $this->getGeneralFiltrado($filtro);
+                break;
+        }
+    }
+
+    public function getGeneralFiltrado($filtro){
+
+        $fechainicio = $filtro['fechainicio'];
+        $fechafin = $filtro['fechafin'];
+        $tipoproducto = $filtro['tipoproducto'];
+        $unidad = $filtro['unidad'];
+        $tipounidad = $filtro['tipounidad'];
 
         if ($fechainicio == null) {
             $fechainicio = date($this->annoActual.'-'.$this->mesActual.'-1');
@@ -134,7 +176,7 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
-    public function getTotales($tipoProducto){
+    public function getTotales(){
         $query = $this->entityManager->createQuery(
             "SELECT
                 Sum(p.valor) AS real,
@@ -161,9 +203,7 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
             INNER JOIN JcObdulioBundle:Tipoproducto AS tp WHERE pr.fkTipoproducto = tp.id
             INNER JOIN JcObdulioBundle:Unidad AS u WHERE p.fkUnidad = u.id
             INNER JOIN JcObdulioBundle:Planificacionproduccion AS pl WHERE pl.fkProducto = pr.id AND pl.fkUnidad = u.id
-            WHERE
-                tp.id = :tipoProducto
-            AND
+            WHERE                
                 p.fecha >= :inicioMes
             GROUP BY
                 tp.nombre,
@@ -173,58 +213,9 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         $inicioMes = date($this->annoActual.'-'.$this->mesActual.'-1');
         $query->setParameters(array(
             'mesActual' => $this->mesActual,
-            'tipoProducto' => $tipoProducto,
             'inicioMes' => $inicioMes,
         ));
 
         return $query->getResult();
-    }
-
-    public function getListadoReporte($data)
-    {
-        switch ($data['reporte']) {
-            case 'operativo':
-            case 'consejo_popular':
-            case 'acumulado':
-            case 'prod_cultivo':
-            case 'huevo':
-            case 'ventas_viandas':
-            case 'ventas_hortalizas':
-            case 'ventas_granos':
-            case 'ventas_frutas':
-            case 'ventas_totales':
-            case 'ventas_tot_est':
-            case 'ventas_tot_est_dia':
-            case 'prod_dec_sem5':
-            case 'prod_dec_sem4':
-            case 'prod_dec_sem3':
-            case 'prod_dec_sem2':
-            case 'prod_dec_sem1':
-            case 'sust_imp_anual':
-            case 'sust_imp_mensual':
-            case 'ventas_est_plan_real':
-            case 'ventas_est_prod_total':
-            case 'ratificado_mes':
-            case 'ratificado_acumulado':
-            case 'turismo':
-                return $this->getReporteFiltrado(
-                    $data['fechainicio'],
-                    $data['fechafin'],
-                    $data['tipoproducto'],
-                    $data['unidad'],
-                    $data['tipounidad']
-                );
-                break;
-
-            default:
-                return $this->getReporteFiltrado(
-                    $data['fechainicio'],
-                    $data['fechafin'],
-                    $data['tipoproducto'],
-                    $data['unidad'],
-                    $data['tipounidad']
-                );
-                break;
-        }
     }
 }
