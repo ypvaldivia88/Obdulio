@@ -14,7 +14,10 @@
       
         <div class="form-group">
           {{ form_errors(form.reporte) }}
-          {{ form_widget(form.reporte, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
+          {{ form_widget(form.reporte, { 'attr': {
+            'class': 'form-control input-lg select2-single',
+            'data-placeholder': 'Seleccione un Reporte'
+          } }) }}
         </div>
         <div class="form-group">
           {{ form_errors(form.fechainicio) }}
@@ -25,7 +28,7 @@
           {{ form_widget(form.fechafin, { 'attr': {'class': 'form-control datepicker', 'placeholder': 'Filtro Fecha fin'} }) }}
         </div>
 
-        <input type="submit" class="btn btn-primary" />
+        <input type="submit" class="btn btn-primary" value="Ver Reporte" />
 
         <button class="btn btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
           aria-expanded="false" aria-controls="collapseFiltros">
@@ -35,15 +38,24 @@
 
           <div class="form-group">
             {{ form_errors(form.tipoproducto) }}
-            {{ form_widget(form.tipoproducto, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
+            {{ form_widget(form.tipoproducto, { 'attr': {
+              'class': 'form-control input-lg select2-single',
+              'data-placeholder': 'Seleccione un Tipo de Producto'
+            } }) }}
           </div>
           <div class="form-group">
             {{ form_errors(form.unidad) }}
-            {{ form_widget(form.unidad, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
+            {{ form_widget(form.unidad, { 'attr': {
+              'class': 'form-control input-lg select2-single',
+              'data-placeholder': 'Seleccione una Unidad'
+            } }) }}
           </div>
           <div class="form-group">
             {{ form_errors(form.tipounidad) }}
-            {{ form_widget(form.tipounidad, { 'attr': {'class': 'form-control input-lg select2-single'} }) }}
+            {{ form_widget(form.tipounidad, { 'attr': {
+              'class': 'form-control input-lg select2-single',
+              'data-placeholder': 'Seleccione un Tipo de Unidad'
+            } }) }}
           </div>
         </div>
 
@@ -60,14 +72,12 @@
   {% if reporte == 'prod_cultivo' %} {{ include('JcObdulioBundle:Reportes:prod_cultivo.html.twig') }} {% endif %}
   {% if reporte == 'huevo' %} {{ include('JcObdulioBundle:Reportes:huevo.html.twig') }} {% endif %}
   {% if reporte == 'ventas_viandas' %} {{ include('JcObdulioBundle:Reportes:ventas_viandas.html.twig') }} {% endif %}
-  {% if reporte == 'ventas_hortalizas' %} {{ include('JcObdulioBundle:Reportes:ventas_hortalizas.html.twig') }}
-  {% endif %}
+  {% if reporte == 'ventas_hortalizas' %} {{ include('JcObdulioBundle:Reportes:ventas_hortalizas.html.twig') }} {% endif %}
   {% if reporte == 'ventas_granos' %} {{ include('JcObdulioBundle:Reportes:ventas_granos.html.twig') }} {% endif %}
   {% if reporte == 'ventas_frutas' %} {{ include('JcObdulioBundle:Reportes:ventas_frutas.html.twig') }} {% endif %}
   {% if reporte == 'ventas_totales' %} {{ include('JcObdulioBundle:Reportes:ventas_totales.html.twig') }} {% endif %}
-  {% if reporte == 'ventas_tot_est' %} {{ include('JcObdulioBundle:Reportes:ventas_tot_est.html.twig') }} {% endif %}
-  {% if reporte == 'ventas_tot_est_dia' %}
-  {{ include('JcObdulioBundle:Reportes:ventas_tot_est_dia.html.twig') }}{% endif %}
+  {% if reporte == 'ventas_tot_est' %} {{ include('JcObdulioBundle:Reportes:ventas_tot_est.html.twig') }} {% endif %} 
+  {% if reporte == 'ventas_tot_est_dia' %} {{ include('JcObdulioBundle:Reportes:ventas_tot_est_dia.html.twig') }}{% endif %}
   {% if reporte == 'prod_dec_sem5' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem5.html.twig') }} {% endif %}
   {% if reporte == 'prod_dec_sem4' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem4.html.twig') }} {% endif %}
   {% if reporte == 'prod_dec_sem3' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem3.html.twig') }} {% endif %}
@@ -75,13 +85,10 @@
   {% if reporte == 'prod_dec_sem1' %} {{ include('JcObdulioBundle:Reportes:prod_dec_sem1.html.twig') }} {% endif %}
   {% if reporte == 'sust_imp_anual' %} {{ include('JcObdulioBundle:Reportes:sust_imp_anual.html.twig') }}{% endif %}
   {% if reporte == 'sust_imp_mensual' %} {{ include('JcObdulioBundle:Reportes:sust_imp_mensual.html.twig') }}{% endif %}
-  {% if reporte == 'ventas_est_plan_real' %} {{ include('JcObdulioBundle:Reportes:ventas_est_plan_real.html.twig') }}
-  {% endif %}
-  {% if reporte == 'ventas_est_prod_total' %} {{ include('JcObdulioBundle:Reportes:ventas_est_prod_total.html.twig') }}
-  {% endif %}
+  {% if reporte == 'ventas_est_plan_real' %} {{ include('JcObdulioBundle:Reportes:ventas_est_plan_real.html.twig') }} {% endif %}
+  {% if reporte == 'ventas_est_prod_total' %} {{ include('JcObdulioBundle:Reportes:ventas_est_prod_total.html.twig') }} {% endif %}
   {% if reporte == 'ratificado_mes' %} {{ include('JcObdulioBundle:Reportes:ratificado_mes.html.twig') }} {% endif %}
-  {% if reporte == 'ratificado_acumulado' %} {{ include('JcObdulioBundle:Reportes:ratificado_acumulado.html.twig') }}
-  {% endif %}
+  {% if reporte == 'ratificado_acumulado' %} {{ include('JcObdulioBundle:Reportes:ratificado_acumulado.html.twig') }} {% endif %}
   {% if reporte == 'turismo' %} {{ include('JcObdulioBundle:Reportes:turismo.html.twig') }} {% endif %}
 
 
@@ -177,8 +184,8 @@
 
     $('#tb_operativos tfoot tr').appendTo('#tb_operativos thead');
 
-    $('input:text').attr('style',
-      'width: 100%'); // ojo con esto, es importante sino salen muy grandes los search por columnas
+    /* $('input:text').attr('style',
+      'width: 100%'); // ojo con esto, es importante sino salen muy grandes los search por columnas */
     $('.dt-button').removeClass('buttons-html5');
     $('.dt-button').removeClass('buttons-copy');
     $('.dt-button').removeClass('buttons-pdf');
