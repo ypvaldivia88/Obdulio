@@ -94,8 +94,11 @@
 													<td>{{ total.plan }}</td>
 													<td>{{ total.real }}</td>
 													<td>{{ total.plan - total.real }}</td>
-													<td>{{ (total.real * 100 / total.plan) |round(2,'common') }}
-														%</td>
+													{% if total.plan == 0 %}
+														<td>No hay plan</td>
+													{% else %}
+													<td>{{ (total.real * 100 / total.plan) |round(2,'common') }}%</td>
+													{% endif %}		
 												</tr>
 											{% endif %}
 										{% endfor %}
