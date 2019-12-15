@@ -10,15 +10,15 @@ class ReportesController extends Controller
 {
     public function indexAction(Request $request)
     {
-        //var_dump($request);
         if ($this->getUser() == NULL) {
             return $this->redirectToRoute('rh_usuarios_login');
         }
 
         $em = $this->getDoctrine()->getManager();
         $repo = new ReportesRepository($em);
-        $reporte = $repo->getMesActual();
-        $totales = $repo->getTotales();
+
+        $reporte = $repo->getReporteMesActual();
+        $totales = $repo->getReporteMesActualTotales();
         $tipos = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
         
         $form = $this->createForm('Jc\ObdulioBundle\Form\ReporteType');
@@ -26,7 +26,8 @@ class ReportesController extends Controller
 
         if ($form->isValid()) {
             $filtro = $form->getData();
-            $reporte = $repo->getReporte($filtro);            
+            $reporte = $repo->getReporteFiltrado($filtro);            
+            $totales = $repo->getReporteFiltradoTotales($filtro);            
             return $this->render(
                 'JcObdulioBundle:Reportes:index.html.twig',
                 array(
