@@ -1,9 +1,99 @@
 reportes_general:
     path:     /general
     defaults: { _controller: JcObdulioBundle:Reportes:general }
-    methods: [POST, GET]
 
 reportes_acumulado:
     path:     /acumulado
     defaults: { _controller: JcObdulioBundle:Reportes:acumulado }
-    methods: [POST, GET]
+
+reportes_consejo_popular:
+    path:     /consejo-popular
+    defaults: { _controller: JcObdulioBundle:Reportes:consejo_popular }
+
+reportes_huevo:
+    path:     /huevo
+    defaults: { _controller: JcObdulioBundle:Reportes:huevo }
+
+reportes_operativo:
+    path:     /operativo
+    defaults: { _controller: JcObdulioBundle:Reportes:operativo }
+
+reportes_prod_cultivo:
+    path:     /produccionXcultivo
+    defaults: { _controller: JcObdulioBundle:Reportes:prod_cultivo }
+
+reportes_prod_dec_sem1:
+    path:     /produccion-decenal/semana-1
+    defaults: { _controller: JcObdulioBundle:Reportes:prod_dec_sem1 }
+
+reportes_prod_dec_sem2:
+    path:     /produccion-decenal/semana-2
+    defaults: { _controller: JcObdulioBundle:Reportes:prod_dec_sem2 }
+
+reportes_prod_dec_sem3:
+    path:     /produccion-decenal/semana-3
+    defaults: { _controller: JcObdulioBundle:Reportes:prod_dec_sem3 }
+
+reportes_prod_dec_sem4:
+    path:     /produccion-decenal/semana-4
+    defaults: { _controller: JcObdulioBundle:Reportes:prod_dec_sem4 }
+
+reportes_prod_dec_sem5:
+    path:     /produccion-decenal/semana-5
+    defaults: { _controller: JcObdulioBundle:Reportes:prod_dec_sem5 }
+
+reportes_ratificado_acumulado:
+    path:     /ratificado/acumulado
+    defaults: { _controller: Jc/ObdulioBundle:Reportes:ratificado_acumulado }
+
+reportes_ratificado_mes:
+    path:     /ratificado/mes
+    defaults: { _controller: Jc/ObdulioBundle:Reportes:ratificado_mes }
+
+reportes_sust_imp_anual:
+    path:     /sustitucion-importaciones/anual
+    defaults: { _controller: JcObdulioBundle:Reportes:sust_imp_anual }
+
+reportes_sust_imp_mensual:
+    path:     /sustitucion-importaciones/mensual
+    defaults: { _controller: JcObdulioBundle:Reportes:sust_imp_mensual }
+
+reportes_turismo:
+    path:     /turismo
+    defaults: { _controller: JcObdulioBundle:Reportes:turismo }
+
+reportes_ventas_est_plan_real:
+    path:     /ventas-estado/plan-real
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_est_plan_real }
+
+reportes_ventas_est_prod_total:
+    path:     /ventas-estado/produccion-total
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_est_prod_total }
+
+reportes_ventas_frutas:
+    path:     /ventas/frutas
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_frutas }
+
+reportes_ventas_granos:
+    path:     /ventas/granos
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_granos }
+
+reportes_ventas_hortalizas:
+    path:     /ventas/hortalizas
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_hortalizas }
+
+reportes_ventas_tot_est_dia:
+    path:     /ventas-totales-estado/diario
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_tot_est_dia }
+
+reportes_ventas_tot_est:
+    path:     /ventas-totales-estado
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_tot_est }
+
+reportes_ventas_totales:
+    path:     /ventas-totales
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_totales }
+
+reportes_ventas_viandas:
+    path:     /ventas/viandas
+    defaults: { _controller: JcObdulioBundle:Reportes:ventas_viandas }
