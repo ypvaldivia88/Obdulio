@@ -12,23 +12,45 @@ use DateTime;
 class ReportesRepository extends \Doctrine\ORM\EntityRepository
 {
     private $em;
-    private $fechaActual;
-    private $mesActual;
-    private $annoActual;
 
     public function __construct($em)
     {
         $this->em = $em;
-        $this->fechaActual = new DateTime('NOW');
-        $this->annoActual = $this->fechaActual->format('Y');
-        $this->mesActual = $this->fechaActual->format('m');
     }
+    //Devuelve todos los datos asociados a los reportes
+    public function getReporteGeneral($filtro)
+    {       
+        $fechainicio = date('Y-m-1');
+        $fechafin = date('Y-m-d');
+        $tipoproducto = '%';
+        $unidad = '%';
+        $tipounidad = '%'; 
+        $destino = '%'; 
 
-    public function getMesActual(){
-        $inicioMes = date($this->annoActual.'-'.$this->mesActual.'-1');
+        if ($filtro) {
+            if($filtro['fechainicio'] != null)
+                $fechainicio = $filtro['fechainicio'];
+            if($filtro['fechafin'] != null)
+                $fechafin = $filtro['fechafin'];
+            if($filtro['tipoproducto'] != null)
+                $tipoproducto = $filtro['tipoproducto'];
+            if($filtro['unidad'] != null)
+                $unidad = $filtro['unidad'];
+            if($filtro['tipounidad'] != null)
+                $tipounidad = $filtro['tipounidad'];
+            if($filtro['destino'] != null)
+                $destino = $filtro['destino'];
+        }
+        
         $query = $this->em->createQuery(
             "SELECT
-                Sum( pr.valor ) AS real,	
+                pri.valor AS real,
+                pri.fecha,
+                pri.factura,
+                prt.nombre AS producto,
+                tp.nombre AS tipoproducto,
+                u.nombre AS unidad,
+                tu.nombre AS tipounidad,
                 CASE 
                     WHEN :mesActual = 1 THEN pl.enero 
                     WHEN :mesActual = 2 THEN pl.febrero 
@@ -43,147 +65,55 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
                     WHEN :mesActual = 11 THEN pl.noviembre 
                     ELSE pl.diciembre 
                 END AS plan,
-                p.nombre AS producto,
-                tp.nombre AS tipo,
-                u.nombre AS unidad
-            FROM JcObdulioBundle:Produccion pr
-            LEFT JOIN pr.fkProducto p
-            LEFT JOIN p.planificacionproduccion pl
-            LEFT JOIN p.fkTipoproducto tp
-            LEFT JOIN JcObdulioBundle:Unidad u WHERE pr.fkUnidad = u.id AND pl.fkUnidad = u.id
-            WHERE
-                pr.fecha >= :inicioMes
-            GROUP BY
-                p.nombre,
-                plan,
-                tp.nombre,
-                u.nombre"
+                d.nombre AS destino
+            FROM
+                JcObdulioBundle:Produccion pri
+                JOIN pri.fkProducto prt
+                JOIN pri.fkUnidad u
+                JOIN u.fkTipodeunidad tu
+                JOIN prt.fkTipoproducto tp
+                JOIN prt.planificacionproduccion pl
+                JOIN pri.fkDestino d
+            WHERE pri.fecha >= :fechainicio
+                AND pri.fecha <= :fechafin 
+                AND pl.anno = :annoActual
+                AND tp.id LIKE :idtp 
+                AND u.id LIKE :idu 
+                AND tu.id LIKE :idtu
+                AND d.id LIKE :idd"
         );
         $query->setParameters(array(
-            'mesActual' => $this->mesActual,
-            'inicioMes' => $inicioMes,
-        ));
-        return $query->getResult();
-    }
-
-    public function getReporte($filtro)
-    {
-        switch ($filtro['reporte']) {
-            case 'operativo':
-            case 'consejo_popular':
-            case 'acumulado':
-            case 'prod_cultivo':
-            case 'huevo':
-            case 'ventas_viandas':
-            case 'ventas_hortalizas':
-            case 'ventas_granos':
-            case 'ventas_frutas':
-            case 'ventas_totales':
-            case 'ventas_tot_est':
-            case 'ventas_tot_est_dia':
-            case 'prod_dec_sem5':
-            case 'prod_dec_sem4':
-            case 'prod_dec_sem3':
-            case 'prod_dec_sem2':
-            case 'prod_dec_sem1':
-            case 'sust_imp_anual':
-            case 'sust_imp_mensual':
-            case 'ventas_est_plan_real':
-            case 'ventas_est_prod_total':
-            case 'ratificado_mes':
-            case 'ratificado_acumulado':
-            case 'turismo':
-                return $this->getGeneralFiltrado($filtro);
-                break;
-
-            default:
-                return $this->getGeneralFiltrado($filtro);
-                break;
-        }
-    }
-
-    public function getGeneralFiltrado($filtro){
-
-        $fechainicio = $filtro['fechainicio'];
-        $fechafin = $filtro['fechafin'];
-        $tipoproducto = $filtro['tipoproducto'];
-        $unidad = $filtro['unidad'];
-        $tipounidad = $filtro['tipounidad'];
-
-        if ($fechainicio == null) {
-            $fechainicio = date($this->annoActual.'-'.$this->mesActual.'-1');
-        }
-        if ($fechafin == null) {
-            $fechafin = date($this->annoActual.'-'.$this->mesActual.'-'.$this->fechaActual->format('d'));
-        }
-        if ($tipoproducto == null) {
-            $tipoproducto = '';
-        }
-        if ($unidad == null) {
-            $unidad = '';
-        }
-
-        if ($tipounidad == null) {
-            $tipounidad = '';
-        }
-
-        $query = $this->em->createQuery(
-            "SELECT
-                Sum( pr.valor ) AS real,	
-                CASE 
-                    WHEN :mes = 1 THEN pl.enero 
-                    WHEN :mes = 2 THEN pl.febrero 
-                    WHEN :mes = 3 THEN pl.marzo 
-                    WHEN :mes = 4 THEN pl.abril 
-                    WHEN :mes = 5 THEN pl.mayo 
-                    WHEN :mes = 6 THEN pl.junio 
-                    WHEN :mes = 7 THEN pl.julio 
-                    WHEN :mes = 8 THEN pl.agosto 
-                    WHEN :mes = 9 THEN pl.septiembre 
-                    WHEN :mes = 10 THEN pl.octubre 
-                    WHEN :mes = 11 THEN pl.noviembre 
-                    ELSE pl.diciembre 
-                END AS plan,
-                p.nombre AS producto,
-                tp.nombre AS tipo,
-                u.nombre AS unidad
-            FROM JcObdulioBundle:Produccion pr
-            LEFT JOIN JcObdulioBundle:Producto p WHERE pr.fkProducto = p.id
-            LEFT JOIN JcObdulioBundle:Planificacionproduccion pl WHERE pl.fkProducto = p.id
-            LEFT JOIN JcObdulioBundle:Tipoproducto tp WHERE p.fkTipoproducto = tp.id
-            LEFT JOIN JcObdulioBundle:Unidad u WHERE pr.fkUnidad = u.id AND pl.fkUnidad = u.id
-            LEFT JOIN JcObdulioBundle:Tipodeunidad tu WHERE tu.id = u.fkTipodeunidad
-            WHERE
-                pr.fecha >= :fechainicio AND
-                pr.fecha <= :fechafin AND
-                tp.id = :idtp AND
-                u.id = :idu AND
-                tu.id = :idtu
-            GROUP BY
-                p.nombre,
-                plan,
-                tp.nombre,
-                u.nombre"
-        );
-        $query->setParameters(array(
-            'mes' => $this->mesActual,
             'fechainicio' => $fechainicio,
             'fechafin' => $fechafin,
+            'mesActual' => date('m'),
+            'annoActual' => date('Y'),
             'idtp' => $tipoproducto,
             'idu' => $unidad,
             'idtu' => $tipounidad,
+            'idd' => $destino,
         ));
+        
         return $query->getResult();
     }
-
-    public function getTotales(){
+    //Devuelve los Totales en TIPO DE PRODUCTO POR UNIDAD
+    public function getTotalXtipoProducto($filtro)
+    {
+        $fechainicio = date('Y-m-1');
+        $fechafin = date('Y-m-d');
+        
+        if ($filtro) {
+            if($filtro['fechainicio'] != null)
+                $fechainicio = $filtro['fechainicio'];
+            if($filtro['fechafin'] != null)
+                $fechafin ?? $filtro['fechafin'];
+        }
+        
         $query = $this->em->createQuery(
             "SELECT
-                Sum(produccion.valor) real,
-                tp.nombre tipo,
-                u.nombre unidad,
-                tu.nombre tipounidad,
-                Sum(CASE 
+                SUM(pri.valor) AS real,
+                tp.nombre AS tipoproducto,
+                u.nombre AS unidad,
+                SUM(CASE 
                     WHEN :mesActual = 1 THEN pl.enero 
                     WHEN :mesActual = 2 THEN pl.febrero 
                     WHEN :mesActual = 3 THEN pl.marzo 
@@ -196,28 +126,85 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
                     WHEN :mesActual = 10 THEN pl.octubre 
                     WHEN :mesActual = 11 THEN pl.noviembre 
                     ELSE pl.diciembre 
-                END) plan,
-                pl.anno
+                END) AS plan
             FROM
-                JcObdulioBundle:Produccion produccion
-                LEFT JOIN produccion.fkProducto producto
-                LEFT JOIN producto.fkTipoproducto tp
-                LEFT JOIN produccion.fkUnidad u
-                LEFT JOIN producto.planificacionproduccion pl 
-                    WITH pl.fkProducto = producto.id AND pl.fkUnidad = u.id
-                LEFT JOIN u.fkTipodeunidad tu
-            WHERE                
-            produccion.fecha >= :inicioMes
+                JcObdulioBundle:Produccion pri
+                JOIN pri.fkProducto prt
+                JOIN pri.fkUnidad u
+                JOIN u.fkTipodeunidad tu
+                JOIN prt.fkTipoproducto tp
+                JOIN prt.planificacionproduccion pl
+                JOIN pri.fkDestino d
+            WHERE pri.fecha >= :fechainicio
+                AND pri.fecha <= :fechafin
+                AND pl.anno = :annoActual
             GROUP BY
                 tp.nombre,
-                tu.nombre,
-                u.nombre,
-                pl.anno"
+                u.nombre"
         );
-        $inicioMes = date($this->annoActual.'-'.$this->mesActual.'-1');
+
         $query->setParameters(array(
-            'mesActual' => $this->mesActual,
-            'inicioMes' => $inicioMes,
+            'fechainicio' => $fechainicio,
+            'fechafin' => $fechafin,
+            'mesActual' => date('m'),
+            'annoActual' => date('Y'),
+        ));
+
+        return $query->getResult();
+    }
+    //Devuelve los Totales en DESTINO POR UNIDAD
+    public function getTotalXdestino($filtro)
+    {
+        $fechainicio = date('Y-m-1');
+        $fechafin = date('Y-m-d');
+        
+        if ($filtro) {
+            if($filtro['fechainicio'] != null)
+                $fechainicio = $filtro['fechainicio'];
+            if($filtro['fechafin'] != null)
+                $fechafin ?? $filtro['fechafin'];
+        }
+        
+        $query = $this->em->createQuery(
+            "SELECT
+                SUM(pri.valor) AS real,
+                d.nombre AS destino,
+                u.nombre AS unidad,
+                SUM(CASE 
+                    WHEN :mesActual = 1 THEN pl.enero 
+                    WHEN :mesActual = 2 THEN pl.febrero 
+                    WHEN :mesActual = 3 THEN pl.marzo 
+                    WHEN :mesActual = 4 THEN pl.abril 
+                    WHEN :mesActual = 5 THEN pl.mayo 
+                    WHEN :mesActual = 6 THEN pl.junio 
+                    WHEN :mesActual = 7 THEN pl.julio 
+                    WHEN :mesActual = 8 THEN pl.agosto 
+                    WHEN :mesActual = 9 THEN pl.septiembre 
+                    WHEN :mesActual = 10 THEN pl.octubre 
+                    WHEN :mesActual = 11 THEN pl.noviembre 
+                    ELSE pl.diciembre 
+                END) AS plan
+            FROM
+                JcObdulioBundle:Produccion pri
+                JOIN pri.fkProducto prt
+                JOIN pri.fkUnidad u
+                JOIN u.fkTipodeunidad tu
+                JOIN prt.fkTipoproducto tp
+                JOIN prt.planificacionproduccion pl
+                JOIN pri.fkDestino d
+            WHERE pri.fecha >= :fechainicio
+                AND pri.fecha <= :fechafin
+                AND pl.anno = :annoActual
+            GROUP BY
+                d.nombre,
+                u.nombre"
+        );
+
+        $query->setParameters(array(
+            'fechainicio' => $fechainicio,
+            'fechafin' => $fechafin,
+            'mesActual' => date('m'),
+            'annoActual' => date('Y'),
         ));
 
         return $query->getResult();

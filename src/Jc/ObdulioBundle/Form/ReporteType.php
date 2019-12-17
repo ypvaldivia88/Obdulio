@@ -16,6 +16,7 @@ class ReporteType extends AbstractType
         $builder
             ->add('reporte', 'choice', array(
                 'choices' => array(
+                    'general'               => 'General',
                     'operativo'             => 'Operativo',
                     'consejo_popular'       => 'Consejo Popular',
                     'acumulado'             => 'Acumulado',
@@ -67,6 +68,13 @@ class ReporteType extends AbstractType
                 'property' => 'nombre',
                 'required'    => false,
                 'empty_value' => 'Filtrar por Tipo de Unidad',
+                'empty_data'  => null
+            ))
+            ->add('destino', 'entity', array(
+                'class' => 'JcObdulioBundle:Destino',
+                'property' => 'nombre',
+                'required'    => false,
+                'empty_value' => 'Filtrar por Destino',
                 'empty_data'  => null
             ));
     }

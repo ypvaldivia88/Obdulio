@@ -8,46 +8,74 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ReportesController extends Controller
 {
-    public function indexAction(Request $request)
-    {
-        //var_dump($request);
+    public function generalAction(Request $request)
+    {        
         if ($this->getUser() == NULL) {
             return $this->redirectToRoute('rh_usuarios_login');
         }
-
-        $em = $this->getDoctrine()->getManager();
-        $repo = new ReportesRepository($em);
-        $reporte = $repo->getMesActual();
-        $totales = $repo->getTotales();
-        $tipos = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
         
+        $em = $this->getDoctrine()->getManager();
+        $repo = new ReportesRepository($em);        
+
         $form = $this->createForm('Jc\ObdulioBundle\Form\ReporteType');
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $filtro = $form->getData();
-            $reporte = $repo->getReporte($filtro);            
-            return $this->render(
-                'JcObdulioBundle:Reportes:index.html.twig',
-                array(
-                    'form' => $form->createView(),
-                    'reporte_nombre' => $filtro['reporte'],
-                    'reporte_datos' => $reporte,
-                    'totales' => $totales,
-                    'tipos_producto' => $tipos,
-                )
-            );
+        $filtro = $form->getData();
+
+        if ($filtro && $filtro['reporte'] != null) {
+            return $this->redirectToRoute('reportes_'.$filtro['reporte'],array($request));
         }
 
+        $reporte = $repo->getReporteGeneral($filtro);
+        $totales = $repo->getTotalXtipoProducto($filtro);
+
+        $tipos = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
+
         return $this->render(
-            'JcObdulioBundle:Reportes:index.html.twig',
+            'JcObdulioBundle:Reportes:general.html.twig',
             array(
+                'titulo_reporte' => 'General',
                 'form' => $form->createView(),
-                'reporte_nombre' => null,
-                'reporte_datos' => $reporte,
+                'reporte' => $reporte,
                 'totales' => $totales,
                 'tipos_producto' => $tipos,
             )
         );
     }
+
+    public function acumuladoAction(Request $request)
+    {
+        if ($this->getUser() == NULL) {
+            return $this->redirectToRoute('rh_usuarios_login');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $repo = new ReportesRepository($em);        
+
+        $form = $this->createForm('Jc\ObdulioBundle\Form\ReporteType');
+        $form->handleRequest($request); 
+
+        $filtro = $form->getData();
+
+        if ($filtro && $filtro['reporte'] != 'acumulado') {
+            return $this->redirectToRoute('reportes_'.$filtro['reporte'],array($request));
+        }
+
+        $reporte = $repo->getReporteGeneral($filtro);
+        $totales = $repo->getTotalXtipoProducto($filtro);
+
+        $tipos = $em->getRepository('JcObdulioBundle:Tipoproducto')->findAll();
+
+        return $this->render(
+            'JcObdulioBundle:Reportes:acumulado.html.twig',
+            array(
+                'titulo_reporte' => 'Acumulado',
+                'form' => $form->createView(),
+                'reporte' => $reporte,
+                'totales' => $totales,
+                'tipos_producto' => $tipos,
+            )
+        );
+    }
+    
 }
