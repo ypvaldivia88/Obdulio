@@ -3,13 +3,13 @@
 <source>
 <database charset="utf8" collation="utf8_bin">obdulio</database>
 </source>
-<canvas zoom="100">
+<canvas zoom="80">
 <tables>
 <table name="destino" view="colnames">
-<left>424</left>
-<top>179</top>
-<width>90</width>
-<height>107</height>
+<left>546</left>
+<top>157</top>
+<width>72</width>
+<height>86</height>
 <sql_create_table>CREATE TABLE `destino` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -18,10 +18,10 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
 </table>
 <table name="medida" view="colnames">
-<left>323</left>
-<top>233</top>
-<width>90</width>
-<height>107</height>
+<left>115</left>
+<top>331</top>
+<width>85</width>
+<height>86</height>
 <sql_create_table>CREATE TABLE `medida` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -29,11 +29,37 @@
   UNIQUE KEY `UNIQ_9C1C2A8C3A909126` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
 </table>
+<table name="planificaciondeleche" view="colnames">
+<left>469</left>
+<top>293</top>
+<width>156</width>
+<height>245</height>
+<sql_create_table>CREATE TABLE `planificaciondeleche` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_termo` int(11) DEFAULT NULL,
+  `enero` int(11) NOT NULL,
+  `febrero` int(11) NOT NULL,
+  `marzo` int(11) NOT NULL,
+  `abril` int(11) NOT NULL,
+  `mayo` int(11) NOT NULL,
+  `junio` int(11) NOT NULL,
+  `julio` int(11) NOT NULL,
+  `agosto` int(11) NOT NULL,
+  `septiembre` int(11) NOT NULL,
+  `octubre` int(11) NOT NULL,
+  `noviembre` int(11) NOT NULL,
+  `diciembre` int(11) NOT NULL,
+  `anno` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_D859260D5D4E404B` (`fk_termo`),
+  CONSTRAINT `FK_D859260D5D4E404B` FOREIGN KEY (`fk_termo`) REFERENCES `termo` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
 <table name="planificacionproduccion" view="colnames">
-<left>159</left>
-<top>249</top>
-<width>114</width>
-<height>306</height>
+<left>7</left>
+<top>9</top>
+<width>168</width>
+<height>291</height>
 <sql_create_table>CREATE TABLE `planificacionproduccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_producto` int(11) DEFAULT NULL,
@@ -59,10 +85,10 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
 </table>
 <table name="produccion" view="colnames">
-<left>538</left>
-<top>56</top>
-<width>114</width>
-<height>192</height>
+<left>642</left>
+<top>3</top>
+<width>149</width>
+<height>154</height>
 <sql_create_table>CREATE TABLE `produccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_producto` int(11) DEFAULT NULL,
@@ -81,11 +107,27 @@
   CONSTRAINT `FK_1E23DEC6D348B8BF` FOREIGN KEY (`fk_unidad`) REFERENCES `unidad` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
 </table>
+<table name="produccionleche" view="colnames">
+<left>331</left>
+<top>384</top>
+<width>133</width>
+<height>126</height>
+<sql_create_table>CREATE TABLE `produccionleche` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_termo` int(11) DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `valor` int(11) NOT NULL,
+  `factura` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_2E17FD65D4E404B` (`fk_termo`),
+  CONSTRAINT `FK_2E17FD65D4E404B` FOREIGN KEY (`fk_termo`) REFERENCES `termo` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
 <table name="producto" view="colnames">
-<left>11</left>
-<top>26</top>
-<width>135</width>
-<height>141</height>
+<left>225</left>
+<top>10</top>
+<width>108</width>
+<height>113</height>
 <sql_create_table>CREATE TABLE `producto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_tipoproducto` int(11) DEFAULT NULL,
@@ -99,11 +141,23 @@
   CONSTRAINT `FK_A7BB0615E1D7C4D1` FOREIGN KEY (`fk_tipoproducto`) REFERENCES `tipoproducto` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
 </table>
+<table name="termo" view="colnames">
+<left>232</left>
+<top>318</top>
+<width>72</width>
+<height>86</height>
+<sql_create_table>CREATE TABLE `termo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_9CA3633E3A909126` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
+</table>
 <table name="tipodeunidad" view="colnames">
-<left>718</left>
-<top>335</top>
-<width>90</width>
-<height>107</height>
+<left>677</left>
+<top>267</top>
+<width>121</width>
+<height>86</height>
 <sql_create_table>CREATE TABLE `tipodeunidad` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -112,10 +166,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
 </table>
 <table name="tipoproducto" view="colnames">
-<left>316</left>
-<top>115</top>
-<width>90</width>
-<height>107</height>
+<left>398</left>
+<top>46</top>
+<width>109</width>
+<height>86</height>
 <sql_create_table>CREATE TABLE `tipoproducto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -124,10 +178,10 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
 </table>
 <table name="unidad" view="colnames">
-<left>335</left>
-<top>399</top>
-<width>137</width>
-<height>124</height>
+<left>342</left>
+<top>172</top>
+<width>110</width>
+<height>99</height>
 <sql_create_table>CREATE TABLE `unidad` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -139,10 +193,10 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci</sql_create_table>
 </table>
 <table name="usuarios" view="colnames">
-<left>709</left>
-<top>10</top>
-<width>149</width>
-<height>306</height>
+<left>812</left>
+<top>25</top>
+<width>119</width>
+<height>245</height>
 <sql_create_table>CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,

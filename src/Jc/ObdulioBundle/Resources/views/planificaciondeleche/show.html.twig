@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Planificaciondeleche</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ planificaciondeleche.id }}</td>
+            </tr>
+            <tr>
+                <th>Enero</th>
+                <td>{{ planificaciondeleche.enero }}</td>
+            </tr>
+            <tr>
+                <th>Febrero</th>
+                <td>{{ planificaciondeleche.febrero }}</td>
+            </tr>
+            <tr>
+                <th>Marzo</th>
+                <td>{{ planificaciondeleche.marzo }}</td>
+            </tr>
+            <tr>
+                <th>Abril</th>
+                <td>{{ planificaciondeleche.abril }}</td>
+            </tr>
+            <tr>
+                <th>Mayo</th>
+                <td>{{ planificaciondeleche.mayo }}</td>
+            </tr>
+            <tr>
+                <th>Junio</th>
+                <td>{{ planificaciondeleche.junio }}</td>
+            </tr>
+            <tr>
+                <th>Julio</th>
+                <td>{{ planificaciondeleche.julio }}</td>
+            </tr>
+            <tr>
+                <th>Agosto</th>
+                <td>{{ planificaciondeleche.agosto }}</td>
+            </tr>
+            <tr>
+                <th>Septiembre</th>
+                <td>{{ planificaciondeleche.septiembre }}</td>
+            </tr>
+            <tr>
+                <th>Octubre</th>
+                <td>{{ planificaciondeleche.octubre }}</td>
+            </tr>
+            <tr>
+                <th>Noviembre</th>
+                <td>{{ planificaciondeleche.noviembre }}</td>
+            </tr>
+            <tr>
+                <th>Diciembre</th>
+                <td>{{ planificaciondeleche.diciembre }}</td>
+            </tr>
+            <tr>
+                <th>Anno</th>
+                <td>{{ planificaciondeleche.anno }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('planificaciondeleche_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('planificaciondeleche_edit', { 'id': planificaciondeleche.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
