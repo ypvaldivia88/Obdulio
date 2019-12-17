@@ -1,0 +1,9 @@
+reportes_general:
+    path:     /general
+    defaults: { _controller: JcObdulioBundle:Reportes:general }
+    methods: [POST, GET]
+
+reportes_acumulado:
+    path:     /acumulado
+    defaults: { _controller: JcObdulioBundle:Reportes:acumulado }
+    methods: [POST, GET]
