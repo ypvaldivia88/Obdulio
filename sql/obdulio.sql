@@ -2,8 +2,7 @@
 SQLyog Ultimate v9.63 
 MySQL - 5.7.11 : Database - obdulio
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -47,6 +46,33 @@ CREATE TABLE `medida` (
 
 insert  into `medida`(`id`,`nombre`) values (1,'libra');
 
+/*Table structure for table `planificaciondeleche` */
+
+DROP TABLE IF EXISTS `planificaciondeleche`;
+
+CREATE TABLE `planificaciondeleche` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_termo` int(11) DEFAULT NULL,
+  `enero` int(11) NOT NULL,
+  `febrero` int(11) NOT NULL,
+  `marzo` int(11) NOT NULL,
+  `abril` int(11) NOT NULL,
+  `mayo` int(11) NOT NULL,
+  `junio` int(11) NOT NULL,
+  `julio` int(11) NOT NULL,
+  `agosto` int(11) NOT NULL,
+  `septiembre` int(11) NOT NULL,
+  `octubre` int(11) NOT NULL,
+  `noviembre` int(11) NOT NULL,
+  `diciembre` int(11) NOT NULL,
+  `anno` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_D859260D5D4E404B` (`fk_termo`),
+  CONSTRAINT `FK_D859260D5D4E404B` FOREIGN KEY (`fk_termo`) REFERENCES `termo` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `planificaciondeleche` */
+
 /*Table structure for table `planificacionproduccion` */
 
 DROP TABLE IF EXISTS `planificacionproduccion`;
@@ -77,8 +103,6 @@ CREATE TABLE `planificacionproduccion` (
 
 /*Data for the table `planificacionproduccion` */
 
-insert  into `planificacionproduccion`(`id`,`fk_producto`,`fk_unidad`,`enero`,`febrero`,`marzo`,`abril`,`mayo`,`junio`,`julio`,`agosto`,`septiembre`,`octubre`,`noviembre`,`diciembre`,`anno`) values (1,1,1,3,2,2,2,2,2,2,2,2,2,2,2,1);
-
 /*Table structure for table `produccion` */
 
 DROP TABLE IF EXISTS `produccion`;
@@ -103,7 +127,24 @@ CREATE TABLE `produccion` (
 
 /*Data for the table `produccion` */
 
-insert  into `produccion`(`id`,`fk_producto`,`fk_destino`,`fk_unidad`,`fecha`,`valor`,`factura`) values (1,1,2,1,'2020-01-01',3455,'34534'),(2,2,2,2,'2018-02-04',546456,'dsfsdf');
+insert  into `produccion`(`id`,`fk_producto`,`fk_destino`,`fk_unidad`,`fecha`,`valor`,`factura`) values (2,2,2,2,'2018-02-04',546456,'dsfsdf');
+
+/*Table structure for table `produccionleche` */
+
+DROP TABLE IF EXISTS `produccionleche`;
+
+CREATE TABLE `produccionleche` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_termo` int(11) DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `valor` int(11) NOT NULL,
+  `factura` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_2E17FD65D4E404B` (`fk_termo`),
+  CONSTRAINT `FK_2E17FD65D4E404B` FOREIGN KEY (`fk_termo`) REFERENCES `termo` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `produccionleche` */
 
 /*Table structure for table `producto` */
 
@@ -125,6 +166,21 @@ CREATE TABLE `producto` (
 /*Data for the table `producto` */
 
 insert  into `producto`(`id`,`fk_tipoproducto`,`nombre`,`fk_medida`) values (1,2,'producto 0',1),(2,1,'producto 1',1),(3,2,'producto 3',1),(8,1,'producto 4',1);
+
+/*Table structure for table `termo` */
+
+DROP TABLE IF EXISTS `termo`;
+
+CREATE TABLE `termo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_9CA3633E3A909126` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `termo` */
+
+insert  into `termo`(`id`,`nombre`) values (2,'Termo');
 
 /*Table structure for table `tipodeunidad` */
 
@@ -196,7 +252,7 @@ CREATE TABLE `usuarios` (
 
 /*Data for the table `usuarios` */
 
-insert  into `usuarios`(`id`,`username`,`password`,`role`,`movil`,`imei`,`is_active`,`activo`,`creado`,`actualizado`,`ultimo_logueo`,`ultimo_deslogueo`,`nombre_completo`,`avatar`) values (1,'admin','$2y$12$RBtP90dX0AFEbG/wMxoate.Ock2wzdsgsN8jtm4weAJz2ZYyfucai','ROLE_ADMINISTRADOR',NULL,NULL,1,1,'2019-09-09 00:00:00','2019-12-02 20:11:24','2019-12-02 20:11:24','2019-11-28 19:38:29','Administrador','avatar.jpg'),(2,'operador','$2y$12$.k6KYevmTZcVxXJnZtPfYuE2oAyOgiyOtxT8bn.nnXcOmUh66qV2C','ROLE_OPERADOR',NULL,NULL,1,0,'2019-09-29 03:15:34','2019-11-28 19:42:10','2019-11-28 19:38:37','2019-11-28 19:42:10','operador','avatar.jpg'),(3,'consultor','$2y$12$vMQuC7opHyLMbMjh9K4haOR08YdBbN81eyTawafPwOhL9miLN1Qp2','ROLE_CONSULTANTE',NULL,NULL,1,0,'2019-09-29 03:16:12','2019-11-19 20:20:15','2019-11-19 20:20:08','2019-11-19 20:20:15','Consultor','avatar.jpg');
+insert  into `usuarios`(`id`,`username`,`password`,`role`,`movil`,`imei`,`is_active`,`activo`,`creado`,`actualizado`,`ultimo_logueo`,`ultimo_deslogueo`,`nombre_completo`,`avatar`) values (1,'admin','$2y$12$RBtP90dX0AFEbG/wMxoate.Ock2wzdsgsN8jtm4weAJz2ZYyfucai','ROLE_ADMINISTRADOR',NULL,NULL,1,1,'2019-09-09 00:00:00','2019-12-17 20:39:41','2019-12-17 20:39:41','2019-12-17 20:37:42','Administrador','avatar.jpg'),(2,'operador','$2y$12$.k6KYevmTZcVxXJnZtPfYuE2oAyOgiyOtxT8bn.nnXcOmUh66qV2C','ROLE_OPERADOR',NULL,NULL,1,0,'2019-09-29 03:15:34','2019-12-17 20:39:34','2019-12-17 20:37:49','2019-12-17 20:39:34','operador','avatar.jpg'),(3,'consultor','$2y$12$vMQuC7opHyLMbMjh9K4haOR08YdBbN81eyTawafPwOhL9miLN1Qp2','ROLE_CONSULTANTE',NULL,NULL,1,0,'2019-09-29 03:16:12','2019-11-19 20:20:15','2019-11-19 20:20:08','2019-11-19 20:20:15','Consultor','avatar.jpg');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

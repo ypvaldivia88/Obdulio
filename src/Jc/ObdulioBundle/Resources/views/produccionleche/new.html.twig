@@ -6,12 +6,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Nuevo Producci&oacute;n
+                Nuevo Producci&oacute;n de leche
                 {#<small>it all starts here</small>#}
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-                <li><a href="{{ path('produccion_index') }}">Producci&oacute;n</a></li>
+                <li><a href="{{ path('produccionleche_index') }}">Producci&oacute;n de leche</a></li>
                 <li><a class="active">Nuevo</a></li>
             </ol>
         </section>
@@ -36,30 +36,12 @@
                         {{ form_widget(form.fecha) }}
                         <div class="form-group col-md-6">
                             <strong>Producto</strong>
-                            {{ form_widget(form.fkProducto, {'attr': {
+                            {{ form_widget(form.fkTermo, {'attr': {
                                 'class': 'form-control select2',
                                 'style' : 'width:100%'
 
                             }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkProducto) }}</span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <strong>Unidad</strong>
-                            {{ form_widget(form.fkUnidad, {'attr': {
-                                'class': 'form-control select2',
-                                'style' : 'width:100%'
-
-                            }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkUnidad) }}</span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <strong>Destino</strong>
-                            {{ form_widget(form.fkDestino, {'attr': {
-                                'class': 'form-control select2',
-                                'style' : 'width:100%'
-
-                            }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkDestino) }}</span>
+                            <span class="text-danger">{{ form_errors(form.fkTermo) }}</span>
                         </div>
                         {% if not form_errors(form.valor) %}
                             <div class="form-group col-md-6">
@@ -120,7 +102,7 @@
                             {{ form_widget(form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ path('produccion_index') }}" class="btn btn-sm btn-danger">
+                            <a href="{{ path('produccionleche_index') }}" class="btn btn-sm btn-danger">
                                 <i class="fa fa-ban"></i> <strong>Cancelar</strong>
                             </a>
                         </div>
@@ -142,7 +124,7 @@
         </section>
         <!-- /.content -->
     </div>
-    <input type="hidden" value="produccions" id="seleccion">
+    <input type="hidden" value="produccionleches" id="seleccion">
 {% endblock %}
 
 {% block javascripts  %}

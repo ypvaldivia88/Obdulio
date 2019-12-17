@@ -3,6 +3,8 @@
 namespace Jc\ObdulioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Produccionleche
@@ -41,6 +43,11 @@ class Produccionleche
      * @ORM\Column(name="factura", type="string", length=15, nullable=true, unique=false)
      */
     private $factura;
+    /**
+     * @ORM\ManyToOne(targetEntity="Termo", inversedBy="produccionleche")
+     * @ORM\JoinColumn(name="fk_termo", referencedColumnName="id")
+     */
+    private $fkTermo;
 
 
     /**
@@ -123,6 +130,30 @@ class Produccionleche
     public function getFactura()
     {
         return $this->factura;
+    }
+
+    /**
+     * Set fkTermo
+     *
+     * @param \Jc\ObdulioBundle\Entity\Termo $fkTermo
+     *
+     * @return Produccionleche
+     */
+    public function setFkTermo(\Jc\ObdulioBundle\Entity\Termo $fkTermo = null)
+    {
+        $this->fkTermo = $fkTermo;
+
+        return $this;
+    }
+
+    /**
+     * Get fkTermo
+     *
+     * @return \Jc\ObdulioBundle\Entity\Termo
+     */
+    public function getFkTermo()
+    {
+        return $this->fkTermo;
     }
 }
 

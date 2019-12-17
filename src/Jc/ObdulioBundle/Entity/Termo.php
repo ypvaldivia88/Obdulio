@@ -3,6 +3,8 @@
 namespace Jc\ObdulioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Termo
@@ -27,6 +29,20 @@ class Termo
      * @ORM\Column(name="nombre", type="string", length=255, unique=true)
      */
     private $nombre;
+    /**
+     * @ORM\OneToMany(targetEntity="Produccionleche", mappedBy="fkTermo")
+     */
+    protected $produccionleche;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Planificaciondeleche", mappedBy="fkTermo")
+     */
+    protected $planificaciondeleche;
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 
 
     /**
@@ -61,6 +77,54 @@ class Termo
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Set planificaciondeleche
+     *
+     * @param \Jc\ObdulioBundle\Entity\Planificaciondeleche $planificaciondeleche
+     *
+     * @return Termo
+     */
+    public function setPlanificaciondeleche(\Jc\ObdulioBundle\Entity\Planificaciondeleche $planificaciondeleche = null)
+    {
+        $this->planificaciondeleche = $planificaciondeleche;
+
+        return $this;
+    }
+
+    /**
+     * Get planificaciondeleche
+     *
+     * @return \Jc\ObdulioBundle\Entity\Planificaciondeleche
+     */
+    public function getPlanificaciondeleche()
+    {
+        return $this->planificaciondeleche;
+    }
+
+    /**
+     * Set produccionleche
+     *
+     * @param \Jc\ObdulioBundle\Entity\Produccionleche $produccionleche
+     *
+     * @return Termo
+     */
+    public function setProduccionleche(\Jc\ObdulioBundle\Entity\Produccionleche $produccionleche = null)
+    {
+        $this->produccionleche = $produccionleche;
+
+        return $this;
+    }
+
+    /**
+     * Get produccionleche
+     *
+     * @return \Jc\ObdulioBundle\Entity\Produccionleche
+     */
+    public function getProduccionleche()
+    {
+        return $this->produccionleche;
     }
 }
 

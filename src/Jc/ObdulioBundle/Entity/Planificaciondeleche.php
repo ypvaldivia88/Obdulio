@@ -3,6 +3,8 @@
 namespace Jc\ObdulioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Planificaciondeleche
@@ -111,6 +113,12 @@ class Planificaciondeleche
      * @ORM\Column(name="anno", type="integer")
      */
     private $anno;
+    /**
+     * @ORM\ManyToOne(targetEntity="Termo", inversedBy="planificacionleche")
+     * @ORM\JoinColumn(name="fk_termo", referencedColumnName="id")
+     */
+    private $fkTermo;
+
 
 
     /**
@@ -433,6 +441,27 @@ class Planificaciondeleche
     public function getAnno()
     {
         return $this->anno;
+    }
+    /**
+     * Set fkTermo
+     *
+     * @param \Jc\ObdulioBundle\Entity\Termo $fkTermo
+     *
+     * @return Planificaciondeleche
+     */
+    public function setFkTermo(\Jc\ObdulioBundle\Entity\Termo $fkTermo = null)
+    {
+        $this->fkTermo = $fkTermo;
+        return $this;
+    }
+    /**
+     * Get fkTermo
+     *
+     * @return \Jc\ObdulioBundle\Entity\Termo
+     */
+    public function getFkTermo()
+    {
+        return $this->fkTermo;
     }
 }
 
