@@ -8,19 +8,18 @@
     <!-- PANEL -->
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-      {% for tipo in tipos_producto %}
       <div class="panel panel-primary">
         <!-- TITULO PANEL -->
-        <div class="panel-heading" role="tab" id="heading{{tipo.id}}">
+        <div class="panel-heading" role="tab" id="headingVentasViandas">
           <h4 class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-            href="#collapse{{tipo.id}}" aria-expanded="false" aria-controls="collapse{{tipo.id}}">
-            {{ tipo.nombre }}
+            href="#collapseVentasViandas" aria-expanded="false" aria-controls="collapseVentasViandas">
+            Ventas Viandas
           </h4>
         </div>
         <!--/.TITULO PANEL -->        
         <!-- CONTENIDO PANEL -->
-        <div id="collapse{{tipo.id}}" class="panel-collapse collapse" role="tabpanel"
-          aria-labelledby="heading{{tipo.id}}">
+        <div id="collapseVentasViandas" class="panel-collapse collapse" role="tabpanel"
+          aria-labelledby="headingVentasViandas">
           <div class="panel-body">
             <div class="table-responsive">
               <table class="table datatable">
@@ -40,7 +39,7 @@
                 </thead>
                 <tbody>
                   {% for dato in reporte %}
-                  {% if dato.tipoproducto == tipo.nombre %}
+                  {% if dato.tipoproducto == 'Viandas' %}
                   <tr>
                     <td>{{ dato.tipounidad }}</td>
                     <td>{{ dato.unidad }}</td>
@@ -74,7 +73,7 @@
                 </thead>
                 <tbody>
                   {% for total in totales %}
-                  {% if total.tipoproducto == tipo.nombre %}
+                  {% if total.tipoproducto == 'Viandas' %}
                   <tr>
                     <td>{{ total.unidad }}</td>
                     <td>{{ total.plan }}</td>
@@ -96,11 +95,16 @@
         <!--/.CONTENIDO PANEL -->
       </div>
 
-      {% endfor %}
-
     </div>
     <!--/.PANEL -->
 
   </section>
   <!-- /.Main content -->
 {% endblock wrapper_content %}
+
+{% block javascripts %}
+{{ parent() }}
+  <script>
+    $('.panel-collapse.collapse:first').addClass('in');
+  </script>
+{% endblock %}
