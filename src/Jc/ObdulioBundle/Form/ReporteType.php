@@ -47,8 +47,7 @@ class ReporteType extends AbstractType
                 'empty_value' => 'Filtrar por Reporte',
                 'empty_data'  => null
             ))
-            ->add('fechainicio', 'text')
-            ->add('fechafin', 'text')
+            ->add('rangofechas', 'text')
             ->add('tipoproducto', 'entity', array(
                 'class' => 'JcObdulioBundle:Tipoproducto',
                 'property' => 'nombre',

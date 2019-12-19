@@ -29,10 +29,10 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         $destino = '%'; 
 
         if ($filtro) {
-            if($filtro['fechainicio'] != null)
-                $fechainicio = $filtro['fechainicio'];
-            if($filtro['fechafin'] != null)
-                $fechafin = $filtro['fechafin'];
+            if($filtro['rangofechas'] != null){
+                $fechainicio = explode(" / ", $filtro['rangofechas'])[0];
+                $fechafin = explode(" / ", $filtro['rangofechas'])[1];
+            }
             if($filtro['tipoproducto'] != null)
                 $tipoproducto = $filtro['tipoproducto'];
             if($filtro['unidad'] != null)
@@ -111,12 +111,24 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
     {
         $fechainicio = date('Y-m-1');
         $fechafin = date('Y-m-d');
-        
+        $tipoproducto = '%';
+        $unidad = '%';
+        $tipounidad = '%'; 
+        $destino = '%'; 
+
         if ($filtro) {
-            if($filtro['fechainicio'] != null)
-                $fechainicio = $filtro['fechainicio'];
-            if($filtro['fechafin'] != null)
-                $fechafin ?? $filtro['fechafin'];
+            if($filtro['rangofechas'] != null){
+                $fechainicio = explode(" / ", $filtro['rangofechas'])[0];
+                $fechafin = explode(" / ", $filtro['rangofechas'])[1];
+            }
+            if($filtro['tipoproducto'] != null)
+                $tipoproducto = $filtro['tipoproducto'];
+            if($filtro['unidad'] != null)
+                $unidad = $filtro['unidad'];
+            if($filtro['tipounidad'] != null)
+                $tipounidad = $filtro['tipounidad'];
+            if($filtro['destino'] != null)
+                $destino = $filtro['destino'];
         }
         
         $query = $this->em->createQuery(
@@ -147,9 +159,13 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
                 JOIN prt.planificacionproduccion pl
                 JOIN pri.fkDestino d
             WHERE pri.fecha >= :fechainicio
-                AND pri.fecha <= :fechafin
+                AND pri.fecha <= :fechafin 
                 AND pl.anno = :annoActual
-                AND prt.id = :id
+                AND tp.id LIKE :idtp 
+                AND u.id LIKE :idu 
+                AND tu.id LIKE :idtu
+                AND d.id LIKE :idd
+                AND prt.id = :idprt
             GROUP BY
                 prt.nombre,
                 u.nombre"
@@ -160,22 +176,39 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
             'fechafin' => $fechafin,
             'mesActual' => date('m'),
             'annoActual' => date('Y'),
-            'id' => $idProducto,
+            'idtp' => $tipoproducto,
+            'idu' => $unidad,
+            'idtu' => $tipounidad,
+            'idd' => $destino,
+            'idprt' => $idProducto,
         ));
 
         return $query->getResult();
     }
+    
     //Devuelve los Totales en TIPO DE PRODUCTO POR UNIDAD
     public function getTotalPorTipoProducto($filtro)
     {
         $fechainicio = date('Y-m-1');
         $fechafin = date('Y-m-d');
-        
+        $tipoproducto = '%';
+        $unidad = '%';
+        $tipounidad = '%'; 
+        $destino = '%'; 
+
         if ($filtro) {
-            if($filtro['fechainicio'] != null)
-                $fechainicio = $filtro['fechainicio'];
-            if($filtro['fechafin'] != null)
-                $fechafin ?? $filtro['fechafin'];
+            if($filtro['rangofechas'] != null){
+                $fechainicio = explode(" / ", $filtro['rangofechas'])[0];
+                $fechafin = explode(" / ", $filtro['rangofechas'])[1];
+            }
+            if($filtro['tipoproducto'] != null)
+                $tipoproducto = $filtro['tipoproducto'];
+            if($filtro['unidad'] != null)
+                $unidad = $filtro['unidad'];
+            if($filtro['tipounidad'] != null)
+                $tipounidad = $filtro['tipounidad'];
+            if($filtro['destino'] != null)
+                $destino = $filtro['destino'];
         }
         
         $query = $this->em->createQuery(
@@ -206,8 +239,12 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
                 JOIN prt.planificacionproduccion pl
                 JOIN pri.fkDestino d
             WHERE pri.fecha >= :fechainicio
-                AND pri.fecha <= :fechafin
+                AND pri.fecha <= :fechafin 
                 AND pl.anno = :annoActual
+                AND tp.id LIKE :idtp 
+                AND u.id LIKE :idu 
+                AND tu.id LIKE :idtu
+                AND d.id LIKE :idd
             GROUP BY
                 tp.nombre,
                 u.nombre"
@@ -218,6 +255,10 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
             'fechafin' => $fechafin,
             'mesActual' => date('m'),
             'annoActual' => date('Y'),
+            'idtp' => $tipoproducto,
+            'idu' => $unidad,
+            'idtu' => $tipounidad,
+            'idd' => $destino,
         ));
 
         return $query->getResult();
@@ -228,12 +269,24 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
     {
         $fechainicio = date('Y-m-1');
         $fechafin = date('Y-m-d');
-        
+        $tipoproducto = '%';
+        $unidad = '%';
+        $tipounidad = '%'; 
+        $destino = '%'; 
+
         if ($filtro) {
-            if($filtro['fechainicio'] != null)
-                $fechainicio = $filtro['fechainicio'];
-            if($filtro['fechafin'] != null)
-                $fechafin ?? $filtro['fechafin'];
+            if($filtro['rangofechas'] != null){
+                $fechainicio = explode(" / ", $filtro['rangofechas'])[0];
+                $fechafin = explode(" / ", $filtro['rangofechas'])[1];
+            }
+            if($filtro['tipoproducto'] != null)
+                $tipoproducto = $filtro['tipoproducto'];
+            if($filtro['unidad'] != null)
+                $unidad = $filtro['unidad'];
+            if($filtro['tipounidad'] != null)
+                $tipounidad = $filtro['tipounidad'];
+            if($filtro['destino'] != null)
+                $destino = $filtro['destino'];
         }
         
         $query = $this->em->createQuery(
@@ -264,8 +317,12 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
                 JOIN prt.planificacionproduccion pl
                 JOIN pri.fkDestino d
             WHERE pri.fecha >= :fechainicio
-                AND pri.fecha <= :fechafin
+                AND pri.fecha <= :fechafin 
                 AND pl.anno = :annoActual
+                AND tp.id LIKE :idtp 
+                AND u.id LIKE :idu 
+                AND tu.id LIKE :idtu
+                AND d.id LIKE :idd
             GROUP BY
                 d.nombre,
                 u.nombre"
@@ -276,6 +333,10 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
             'fechafin' => $fechafin,
             'mesActual' => date('m'),
             'annoActual' => date('Y'),
+            'idtp' => $tipoproducto,
+            'idu' => $unidad,
+            'idtu' => $tipounidad,
+            'idd' => $destino,
         ));
 
         return $query->getResult();
@@ -286,12 +347,24 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
     {
         $fechainicio = date('Y-m-1');
         $fechafin = date('Y-m-d');
-        
+        $tipoproducto = '%';
+        $unidad = '%';
+        $tipounidad = '%'; 
+        $destino = '%'; 
+
         if ($filtro) {
-            if($filtro['fechainicio'] != null)
-                $fechainicio = $filtro['fechainicio'];
-            if($filtro['fechafin'] != null)
-                $fechafin ?? $filtro['fechafin'];
+            if($filtro['rangofechas'] != null){
+                $fechainicio = explode(" / ", $filtro['rangofechas'])[0];
+                $fechafin = explode(" / ", $filtro['rangofechas'])[1];
+            }
+            if($filtro['tipoproducto'] != null)
+                $tipoproducto = $filtro['tipoproducto'];
+            if($filtro['unidad'] != null)
+                $unidad = $filtro['unidad'];
+            if($filtro['tipounidad'] != null)
+                $tipounidad = $filtro['tipounidad'];
+            if($filtro['destino'] != null)
+                $destino = $filtro['destino'];
         }
         
         $query = $this->em->createQuery(
@@ -323,8 +396,12 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
                 JOIN prt.planificacionproduccion pl
                 JOIN pri.fkDestino d
             WHERE pri.fecha >= :fechainicio
-                AND pri.fecha <= :fechafin
+                AND pri.fecha <= :fechafin 
                 AND pl.anno = :annoActual
+                AND tp.id LIKE :idtp 
+                AND u.id LIKE :idu 
+                AND tu.id LIKE :idtu
+                AND d.id LIKE :idd
             GROUP BY
                 prt.nombre,
                 u.nombre,
@@ -336,6 +413,10 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
             'fechafin' => $fechafin,
             'mesActual' => date('m'),
             'annoActual' => date('Y'),
+            'idtp' => $tipoproducto,
+            'idu' => $unidad,
+            'idtu' => $tipounidad,
+            'idd' => $destino,
         ));
 
         return $query->getResult();

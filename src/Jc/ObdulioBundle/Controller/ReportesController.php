@@ -20,7 +20,7 @@ class ReportesController extends Controller
         $form = $this->createForm('Jc\ObdulioBundle\Form\ReporteType');
         $form->handleRequest($request);
 
-        $filtro = $form->getData();
+        $filtro = $form->getData();        
 
         if ($filtro && $filtro['reporte'] != null) {
             return $this->redirectToRoute('reportes_' . $filtro['reporte'], array($request));
@@ -868,5 +868,4 @@ class ReportesController extends Controller
             )
         );
     }
-
 }

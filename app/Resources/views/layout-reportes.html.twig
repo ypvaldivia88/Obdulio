@@ -1,93 +1,106 @@
 {% extends 'layout.html.twig' %}
 
 {% block wrapper %}
-	<div class="content-wrapper">
-		<!-- FILTROS -->
-		<div class="box-info">
-			<div class="box-body">
-				{{ form_start(form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'class': 'form-inline'} }) }}
+<div class="content-wrapper">
+  <!-- FILTROS -->
+  <div class="box-info">
+    <div class="box-body">
+      
+      {{ form_start(form, { 'attr' : {'novalidate': 'novalidate',  'role' : 'form', 'class': 'form-inline'} }) }}
+      
+      <div class="col-md-9">
 
-				<div class="form-group">
-					{{ form_errors(form.reporte) }}
-					{{ form_widget(form.reporte, { 'attr': {
+        <div class="form-group">
+          {{ form_errors(form.reporte) }}
+          {{ form_widget(form.reporte, { 'attr': {
               'class': 'form-control input-lg select2-single',
               'data-placeholder': 'Seleccione un Reporte'
             } }) }}
-				</div>
-				<div class="form-group">
-					{{ form_errors(form.fechainicio) }}
-					{{ form_widget(form.fechainicio, { 'attr': {'class': 'form-control datepicker', 'placeholder': 'Filtro Fecha inicio'} }) }}
-				</div>
-				<div class="form-group">
-					{{ form_errors(form.fechafin) }}
-					{{ form_widget(form.fechafin, { 'attr': {'class': 'form-control datepicker', 'placeholder': 'Filtro Fecha fin'} }) }}
-				</div>
+        </div>
 
-				<input type="submit" class="btn btn-primary" value="Ver Reporte"/>
+        <div class="form-group">
+          {{ form_errors(form.rangofechas) }}
+          {{ form_widget(form.rangofechas, { 'attr': {
+          'class': 'form-control'} }) }}
+        </div>
 
-				<button class="btn btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros" aria-expanded="false" aria-controls="collapseFiltros">
-					Más filtros
-				</button>
-				<div class="collapse" id="collapseFiltros">
+        <span class="collapse" id="collapseFiltros">
 
-					<div class="form-group">
-						{{ form_errors(form.tipoproducto) }}
-						{{ form_widget(form.tipoproducto, { 'attr': {
+          <div class="form-group">
+            {{ form_errors(form.tipoproducto) }}
+            {{ form_widget(form.tipoproducto, { 'attr': {
                 'class': 'form-control input-lg select2-single',
                 'data-placeholder': 'Seleccione un Tipo de Producto'
               } }) }}
-					</div>
-					<div class="form-group">
-						{{ form_errors(form.unidad) }}
-						{{ form_widget(form.unidad, { 'attr': {
+          </div>
+
+          <div class="form-group">
+            {{ form_errors(form.unidad) }}
+            {{ form_widget(form.unidad, { 'attr': {
                 'class': 'form-control input-lg select2-single',
                 'data-placeholder': 'Seleccione una Unidad'
               } }) }}
-					</div>
-					<div class="form-group">
-						{{ form_errors(form.tipounidad) }}
-						{{ form_widget(form.tipounidad, { 'attr': {
+          </div>
+
+          <div class="form-group">
+            {{ form_errors(form.tipounidad) }}
+            {{ form_widget(form.tipounidad, { 'attr': {
                 'class': 'form-control input-lg select2-single',
                 'data-placeholder': 'Seleccione un Tipo de Unidad'
               } }) }}
-					</div>
-					<div class="form-group">
-						{{ form_errors(form.destino) }}
-						{{ form_widget(form.destino, { 'attr': {
+          </div>
+
+          <div class="form-group">
+            {{ form_errors(form.destino) }}
+            {{ form_widget(form.destino, { 'attr': {
                 'class': 'form-control input-lg select2-single',
                 'data-placeholder': 'Seleccione un Destino'
               } }) }}
-					</div>
-				</div>
+          </div>
 
-				{{ form_end(form) }}
-			</div>
-			<!-- /.box-body -->
-		</div>
-		<!--/.FILTROS -->
-		<!-- TITULO PAGINA -->
-		<section class="content-header">
-			<h1>
-				Reporte
-				{{titulo_reporte}}
-			</h1>
-			<ol class="breadcrumb">
-				<li>
-					<a href="{{ path('inicio') }}">
-						<i class="glyphicon glyphicon-home"></i>Inicio</a>
-				</li>
-				<li>
-					<a href="{{ path('reportes_general') }}">
-						<i class="glyphicon glyphicon-alert"></i>Reportes</a>
-				</li>
-				<li>
-					<a class="active">{{titulo_reporte}}</a>
-				</li>
-			</ol>
-		</section>
-		<!--/.TITULO PAGINA -->
-        {% block wrapper_content %}{% endblock %}
-	</div>
+        </span>
+
+      </div>
+
+      <div class="col-md-3">
+
+        <div class="btn-group" role="group">
+          <input type="submit" class="btn btn-sm btn-primary" value="Ver Reporte" />
+          <button class="btn btn-sm btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
+            aria-expanded="false" aria-controls="collapseFiltros">
+            Más filtros
+          </button>
+        </div>
+      </div>
+
+      {{ form_end(form) }}
+    </div>
+    <!-- /.box-body -->
+  </div>
+  <!--/.FILTROS -->
+  <!-- TITULO PAGINA -->
+  <section class="content-header">
+    <h1>
+      Reporte
+      {{titulo_reporte}}
+    </h1>
+    <ol class="breadcrumb">
+      <li>
+        <a href="{{ path('inicio') }}">
+          <i class="glyphicon glyphicon-home"></i>Inicio</a>
+      </li>
+      <li>
+        <a href="{{ path('reportes_general') }}">
+          <i class="glyphicon glyphicon-alert"></i>Reportes</a>
+      </li>
+      <li>
+        <a class="active">{{titulo_reporte}}</a>
+      </li>
+    </ol>
+  </section>
+  <!--/.TITULO PAGINA -->
+  {% block wrapper_content %}{% endblock %}
+</div>
 {% endblock %}
 
 {% block javascripts %}
@@ -105,12 +118,13 @@
 <script src="{{ asset('public/export/pdfmake.min.js') }}"></script>
 <script src="{{ asset('public/export/vfs_fonts.js') }}"></script>
 <script src="{{ asset('public/export/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('public/daterangepicker-master/moment.min.js') }}"></script>
+<script src="{{ asset('public/daterangepicker-master/daterangepicker.js') }}"></script>
 
 <script>
   $(function () {
     $('.select2-single').select2();
     $('.datepicker').datepicker();
-    //$('.panel-collapse.collapse:first').addClass('in');
 
     var table = $(".datatable").DataTable({
       paging: true,
@@ -123,33 +137,33 @@
       buttons: [{
           extend: 'copy',
           text: '<i class="fa fa-files-o"></i> Copiar',
-          title: 'Reporte operativo',
+          title: 'Reporte de Producción',
           exportOptions: {
-            columns: [1, 2, 3, 4, 5, 6]
+            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           }
         },
         {
           extend: 'excel',
           text: '<i class="fa fa-file-excel-o"></i> Excel',
-          title: 'Reporte operativo',
+          title: 'Reporte de Producción',
           exportOptions: {
-            columns: [1, 2, 3, 4, 5, 6]
+            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           }
         },
         {
           extend: 'pdf',
           text: '<i class="fa fa-file-pdf-o"></i> PDF',
-          title: 'Reporte operativo',
+          title: 'Reporte de Producción',
           exportOptions: {
-            columns: [1, 2, 3, 4, 5, 6]
+            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           }
         },
         {
           extend: 'print',
           text: '<i class="fa fa-print"></i> Imprimir',
-          title: 'Reporte operativo',
+          title: 'Reporte de Producción',
           exportOptions: {
-            columns: [1, 2, 3, 4, 5, 6]
+            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           }
         }, {
           extend: 'colvis',
@@ -167,43 +181,54 @@
       }
     });
 
-    // Apply the search
-    table.columns().every(function () {
-      var that = this;
-
-      $('input', this.footer()).on('keyup change', function () {
-        if (that.search() !== this.value) {
-          that.search(this.value).draw();
-        }
-      });
+    $('#jc_obduliobundle_reporte_rangofechas').daterangepicker({
+      ranges: {
+        'Hoy': [moment(), moment()],
+        'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Hace 7 Días': [moment().subtract(6, 'days'), moment()],
+        'Hace 30 Días': [moment().subtract(29, 'days'), moment()],
+        'Este Mes': [moment().startOf('month'), moment().endOf('month')],
+        'Último Mes': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+          'month')]
+      },
+      "locale": {
+        "format": "YYYY-MM-DD",
+        "separator": " / ",
+        "applyLabel": "Aplicar",
+        "cancelLabel": "Cancelar",
+        "fromLabel": "Desde",
+        "toLabel": "Hasta",
+        "customRangeLabel": "Personalizado",
+        "weekLabel": "S",
+        "daysOfWeek": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+        "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
+          "Octubre", "Noviembre", "Diciembre"
+        ],
+        "firstDay": 1
+      },
+      "startDate": moment().startOf('month'),
+      "endDate": moment().endOf('month')
+    }, function (start, end, label) {
+      console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') +
+        ' (predefined range: ' + label + ')');
     });
 
-    $('#tb_operativos tfoot tr').appendTo('#tb_operativos thead');
-
-    /* $('input:text').attr('style',
-      'width: 100%'); // ojo con esto, es importante sino salen muy grandes los search por columnas */
-    $('.dt-button').removeClass('buttons-html5');
-    $('.dt-button').removeClass('buttons-copy');
-    $('.dt-button').removeClass('buttons-pdf');
-    $('.dt-button').removeClass('buttons-excel');
-    $('.dt-button').removeClass('buttons-print');
-    $('.dt-button').addClass('btn btn-sm btn-primary');
-    $('.dt-button').removeClass('dt-button');
   });
 </script>
 {% endblock %}
 
 {% block stylesheets %}
-  {{ parent() }}
-  <link rel="stylesheet" href="{{ asset('public/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('public/export/buttons.dataTables.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('public/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
-  <style type="text/css" class="init">
-    tfoot input {
-      width: 100%;
-      padding: 3px;
-      box-sizing: border-box;
-    }
-  </style>
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('public/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/export/buttons.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+<link rel="stylesheet" href="{{ asset('public/daterangepicker-master/daterangepicker.css') }}">
+<style type="text/css" class="init">
+  tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+  }
+</style>
 {% endblock %}
