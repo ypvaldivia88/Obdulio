@@ -1,4 +1,4 @@
-$('#daterangepicker').daterangepicker({
+$('#rangofechas').daterangepicker({
     ranges: {
         'Today': [moment(), moment()],
         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

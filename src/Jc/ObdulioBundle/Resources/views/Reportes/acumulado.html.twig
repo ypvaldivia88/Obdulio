@@ -8,50 +8,36 @@
     <!-- PANEL -->
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-      {% for tipo in tipos_producto %}
+      {% for item in agrupados %}
       <div class="panel panel-primary">
         <!-- TITULO PANEL -->
-        <div class="panel-heading" role="tab" id="heading{{tipo.id}}">
+        <div class="panel-heading" role="tab" id="heading{{item.id}}">
           <h4 class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-            href="#collapse{{tipo.id}}" aria-expanded="false" aria-controls="collapse{{tipo.id}}">
-            {{ tipo.nombre }}
+            href="#collapse{{item.id}}" aria-expanded="false" aria-controls="collapse{{item.id}}">
+            {{ item.nombre }}
           </h4>
         </div>
         <!--/.TITULO PANEL -->        
         <!-- CONTENIDO PANEL -->
-        <div id="collapse{{tipo.id}}" class="panel-collapse collapse" role="tabpanel"
-          aria-labelledby="heading{{tipo.id}}">
+        <div id="collapse{{item.id}}" class="panel-collapse collapse" role="tabpanel"
+          aria-labelledby="heading{{item.id}}">
           <div class="panel-body">
             <div class="table-responsive">
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th>TU</th>
-                    <th>Unidad</th>
-                    <th>Producto</th>
                     <th>Destino</th>
-                    <th>Plan</th>
+                    <th>Unidad</th>
                     <th>Real</th>
-                    <th>Dif</th>
-                    <th>%</th>
-                    <th>Factura</th>
-                    <th>Fecha</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for dato in reporte %}
-                  {% if dato.tipoproducto == tipo.nombre %}
+                  {% if dato.producto == item.nombre %}
                   <tr>
-                    <td>{{ dato.tipounidad }}</td>
-                    <td>{{ dato.unidad }}</td>
-                    <td>{{ dato.producto }}</td>
                     <td>{{ dato.destino }}</td>
-                    <td>{{ dato.plan }}</td>
+                    <td>{{ dato.tipounidad }} {{ dato.unidad }}</td>
                     <td>{{ dato.real }}</td>
-                    <td>{{ dato.plan - dato.real }}</td>
-                    <td>X%</td>
-                    <td>{{ dato.factura }}</td>
-                    <td>{{ dato.fecha | date("Y-m-d") }}</td>
                   </tr>
                   {% endif %}
                   {% endfor %}
@@ -74,7 +60,7 @@
                 </thead>
                 <tbody>
                   {% for total in totales %}
-                  {% if total.tipoproducto == tipo.nombre %}
+                  {% if total.producto == item.nombre %}
                   <tr>
                     <td>{{ total.unidad }}</td>
                     <td>{{ total.plan }}</td>
