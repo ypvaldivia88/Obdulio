@@ -5,55 +5,55 @@
   <!-- FILTROS -->
   <div class="box-info">
     <div class="box-body">
-      
-      {{ form_start(form, { 'attr' : {'novalidate': 'novalidate',  'role' : 'form', 'class': 'form-inline'} }) }}
-      
+
+      {{ form_start(form, { 'attr' : {'novalidate': 'novalidate',  'role' : 'form'} }) }}
+
       <div class="col-md-9">
-
-        <div class="form-group">
-          {{ form_errors(form.reporte) }}
-          {{ form_widget(form.reporte, { 'attr': {
-              'class': 'form-control input-lg select2-single',
-              'data-placeholder': 'Seleccione un Reporte'
-            } }) }}
-        </div>
-
-        <div class="form-group">
-          {{ form_errors(form.rangofechas) }}
-          {{ form_widget(form.rangofechas, { 'attr': {
-          'class': 'form-control'} }) }}
-        </div>
-
-        <span class="collapse" id="collapseFiltros">
+        <span class="form-horizontal">
+          <div class="form-group">
+            {{ form_errors(form.reporte) }}
+            {{ form_widget(form.reporte, { 'attr': {
+                'class': 'form-control select2-single',
+                'data-placeholder': 'Seleccione un Reporte'
+              } }) }}
+          </div>
+        </span>
+        <span class="collapse form-horizontal" id="collapseFiltros">
 
           <div class="form-group">
-            {{ form_errors(form.tipoproducto) }}
+            {{ form_label(form.rangofechas) }}
+            {{ form_widget(form.rangofechas, { 'attr': {
+                'class': 'form-control'} }) }}
+          </div>
+
+          <div class="form-group">
+            {{ form_label(form.tipoproducto) }}
             {{ form_widget(form.tipoproducto, { 'attr': {
-                'class': 'form-control input-lg select2-single',
+                'class': 'form-control select2-single',
                 'data-placeholder': 'Seleccione un Tipo de Producto'
               } }) }}
           </div>
 
           <div class="form-group">
-            {{ form_errors(form.unidad) }}
+            {{ form_label(form.unidad) }}
             {{ form_widget(form.unidad, { 'attr': {
-                'class': 'form-control input-lg select2-single',
+                'class': 'form-control select2-single',
                 'data-placeholder': 'Seleccione una Unidad'
               } }) }}
           </div>
 
           <div class="form-group">
-            {{ form_errors(form.tipounidad) }}
+            {{ form_label(form.tipounidad) }}
             {{ form_widget(form.tipounidad, { 'attr': {
-                'class': 'form-control input-lg select2-single',
+                'class': 'form-control select2-single',
                 'data-placeholder': 'Seleccione un Tipo de Unidad'
               } }) }}
           </div>
 
           <div class="form-group">
-            {{ form_errors(form.destino) }}
+            {{ form_label(form.destino) }}
             {{ form_widget(form.destino, { 'attr': {
-                'class': 'form-control input-lg select2-single',
+                'class': 'form-control select2-single',
                 'data-placeholder': 'Seleccione un Destino'
               } }) }}
           </div>
@@ -65,10 +65,10 @@
       <div class="col-md-3">
 
         <div class="btn-group" role="group">
-          <input type="submit" class="btn btn-sm btn-primary" value="Ver Reporte" />
-          <button class="btn btn-sm btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
+          <input type="submit" class="btn btn-primary" value="Ver Reporte" />
+          <button class="btn btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseFiltros"
             aria-expanded="false" aria-controls="collapseFiltros">
-            Más filtros
+            filtros
           </button>
         </div>
       </div>

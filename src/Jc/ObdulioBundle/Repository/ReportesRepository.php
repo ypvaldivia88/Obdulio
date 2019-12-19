@@ -17,8 +17,7 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
     {
         $this->em = $em;
     }
-
-    //Devuelve todos los datos asociados a los reportes
+    
     public function getReporteGeneral($filtro)
     {       
         $fechainicio = date('Y-m-1');
@@ -105,8 +104,7 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         
         return $query->getResult();
     }
-
-    //Devuelve Total por Producto
+    
     public function getTotalDeUnProducto($filtro,$idProducto)
     {
         $fechainicio = date('Y-m-1');
@@ -186,7 +184,6 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
     
-    //Devuelve los Totales en TIPO DE PRODUCTO POR UNIDAD
     public function getTotalPorTipoProducto($filtro)
     {
         $fechainicio = date('Y-m-1');
@@ -263,8 +260,7 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getResult();
     }
-
-    //Devuelve los Totales en DESTINO POR UNIDAD
+    
     public function getTotalPorDestino($filtro)
     {
         $fechainicio = date('Y-m-1');
@@ -341,8 +337,7 @@ class ReportesRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getResult();
     }
-
-    //Devuelve los Totales en DESTINO POR UNIDAD
+    
     public function getTotalProductoPorDestino($filtro)
     {
         $fechainicio = date('Y-m-1');
