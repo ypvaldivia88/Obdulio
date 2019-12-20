@@ -1,0 +1,102 @@
+{% extends 'layout.html.twig' %}
+
+{% block wrapper %}
+    {{ parent() }}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Editar Termo
+                {#<small>it all starts here</small>#}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
+                <li><a href="{{ path('termo_index') }}">Termos</a></li>
+                <li><a class="active">Editar</a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Editar</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_start(edit_form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
+                    <fieldset>
+                        {% if not form_errors(edit_form.nombre) %}
+                            <div class="form-group col-md-6">
+                                <strong>Nombre</strong>
+                                {{ form_widget(edit_form.nombre, {'attr': {
+                                    'class': 'form-control',
+                                    'onKeyPress' : 'return ValidarNombre(event);',
+                                    'maxlength' : '100'
+                                }}) }}
+                            </div>
+                        {% endif %}
+                        {% if form_errors(edit_form.nombre) %}
+                            <div class="form-group has-error col-md-6">
+                                <strong>Nombre</strong>
+                                {{ form_widget(edit_form.nombre, {'attr': {
+                                    'class': 'form-control',
+                                    'onKeyPress' : 'return ValidarNombre(event);',
+                                    'maxlength' : '250'
+                                }}) }}
+                                <span class="text-danger">{{ form_errors(edit_form.nombre) }}</span>
+                            </div>
+                        {% endif %}
+
+                    </fieldset>
+                    <hr>
+                    <br>
+
+                    <div class="col-md-4"> </div>
+                    <div class="col-md-4">
+                        <div class="col-md-6">
+
+                            {{ form_widget(edit_form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{ path('termo_index') }}" class="btn btn-sm btn-danger">
+                                <i class="fa fa-ban"></i> <strong>Cancelar</strong>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4"> </div>
+                    <p>&zwnj;</p>
+                    <p>&zwnj;</p>
+                    <br>
+                    {{ form_end(edit_form) }}
+                </div>
+                <!-- /.box-body -->
+                {#<div class="box-footer">
+                  Footer
+                </div>#}
+                <!-- /.box-footer-->
+            </div>
+            <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <input type="hidden" value="termos" id="seleccion">
+{% endblock %}
+
+{% block javascripts  %}
+    {{ parent() }}
+    <script src="{{ asset('public/select2/dist/js/select2.full.min.js') }}"></script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+        })
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
+{% endblock %}

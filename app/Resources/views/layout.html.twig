@@ -184,35 +184,35 @@
                                             <span>Medida</span>
                                         </a>
                                     </li>
+                                    <li id="termo">
+                                        <a href="{{ path('termo_index') }}">
+                                            <span>Termo</span>
+                                        </a>
+                                    </li>
                                     </ul>
 
                             </li>
                             <li id="planificacion" class="treeview">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-edit"></i><span>Planificación</span>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-edit"></i><span>Planificación</span>
                                     <span class="pull-right-container">
                                   <i class="fa fa-angle-left pull-right"></i>
                                 </span>
-                            </a>
-                            <ul class="treeview-menu" style="display: none;">
-                                <li id="planificacionproduccion">
-                                    <a href="{{ path('planificacionproduccion_index') }}">
-                                        <span>Planificación Producción</span>
-                                    </a>
-                                </li>
-                                <li id="planificacionsiembra">
-                                    <a href="#">
-                                        <span>Planificación Siembra</span>
-                                    </a>
-                                </li>
-                                <li id="planificacionleche">
-                                    <a href="#">
-                                        <span>Planificación Leche</span>
-                                    </a>
-                                </li>
-                            </ul>
+                                </a>
+                                <ul class="treeview-menu" style="display: none;">
+                                    <li id="planificacionproduccion">
+                                        <a href="{{ path('planificacionproduccion_index') }}">
+                                            <span>Planificación Producción</span>
+                                        </a>
+                                    </li>
+                                    <li id="planificacionleche">
+                                        <a href="{{ path('planificaciondeleche_index') }}">
+                                            <span>Planificación Leche</span>
+                                        </a>
+                                    </li>
+                                </ul>
 
-                        </li>
+                            </li>
                             <li id="gestionar" class="treeview">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-list-alt"></i><span>Gestionar</span>
@@ -226,13 +226,8 @@
                                             <span>Producción</span>
                                         </a>
                                     </li>
-                                    <li id="siembra">
-                                        <a href="#">
-                                            <span>Siembra</span>
-                                        </a>
-                                    </li>
                                     <li id="leche">
-                                        <a href="#">
+                                        <a href="{{ path('produccionleche_index') }}">
                                             <span>Leche</span>
                                         </a>
                                     </li>
@@ -263,13 +258,8 @@
                                             <span>Planificación Producción</span>
                                         </a>
                                     </li>
-                                    <li id="planificacionsiembra">
-                                        <a href="#">
-                                            <span>Planificación Siembra</span>
-                                        </a>
-                                    </li>
                                     <li id="planificacionleche">
-                                        <a href="#">
+                                        <a href="{{ path('planificaciondeleche_index') }}">
                                             <span>Planificación Leche</span>
                                         </a>
                                     </li>
@@ -289,13 +279,8 @@
                                             <span>Producción</span>
                                         </a>
                                     </li>
-                                    <li id="siembra">
-                                        <a href="#">
-                                            <span>Siembra</span>
-                                        </a>
-                                    </li>
                                     <li id="leche">
-                                        <a href="#">
+                                        <a href="{{ path('produccionleche_index') }}">
                                             <span>Leche</span>
                                         </a>
                                     </li>

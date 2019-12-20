@@ -1,3 +1,15 @@
+jc_obdulio_produccionleche:
+    resource: "@JcObdulioBundle/Controller/ProduccionlecheController.php"
+    type:     annotation
+
+jc_obdulio_planificaciondeleche:
+    resource: "@JcObdulioBundle/Controller/PlanificaciondelecheController.php"
+    type:     annotation
+
+jc_obdulio_termo:
+    resource: "@JcObdulioBundle/Controller/TermoController.php"
+    type:     annotation
+
 jc_obdulio_tipodeunidad:
     resource: "@JcObdulioBundle/Controller/TipodeunidadController.php"
     type:     annotation

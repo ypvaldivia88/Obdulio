@@ -6,13 +6,13 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Nuevo Producci&oacute;n
+                Editar Producci&oacute;n de leche
                 {#<small>it all starts here</small>#}
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-                <li><a href="{{ path('produccion_index') }}">Producci&oacute;n</a></li>
-                <li><a class="active">Nuevo</a></li>
+                <li><a href="{{ path('produccion_index') }}">Producci&oacute;n de leche</a></li>
+                <li><a class="active">Editar</a></li>
             </ol>
         </section>
 
@@ -22,49 +22,31 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Nuevo</h3>
+                    <h3 class="box-title">Editar</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_start(form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
+                    {{ form_start(edit_form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
                     <fieldset>
                         <div class="form-group col-md-6">
                             <div id="datepicker" data-date="12/03/2012"></div>
                             <strong>Fecha</strong>
-                            {{ form_widget(form.fecha) }}
+                            {{ form_widget(edit_form.fecha) }}
                         </div>
                         <div id="datepicker" data-date="12/03/2012"></div>
-                        {{ form_widget(form.fecha) }}
+                        {{ form_widget(edit_form.fecha) }}
                         <div class="form-group col-md-6">
-                            <strong>Producto</strong>
-                            {{ form_widget(form.fkProducto, {'attr': {
+                            <strong>Termo</strong>
+                            {{ form_widget(edit_form.fkTermo, {'attr': {
                                 'class': 'form-control select2',
                                 'style' : 'width:100%'
 
                             }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkProducto) }}</span>
+                            <span class="text-danger">{{ form_errors(edit_form.fkTermo) }}</span>
                         </div>
-                        <div class="form-group col-md-6">
-                            <strong>Unidad</strong>
-                            {{ form_widget(form.fkUnidad, {'attr': {
-                                'class': 'form-control select2',
-                                'style' : 'width:100%'
-
-                            }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkUnidad) }}</span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <strong>Destino</strong>
-                            {{ form_widget(form.fkDestino, {'attr': {
-                                'class': 'form-control select2',
-                                'style' : 'width:100%'
-
-                            }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkDestino) }}</span>
-                        </div>
-                        {% if not form_errors(form.valor) %}
+                        {% if not form_errors(edit_form.valor) %}
                             <div class="form-group col-md-6">
                                 <strong>Valor</strong>
-                                {{ form_widget(form.valor, {'attr': {
+                                {{ form_widget(edit_form.valor, {'attr': {
                                     'class': 'form-control',
                                     'placeholder' : 'Escriba el valor',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
@@ -72,40 +54,40 @@
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.valor) %}
+                        {% if form_errors(edit_form.valor) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Valor</strong>
-                                {{ form_widget(form.valor, {'attr': {
+                                {{ form_widget(edit_form.valor, {'attr': {
                                     'class': 'form-control',
                                     'placeholder' : 'Escriba Valor',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.valor) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.valor) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajevalor') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.factura) %}
+                        {% if not form_errors(edit_form.factura) %}
                             <div class="form-group col-md-6">
                                 <strong>Factura</strong>
-                                {{ form_widget(form.factura, {'attr': {
+                                {{ form_widget(edit_form.factura, {'attr': {
                                     'class': 'form-control',
                                     'onKeyPress' : 'return ValidarFactura(event);',
                                     'maxlength' : '100'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.factura) %}
+                        {% if form_errors(edit_form.factura) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Factura</strong>
-                                {{ form_widget(form.factura, {'attr': {
+                                {{ form_widget(edit_form.factura, {'attr': {
                                     'class': 'form-control',
                                     'onKeyPress' : 'return ValidarFactura(event);',
                                     'maxlength' : '250'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.factura) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.factura) }}</span>
                             </div>
                         {% endif %}
 
@@ -117,10 +99,10 @@
                     <div class="col-md-4">
                         <div class="col-md-6">
 
-                            {{ form_widget(form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
+                            {{ form_widget(edit_form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ path('produccion_index') }}" class="btn btn-sm btn-danger">
+                            <a href="{{ path('produccionleche_index') }}" class="btn btn-sm btn-danger">
                                 <i class="fa fa-ban"></i> <strong>Cancelar</strong>
                             </a>
                         </div>
@@ -129,7 +111,7 @@
                     <p>&zwnj;</p>
                     <p>&zwnj;</p>
                     <br>
-                    {{ form_end(form) }}
+                    {{ form_end(edit_form) }}
                 </div>
                 <!-- /.box-body -->
                 {#<div class="box-footer">
@@ -142,7 +124,7 @@
         </section>
         <!-- /.content -->
     </div>
-    <input type="hidden" value="produccions" id="seleccion">
+    <input type="hidden" value="destinos" id="seleccion">
 {% endblock %}
 
 {% block javascripts  %}
