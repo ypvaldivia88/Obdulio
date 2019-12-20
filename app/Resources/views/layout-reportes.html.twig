@@ -6,54 +6,59 @@
   <div class="box-info">
     <div class="box-body">
 
-      {{ form_start(form, { 'attr' : {'novalidate': 'novalidate',  'role' : 'form'} }) }}
+      {{ form_start(form, { 'attr' : {'novalidate': 'novalidate',  'role' : 'form', 'class': 'form-horizontal'} }) }}
 
       <div class="col-md-9">
-        <span class="form-horizontal">
+        <span>
           <div class="form-group">
             {{ form_errors(form.reporte) }}
             {{ form_widget(form.reporte, { 'attr': {
                 'class': 'form-control select2-single',
+                'style': 'width: 100%;',
                 'data-placeholder': 'Seleccione un Reporte'
               } }) }}
           </div>
         </span>
-        <span class="collapse form-horizontal" id="collapseFiltros">
+        <span class="collapse" id="collapseFiltros">
 
           <div class="form-group">
-            {{ form_label(form.rangofechas) }}
+            <label for="jc_obduliobundle_reporte_rangofechas">Seleccione un rango de Fechas</label>
             {{ form_widget(form.rangofechas, { 'attr': {
                 'class': 'form-control'} }) }}
           </div>
 
           <div class="form-group">
-            {{ form_label(form.tipoproducto) }}
+            {# {{ form_label(form.tipoproducto) }} #}
             {{ form_widget(form.tipoproducto, { 'attr': {
                 'class': 'form-control select2-single',
+                'style': 'width: 100%;',
                 'data-placeholder': 'Seleccione un Tipo de Producto'
               } }) }}
           </div>
 
           <div class="form-group">
-            {{ form_label(form.unidad) }}
+            {# {{ form_label(form.unidad) }} #}
             {{ form_widget(form.unidad, { 'attr': {
                 'class': 'form-control select2-single',
+                'style': 'width: 100%;',
                 'data-placeholder': 'Seleccione una Unidad'
               } }) }}
           </div>
 
           <div class="form-group">
-            {{ form_label(form.tipounidad) }}
+            {# {{ form_label(form.tipounidad) }} #}
             {{ form_widget(form.tipounidad, { 'attr': {
                 'class': 'form-control select2-single',
+                'style': 'width: 100%;',
                 'data-placeholder': 'Seleccione un Tipo de Unidad'
               } }) }}
           </div>
 
           <div class="form-group">
-            {{ form_label(form.destino) }}
+            {# {{ form_label(form.destino) }} #}
             {{ form_widget(form.destino, { 'attr': {
                 'class': 'form-control select2-single',
+                'style': 'width: 100%;',
                 'data-placeholder': 'Seleccione un Destino'
               } }) }}
           </div>
