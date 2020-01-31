@@ -51,6 +51,14 @@ class Producto
      */
     protected $planificacionproduccion;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Siembra", mappedBy="fkUnidad")
+     */
+    protected $siembra;
+    /**
+     * @ORM\OneToMany(targetEntity="Venta", mappedBy="fkUnidad")
+     */
+    protected $venta;
 
     /**
      * Get id
@@ -185,5 +193,51 @@ class Producto
     public function getFkMedida()
     {
         return $this->fkMedida;
+    }
+    /**
+     * Set siembra
+     *
+     * @param \Jc\ObdulioBundle\Entity\Siembra $siembra
+     *
+     * @return Producto
+     */
+    public function setSiembra(\Jc\ObdulioBundle\Entity\Siembra $siembra = null)
+    {
+        $this->siembra = $siembra;
+
+        return $this;
+    }
+
+    /**
+     * Get siembra
+     *
+     * @return \Jc\ObdulioBundle\Entity\Siembra
+     */
+    public function getSiembra()
+    {
+        return $this->siembra;
+    }
+    /**
+     * Set venta
+     *
+     * @param \Jc\ObdulioBundle\Entity\Venta $venta
+     *
+     * @return Producto
+     */
+    public function setVenta(\Jc\ObdulioBundle\Entity\Venta $venta = null)
+    {
+        $this->venta = $venta;
+
+        return $this;
+    }
+
+    /**
+     * Get venta
+     *
+     * @return \Jc\ObdulioBundle\Entity\Venta
+     */
+    public function getVenta()
+    {
+        return $this->venta;
     }
 }

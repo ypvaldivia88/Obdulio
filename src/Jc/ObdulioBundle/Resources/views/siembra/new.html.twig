@@ -6,12 +6,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Nueva Planificacion de la Producci&oacute;n de Leche
+                Nueva Planificacion de la Siembra
                 {#<small>it all starts here</small>#}
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-                <li><a href="{{ path('planificaciondeleche_index') }}">Planificaci&oacute;n de la producción de leche</a></li>
+                <li><a href="{{ path('siembra_index') }}">Planificaci&oacute;n de la Siembra</a></li>
                 <li><a class="active">Nuevo</a></li>
             </ol>
         </section>
@@ -28,13 +28,22 @@
                     {{ form_start(form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
                     <fieldset>
                         <div class="form-group col-md-6">
-                            <strong>Termo</strong>
-                            {{ form_widget(form.fkTermo, {'attr': {
+                            <strong>Producto</strong>
+                            {{ form_widget(form.fkProducto, {'attr': {
                                 'class': 'form-control select2',
                                 'style' : 'width:100%'
 
                             }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkTermo) }}</span>
+                            <span class="text-danger">{{ form_errors(form.fkProducto) }}</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <strong>Unidad</strong>
+                            {{ form_widget(form.fkUnidad, {'attr': {
+                                'class': 'form-control select2',
+                                'style' : 'width:100%'
+
+                            }}) }}
+                            <span class="text-danger">{{ form_errors(form.fkUnidad) }}</span>
                         </div>
                         {% if not form_errors(form.enero) %}
                             <div class="form-group col-md-6">
@@ -350,7 +359,7 @@
                         {% endif %}
                         {% if not form_errors(form.anno) %}
                             <div class="form-group col-md-6">
-                                <strong>A&ntilde;o</strong>
+                                <strong>Año</strong>
                                 {{ form_widget(form.anno, {'attr': {
                                     'class': 'form-control',
                                     'placeholder' : 'Escriba el plan de Año',
@@ -361,10 +370,10 @@
                         {% endif %}
                         {% if form_errors(form.anno) %}
                             <div class="form-group has-error col-md-6">
-                                <strong>Ano</strong>
+                                <strong>Año</strong>
                                 {{ form_widget(form.anno, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de ano',
+                                    'placeholder' : 'Escriba el año',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -386,7 +395,7 @@
                             {{ form_widget(form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ path('planificaciondeleche_index') }}" class="btn btn-sm btn-danger">
+                            <a href="{{ path('siembra_index') }}" class="btn btn-sm btn-danger">
                                 <i class="fa fa-ban"></i> <strong>Cancelar</strong>
                             </a>
                         </div>
@@ -408,7 +417,7 @@
         </section>
         <!-- /.content -->
     </div>
-    <input type="hidden" value="planificaciondeleches" id="seleccion">
+    <input type="hidden" value="siembras" id="seleccion">
 {% endblock %}
 
 {% block javascripts  %}
@@ -426,4 +435,3 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
 {% endblock %}
-

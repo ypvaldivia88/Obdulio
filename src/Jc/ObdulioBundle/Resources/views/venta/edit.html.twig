@@ -6,13 +6,13 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Nueva Planificacion de la Producci&oacute;n de Leche
+                Editar Ventas por Producto  y Unidad Anual
                 {#<small>it all starts here</small>#}
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-                <li><a href="{{ path('planificaciondeleche_index') }}">Planificaci&oacute;n de la producción de leche</a></li>
-                <li><a class="active">Nuevo</a></li>
+                <li><a href="{{ path('venta_index') }}">Ventas por Producto y Unidad Anual</a></li>
+                <li><a class="active">Editar</a></li>
             </ol>
         </section>
 
@@ -22,353 +22,362 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Nuevo</h3>
+                    <h3 class="box-title">Editar</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_start(form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
+                    {{ form_start(edit_form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
                     <fieldset>
                         <div class="form-group col-md-6">
-                            <strong>Termo</strong>
-                            {{ form_widget(form.fkTermo, {'attr': {
+                            <strong>Producto</strong>
+                            {{ form_widget(edit_form.fkProducto, {'attr': {
                                 'class': 'form-control select2',
                                 'style' : 'width:100%'
 
                             }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkTermo) }}</span>
+                            <span class="text-danger">{{ form_errors(edit_form.fkProducto) }}</span>
                         </div>
-                        {% if not form_errors(form.enero) %}
+                        <div class="form-group col-md-6">
+                            <strong>Unidad</strong>
+                            {{ form_widget(edit_form.fkUnidad, {'attr': {
+                                'class': 'form-control select2',
+                                'style' : 'width:100%'
+
+                            }}) }}
+                            <span class="text-danger">{{ form_errors(edit_form.fkUnidad) }}</span>
+                        </div>
+                        {% if not form_errors(edit_form.enero) %}
                             <div class="form-group col-md-6">
                                 <strong>Enero</strong>
-                                {{ form_widget(form.enero, {'attr': {
+                                {{ form_widget(edit_form.enero, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Enero',
+                                    'placeholder' : 'Escriba las Ventas de Enero',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.enero) %}
+                        {% if form_errors(edit_form.enero) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Enero</strong>
-                                {{ form_widget(form.enero, {'attr': {
+                                {{ form_widget(edit_form.enero, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Enero',
+                                    'placeholder' : 'Escriba las Ventas de Enero',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.enero) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.enero) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajeenero') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.febrero) %}
+                        {% if not form_errors(edit_form.febrero) %}
                             <div class="form-group col-md-6">
                                 <strong>Febrero</strong>
-                                {{ form_widget(form.febrero, {'attr': {
+                                {{ form_widget(edit_form.febrero, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Febrero',
+                                    'placeholder' : 'Escriba las Ventas de Febrero',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.febrero) %}
+                        {% if form_errors(edit_form.febrero) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Febrero</strong>
-                                {{ form_widget(form.febrero, {'attr': {
+                                {{ form_widget(edit_form.febrero, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Febrero',
+                                    'placeholder' : 'Escriba las Ventas de Febrero',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.febrero) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.febrero) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajefebrero') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.marzo) %}
+                        {% if not form_errors(edit_form.marzo) %}
                             <div class="form-group col-md-6">
                                 <strong>Marzo</strong>
-                                {{ form_widget(form.marzo, {'attr': {
+                                {{ form_widget(edit_form.marzo, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Marzo',
+                                    'placeholder' : 'Escriba las Ventas de Marzo',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.marzo) %}
+                        {% if form_errors(edit_form.marzo) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Marzo</strong>
-                                {{ form_widget(form.marzo, {'attr': {
+                                {{ form_widget(edit_form.marzo, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Marzo',
+                                    'placeholder' : 'Escriba las Ventas de Marzo',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.marzo) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.marzo) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajemarzo') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.abril) %}
+                        {% if not form_errors(edit_form.abril) %}
                             <div class="form-group col-md-6">
                                 <strong>Abril</strong>
-                                {{ form_widget(form.abril, {'attr': {
+                                {{ form_widget(edit_form.abril, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Abril',
+                                    'placeholder' : 'Escriba las Ventas de Abril',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.abril) %}
+                        {% if form_errors(edit_form.abril) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Abril</strong>
-                                {{ form_widget(form.abril, {'attr': {
+                                {{ form_widget(edit_form.abril, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Abril',
+                                    'placeholder' : 'Escriba las Ventas de Abril',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.abril) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.abril) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajeabril') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.mayo) %}
+                        {% if not form_errors(edit_form.mayo) %}
                             <div class="form-group col-md-6">
                                 <strong>Mayo</strong>
-                                {{ form_widget(form.mayo, {'attr': {
+                                {{ form_widget(edit_form.mayo, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Mayo',
+                                    'placeholder' : 'Escriba las Ventas de Mayo',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.mayo) %}
+                        {% if form_errors(edit_form.mayo) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Mayo</strong>
-                                {{ form_widget(form.mayo, {'attr': {
+                                {{ form_widget(edit_form.mayo, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Mayo',
+                                    'placeholder' : 'Escriba las Ventas de Mayo',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.mayo) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.mayo) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajemayo') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.junio) %}
+                        {% if not form_errors(edit_form.junio) %}
                             <div class="form-group col-md-6">
                                 <strong>Junio</strong>
-                                {{ form_widget(form.junio, {'attr': {
+                                {{ form_widget(edit_form.junio, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Junio',
+                                    'placeholder' : 'Escriba las Ventas de Junio',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.junio) %}
+                        {% if form_errors(edit_form.junio) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Junio</strong>
-                                {{ form_widget(form.junio, {'attr': {
+                                {{ form_widget(edit_form.junio, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Junio',
+                                    'placeholder' : 'Escriba las Ventas de Junio',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.junio) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.junio) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajejunio') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.julio) %}
+                        {% if not form_errors(edit_form.julio) %}
                             <div class="form-group col-md-6">
                                 <strong>Julio</strong>
-                                {{ form_widget(form.julio, {'attr': {
+                                {{ form_widget(edit_form.julio, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Julio',
+                                    'placeholder' : 'Escriba las Ventas de Julio',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.julio) %}
+                        {% if form_errors(edit_form.julio) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Julio</strong>
-                                {{ form_widget(form.julio, {'attr': {
+                                {{ form_widget(edit_form.julio, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Julio',
+                                    'placeholder' : 'Escriba las Ventas de Julio',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.julio) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.julio) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajejulio') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.agosto) %}
+                        {% if not form_errors(edit_form.agosto) %}
                             <div class="form-group col-md-6">
                                 <strong>Agosto</strong>
-                                {{ form_widget(form.agosto, {'attr': {
+                                {{ form_widget(edit_form.agosto, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Agosto',
+                                    'placeholder' : 'Escriba las Ventas de Agosto',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.agosto) %}
+                        {% if form_errors(edit_form.agosto) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Agosto</strong>
-                                {{ form_widget(form.agosto, {'attr': {
+                                {{ form_widget(edit_form.agosto, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Agosto',
+                                    'placeholder' : 'Escriba las Ventas de Agosto',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.agosto) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.agosto) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajeagosto') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.septiembre) %}
+                        {% if not form_errors(edit_form.septiembre) %}
                             <div class="form-group col-md-6">
                                 <strong>Septiembre</strong>
-                                {{ form_widget(form.septiembre, {'attr': {
+                                {{ form_widget(edit_form.septiembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Septiembre',
+                                    'placeholder' : 'Escriba las Ventas de Septiembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.septiembre) %}
+                        {% if form_errors(edit_form.septiembre) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Septiembre</strong>
-                                {{ form_widget(form.septiembre, {'attr': {
+                                {{ form_widget(edit_form.septiembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Septiembre',
+                                    'placeholder' : 'Escriba las Ventas de Septiembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.septiembre) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.septiembre) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajeseptiembre') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.octubre) %}
+                        {% if not form_errors(edit_form.octubre) %}
                             <div class="form-group col-md-6">
                                 <strong>Octubre</strong>
-                                {{ form_widget(form.octubre, {'attr': {
+                                {{ form_widget(edit_form.octubre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Octubre',
+                                    'placeholder' : 'Escriba las Ventas de Octubre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.octubre) %}
+                        {% if form_errors(edit_form.octubre) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Octubre</strong>
-                                {{ form_widget(form.octubre, {'attr': {
+                                {{ form_widget(edit_form.octubre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Octubre',
+                                    'placeholder' : 'Escriba las Ventas de Octubre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.octubre) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.octubre) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajeoctubre') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.noviembre) %}
+                        {% if not form_errors(edit_form.noviembre) %}
                             <div class="form-group col-md-6">
                                 <strong>Noviembre</strong>
-                                {{ form_widget(form.noviembre, {'attr': {
+                                {{ form_widget(edit_form.noviembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Noviembre',
+                                    'placeholder' : 'Escriba las Ventas de Noviembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.noviembre) %}
+                        {% if form_errors(edit_form.noviembre) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Noviembre</strong>
-                                {{ form_widget(form.abril, {'attr': {
+                                {{ form_widget(edit_form.abril, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Noviembre',
+                                    'placeholder' : 'Escriba las Ventas de Noviembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.noviembre) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.noviembre) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajenoviembre') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.diciembre) %}
+                        {% if not form_errors(edit_form.diciembre) %}
                             <div class="form-group col-md-6">
                                 <strong>Diciembre</strong>
-                                {{ form_widget(form.diciembre, {'attr': {
+                                {{ form_widget(edit_form.diciembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Diciembre',
+                                    'placeholder' : 'Escriba las Ventas de Diciembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.diciembre) %}
+                        {% if form_errors(edit_form.diciembre) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Diciembre</strong>
-                                {{ form_widget(form.diciembre, {'attr': {
+                                {{ form_widget(edit_form.diciembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Diciembre',
+                                    'placeholder' : 'Escriba las Ventas de Diciembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.diciembre) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.diciembre) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajediciembre') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        {% if not form_errors(form.anno) %}
+                        {% if not form_errors(edit_form.anno) %}
                             <div class="form-group col-md-6">
-                                <strong>A&ntilde;o</strong>
-                                {{ form_widget(form.anno, {'attr': {
+                                <strong>Ano</strong>
+                                {{ form_widget(edit_form.anno, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Año',
+                                    'placeholder' : 'Escriba el  Ano',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
                             </div>
                         {% endif %}
-                        {% if form_errors(form.anno) %}
+                        {% if form_errors(edit_form.anno) %}
                             <div class="form-group has-error col-md-6">
                                 <strong>Ano</strong>
-                                {{ form_widget(form.anno, {'attr': {
+                                {{ form_widget(edit_form.anno, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de ano',
+                                    'placeholder' : 'Escriba el ano',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
-                                <span class="text-danger">{{ form_errors(form.anno) }}</span>
+                                <span class="text-danger">{{ form_errors(edit_form.anno) }}</span>
                                 {% for flashMessage in app.session.flashbag.get('mensajeano') %}
                                     <span class="text-danger">{{ flashMessage }}</span>
                                 {% endfor %}
@@ -383,10 +392,10 @@
                     <div class="col-md-4">
                         <div class="col-md-6">
 
-                            {{ form_widget(form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
+                            {{ form_widget(edit_form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ path('planificaciondeleche_index') }}" class="btn btn-sm btn-danger">
+                            <a href="{{ path('venta_index') }}" class="btn btn-sm btn-danger">
                                 <i class="fa fa-ban"></i> <strong>Cancelar</strong>
                             </a>
                         </div>
@@ -395,7 +404,7 @@
                     <p>&zwnj;</p>
                     <p>&zwnj;</p>
                     <br>
-                    {{ form_end(form) }}
+                    {{ form_end(edit_form) }}
                 </div>
                 <!-- /.box-body -->
                 {#<div class="box-footer">
@@ -408,7 +417,7 @@
         </section>
         <!-- /.content -->
     </div>
-    <input type="hidden" value="planificaciondeleches" id="seleccion">
+    <input type="hidden" value="ventas" id="seleccion">
 {% endblock %}
 
 {% block javascripts  %}
@@ -426,4 +435,3 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
 {% endblock %}
-
