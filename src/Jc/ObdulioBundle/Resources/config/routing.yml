@@ -5,8 +5,8 @@ rh_usuarios_user:
 # Reportes
 
 reportes:
-    path:     /reportes
-    defaults: { _controller: JcObdulioBundle:Reportes:index }
+    resource: "@JcObdulioBundle/Resources/config/routes/reportes.yml"
+    prefix:     /reportes
     
 # Autentication
 
