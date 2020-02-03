@@ -44,6 +44,14 @@ class Unidad
      * @ORM\OneToMany(targetEntity="Planificacionproduccion", mappedBy="fkUnidad")
      */
     protected $planificacionproduccion;
+    /**
+     * @ORM\OneToMany(targetEntity="Siembra", mappedBy="fkUnidad")
+     */
+    protected $siembra;
+    /**
+     * @ORM\OneToMany(targetEntity="Venta", mappedBy="fkUnidad")
+     */
+    protected $venta;
 
 
     /**
@@ -153,6 +161,53 @@ class Unidad
     public function getFkTipodeunidad()
     {
         return $this->fkTipodeunidad;
+    }
+
+    /**
+     * Set siembra
+     *
+     * @param \Jc\ObdulioBundle\Entity\Siembra $siembra
+     *
+     * @return Unidad
+     */
+    public function setSiembra(\Jc\ObdulioBundle\Entity\Siembra $siembra = null)
+    {
+        $this->siembra = $siembra;
+
+        return $this;
+    }
+
+    /**
+     * Get siembra
+     *
+     * @return \Jc\ObdulioBundle\Entity\Siembra
+     */
+    public function getSiembra()
+    {
+        return $this->siembra;
+    }
+    /**
+     * Set venta
+     *
+     * @param \Jc\ObdulioBundle\Entity\Venta $venta
+     *
+     * @return Unidad
+     */
+    public function setVenta(\Jc\ObdulioBundle\Entity\Venta $venta = null)
+    {
+        $this->venta = $venta;
+
+        return $this;
+    }
+
+    /**
+     * Get venta
+     *
+     * @return \Jc\ObdulioBundle\Entity\Venta
+     */
+    public function getVenta()
+    {
+        return $this->venta;
     }
 }
 

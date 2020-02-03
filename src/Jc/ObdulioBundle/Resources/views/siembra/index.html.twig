@@ -16,12 +16,12 @@
 
     <section class="content-header">
       <h1>
-        Lista de planificacion de la Producci贸n
+        Lista de Siembra de Productos por Unidad
         {#<small>it all starts here</small>#}
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-        <li><a class="active">Planificaci贸n de la Producci贸n</a></li>
+        <li><a class="active">Siembra de Productos por Unidad</a></li>
       </ol>
     </section>
 
@@ -33,7 +33,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">Lista</h3>
             {% if is_granted('ROLE_OPERADOR') %}
-                <a href="{{ path('planificacionproduccion_new') }}" class="btn btn-sm btn-success">
+                <a href="{{ path('siembra_new') }}" class="btn btn-sm btn-success">
                     <i class="fa fa-plus"></i> <strong>Crear</strong>
                 </a>
             {% endif %}
@@ -44,7 +44,7 @@
                     <thead>
                         <tr>
                               <th>C&oacute;digo</th>
-                               <th>Producto</th>
+                                   <th>Producto</th>
                                    <th>Enero</th>
                                    <th>Febrero</th>
                                    <th>Marzo</th>
@@ -57,33 +57,33 @@
                                    <th>Octubre</th>
                                    <th>Noviembre</th>
                                    <th>Diciembre</th>
-                                   <th>A帽o</th>
+                                   <th>A駉</th>
                                    <th>Unidad</th>
                                    <th style="width: 110px !important;">Acciones</th>
                           </tr>
                        </thead>
                        <tbody>
-                          {% for planificacionproduccion in planificacionproduccions %}
-                                  <tr data-id="{{ planificacionproduccion.id }}">
-                                     <td>{{ planificacionproduccion.FkProducto.nombre }}</td>
-                                     <td>{{ planificacionproduccion.enero }}</td>
-                                        <td>{{ planificacionproduccion.enero }}</td>
-                                        <td>{{ planificacionproduccion.febrero }}</td>
-                                        <td>{{ planificacionproduccion.marzo }}</td>
-                                        <td>{{ planificacionproduccion.abril }}</td>
-                                        <td>{{ planificacionproduccion.mayo }}</td>
-                                        <td>{{ planificacionproduccion.junio }}</td>
-                                        <td>{{ planificacionproduccion.julio }}</td>
-                                        <td>{{ planificacionproduccion.agosto }}</td>
-                                        <td>{{ planificacionproduccion.septiembre }}</td>
-                                        <td>{{ planificacionproduccion.octubre }}</td>
-                                        <td>{{ planificacionproduccion.noviembre }}</td>
-                                        <td>{{ planificacionproduccion.diciembre }}</td>
-                                        <td>{{ planificacionproduccion.anno }}</td>
-                                        <td>{{ planificacionproduccion.FkUnidad.nombre }}</td>
+                        {% for siembra in siembras %}
+                                  <tr data-id="{{ siembra.id }}">
+                                     <td>{{ siembra.id }}</td>
+                                        <td>{{ siembra.FkProducto.nombre }}</td>
+                                        <td>{{ siembra.enero }}</td>
+                                        <td>{{ siembra.febrero }}</td>
+                                        <td>{{ siembra.marzo }}</td>
+                                        <td>{{ siembra.abril }}</td>
+                                        <td>{{ siembra.mayo }}</td>
+                                        <td>{{ siembra.junio }}</td>
+                                        <td>{{ siembra.julio }}</td>
+                                        <td>{{ siembra.agosto }}</td>
+                                        <td>{{ siembra.septiembre }}</td>
+                                        <td>{{ siembra.octubre }}</td>
+                                        <td>{{ siembra.noviembre }}</td>
+                                        <td>{{ siembra.diciembre }}</td>
+                                        <td>{{ siembra.anno }}</td>
+                                        <td>{{ siembra.FkUnidad.nombre }}</td>
                                       <td style="width: 110px !important;">
                                           {% if is_granted('ROLE_ADMINISTRADOR') %}
-                                              <a href="{{ path('planificacionproduccion_edit', { id: planificacionproduccion.id }) }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar">
+                                              <a href="{{ path('siembra_edit', { id: siembra.id }) }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar">
                                                   <i class="fa fa-edit"></i>
                                               </a>
                                          <a href="#" class="btn btn-sm btn-danger btn-delete" data-toggle="tooltip" title="Eliminar">
@@ -91,7 +91,7 @@
                                     </a>
                                           {% endif %}
                                              {% if is_granted('ROLE_OPERADOR') %}
-                                              <a href="{{ path('planificacionproduccion_edit', { id: planificacionproduccion.id }) }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar">
+                                              <a href="{{ path('siembra_edit', { id: siembra.id }) }}" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar">
                                                   <i class="fa fa-edit"></i>
                                               </a>
                                           {% endif %}
@@ -115,7 +115,7 @@
                                      <th rowspan="1" colspan="1"><input placeholder="Octubre" type="text"></th>
                                       <th rowspan="1" colspan="1"><input placeholder="Noviembre" type="text"></th>
                                        <th rowspan="1" colspan="1"><input placeholder="Diciembre" type="text"></th>
-                                        <th rowspan="1" colspan="1"><input placeholder="A帽o" type="text"></th>
+                                        <th rowspan="1" colspan="1"><input placeholder="A駉" type="text"></th>
                                           <th rowspan="1" colspan="1"><input placeholder="Unidad" type="text"></th>
                                        <th style="width: 110px !important;"></th>
                      </tr>
@@ -130,8 +130,8 @@
     <!-- /.content -->
   </div>
 
-{{ include('JcObdulioBundle:Default:forms/form.html.twig', { form: delete_form_ajax, message: '驴Est&aacute;s seguro que realmente quieres borrar la Planificaci贸n de la Producci贸n?', id: 'form-delete', with_submit: false}) }}
-<input type="hidden" value="planificacionproduccions" id="seleccion">
+{{ include('JcObdulioBundle:Default:forms/form.html.twig', { form: delete_form_ajax, message: '縀st&aacute;s seguro que realmente quieres borrar la Siembra?', id: 'form-delete', with_submit: false}) }}
+<input type="hidden" value="siembras" id="seleccion">
 {% endblock %}
 
 {% block javascripts  %}
@@ -163,7 +163,7 @@
                     {
                         extend: 'copy',
                         text: '<i class="fa fa-files-o"></i> Copiar',
-                        title: 'Reporte Planificaci贸n de la Producci贸n',
+                        title: 'Reporte de Siembra de Productos por Unidad',
                         exportOptions: {
                             columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
                         }
@@ -171,7 +171,7 @@
                     {
                         extend: 'excel',
                         text: '<i class="fa fa-file-excel-o"></i> Excel',
-                        title: 'Reporte Planificaci贸n de la Producci贸n',
+                        title: 'Reporte de Siembra de Productos por Unidad',
                         exportOptions: {
                             columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
                         }
@@ -179,7 +179,7 @@
                     {
                         extend: 'pdf',
                         text: '<i class="fa fa-file-pdf-o"></i> PDF',
-                        title: 'Reporte Planificaci贸n de la Producci贸n',
+                        title: 'Reporte de Siembra de Productos por Unidad',
                         exportOptions: {
                             columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
                         }
@@ -187,7 +187,7 @@
                     {
                         extend: 'print',
                         text: '<i class="fa fa-print"></i> Imprimir',
-                        title: 'Reporte Planificaci贸n de la Producci贸n',
+                        title: 'Reporte de Siembra de Productos por Unidad',
                         exportOptions: {
                             columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
                         }

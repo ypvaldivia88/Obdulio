@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Siembra</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ siembra.id }}</td>
+            </tr>
+            <tr>
+                <th>Enero</th>
+                <td>{{ siembra.enero }}</td>
+            </tr>
+            <tr>
+                <th>Febrero</th>
+                <td>{{ siembra.febrero }}</td>
+            </tr>
+            <tr>
+                <th>Marzo</th>
+                <td>{{ siembra.marzo }}</td>
+            </tr>
+            <tr>
+                <th>Abril</th>
+                <td>{{ siembra.abril }}</td>
+            </tr>
+            <tr>
+                <th>Mayo</th>
+                <td>{{ siembra.mayo }}</td>
+            </tr>
+            <tr>
+                <th>Junio</th>
+                <td>{{ siembra.junio }}</td>
+            </tr>
+            <tr>
+                <th>Julio</th>
+                <td>{{ siembra.julio }}</td>
+            </tr>
+            <tr>
+                <th>Agosto</th>
+                <td>{{ siembra.agosto }}</td>
+            </tr>
+            <tr>
+                <th>Septiembre</th>
+                <td>{{ siembra.septiembre }}</td>
+            </tr>
+            <tr>
+                <th>Octubre</th>
+                <td>{{ siembra.octubre }}</td>
+            </tr>
+            <tr>
+                <th>Noviembre</th>
+                <td>{{ siembra.noviembre }}</td>
+            </tr>
+            <tr>
+                <th>Diciembre</th>
+                <td>{{ siembra.diciembre }}</td>
+            </tr>
+            <tr>
+                <th>Anno</th>
+                <td>{{ siembra.anno }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('siembra_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('siembra_edit', { 'id': siembra.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
