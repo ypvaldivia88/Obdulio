@@ -1,3 +1,11 @@
+jc_obdulio_siembra:
+    resource: "@JcObdulioBundle/Controller/SiembraController.php"
+    type:     annotation
+
+jc_obdulio_venta:
+    resource: "@JcObdulioBundle/Controller/VentaController.php"
+    type:     annotation
+
 jc_obdulio_produccionleche:
     resource: "@JcObdulioBundle/Controller/ProduccionlecheController.php"
     type:     annotation

@@ -6,12 +6,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Nueva Planificacion de la Producci&oacute;n de Leche
+                Nueva Venta Anual por Producto  y Unidad Anual
                 {#<small>it all starts here</small>#}
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ path('inicio') }}"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-                <li><a href="{{ path('planificaciondeleche_index') }}">Planificaci&oacute;n de la producción de leche</a></li>
+                <li><a href="{{ path('venta_index') }}">Venta por Producto  y Unidad Anual</a></li>
                 <li><a class="active">Nuevo</a></li>
             </ol>
         </section>
@@ -28,20 +28,29 @@
                     {{ form_start(form, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form'} }) }}
                     <fieldset>
                         <div class="form-group col-md-6">
-                            <strong>Termo</strong>
-                            {{ form_widget(form.fkTermo, {'attr': {
+                            <strong>Producto</strong>
+                            {{ form_widget(form.fkProducto, {'attr': {
                                 'class': 'form-control select2',
                                 'style' : 'width:100%'
 
                             }}) }}
-                            <span class="text-danger">{{ form_errors(form.fkTermo) }}</span>
+                            <span class="text-danger">{{ form_errors(form.fkProducto) }}</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <strong>Unidad</strong>
+                            {{ form_widget(form.fkUnidad, {'attr': {
+                                'class': 'form-control select2',
+                                'style' : 'width:100%'
+
+                            }}) }}
+                            <span class="text-danger">{{ form_errors(form.fkUnidad) }}</span>
                         </div>
                         {% if not form_errors(form.enero) %}
                             <div class="form-group col-md-6">
                                 <strong>Enero</strong>
                                 {{ form_widget(form.enero, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Enero',
+                                    'placeholder' : 'Escriba las Ventas de Enero',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -52,7 +61,7 @@
                                 <strong>Enero</strong>
                                 {{ form_widget(form.enero, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Enero',
+                                    'placeholder' : 'Escriba las Ventas de Enero',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -67,7 +76,7 @@
                                 <strong>Febrero</strong>
                                 {{ form_widget(form.febrero, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Febrero',
+                                    'placeholder' : 'Escriba las Ventas de Febrero',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -78,7 +87,7 @@
                                 <strong>Febrero</strong>
                                 {{ form_widget(form.febrero, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Febrero',
+                                    'placeholder' : 'Escriba las Ventas de Febrero',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -93,7 +102,7 @@
                                 <strong>Marzo</strong>
                                 {{ form_widget(form.marzo, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Marzo',
+                                    'placeholder' : 'Escriba las Ventas de Marzo',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -104,7 +113,7 @@
                                 <strong>Marzo</strong>
                                 {{ form_widget(form.marzo, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Marzo',
+                                    'placeholder' : 'Escriba las Ventas de Marzo',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -119,7 +128,7 @@
                                 <strong>Abril</strong>
                                 {{ form_widget(form.abril, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Abril',
+                                    'placeholder' : 'Escriba las Ventas de Abril',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -130,7 +139,7 @@
                                 <strong>Abril</strong>
                                 {{ form_widget(form.abril, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Abril',
+                                    'placeholder' : 'Escriba las Ventas de Abril',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -145,7 +154,7 @@
                                 <strong>Mayo</strong>
                                 {{ form_widget(form.mayo, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Mayo',
+                                    'placeholder' : 'Escriba las Ventas de Mayo',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -156,7 +165,7 @@
                                 <strong>Mayo</strong>
                                 {{ form_widget(form.mayo, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Mayo',
+                                    'placeholder' : 'Escriba las Ventas de Mayo',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -171,7 +180,7 @@
                                 <strong>Junio</strong>
                                 {{ form_widget(form.junio, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Junio',
+                                    'placeholder' : 'Escriba las Ventas de Junio',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -182,7 +191,7 @@
                                 <strong>Junio</strong>
                                 {{ form_widget(form.junio, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Junio',
+                                    'placeholder' : 'Escriba las Ventas de Junio',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -197,7 +206,7 @@
                                 <strong>Julio</strong>
                                 {{ form_widget(form.julio, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Julio',
+                                    'placeholder' : 'Escriba las Ventas de Julio',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -208,7 +217,7 @@
                                 <strong>Julio</strong>
                                 {{ form_widget(form.julio, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Julio',
+                                    'placeholder' : 'Escriba las Ventas de Julio',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -223,7 +232,7 @@
                                 <strong>Agosto</strong>
                                 {{ form_widget(form.agosto, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Agosto',
+                                    'placeholder' : 'Escriba las Ventas de Agosto',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -234,7 +243,7 @@
                                 <strong>Agosto</strong>
                                 {{ form_widget(form.agosto, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Agosto',
+                                    'placeholder' : 'Escriba las Ventas de Agosto',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -249,7 +258,7 @@
                                 <strong>Septiembre</strong>
                                 {{ form_widget(form.septiembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Septiembre',
+                                    'placeholder' : 'Escriba las Ventas de Septiembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -260,7 +269,7 @@
                                 <strong>Septiembre</strong>
                                 {{ form_widget(form.septiembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Septiembre',
+                                    'placeholder' : 'Escriba las Ventas de Septiembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -275,7 +284,7 @@
                                 <strong>Octubre</strong>
                                 {{ form_widget(form.octubre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Octubre',
+                                    'placeholder' : 'Escriba las Ventas de Octubre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -286,7 +295,7 @@
                                 <strong>Octubre</strong>
                                 {{ form_widget(form.octubre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Octubre',
+                                    'placeholder' : 'Escriba las Ventas de Octubre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -301,7 +310,7 @@
                                 <strong>Noviembre</strong>
                                 {{ form_widget(form.noviembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Noviembre',
+                                    'placeholder' : 'Escriba las Ventas de Noviembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -312,7 +321,7 @@
                                 <strong>Noviembre</strong>
                                 {{ form_widget(form.abril, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Noviembre',
+                                    'placeholder' : 'Escriba las Ventas de Noviembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -327,7 +336,7 @@
                                 <strong>Diciembre</strong>
                                 {{ form_widget(form.diciembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Diciembre',
+                                    'placeholder' : 'Escriba las Ventas de Diciembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -338,7 +347,7 @@
                                 <strong>Diciembre</strong>
                                 {{ form_widget(form.diciembre, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Diciembre',
+                                    'placeholder' : 'Escriba las Ventas de Diciembre',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -350,10 +359,10 @@
                         {% endif %}
                         {% if not form_errors(form.anno) %}
                             <div class="form-group col-md-6">
-                                <strong>A&ntilde;o</strong>
+                                <strong>Año</strong>
                                 {{ form_widget(form.anno, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de Año',
+                                    'placeholder' : 'Escriba el Ano',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '7'
                                 }}) }}
@@ -361,10 +370,10 @@
                         {% endif %}
                         {% if form_errors(form.anno) %}
                             <div class="form-group has-error col-md-6">
-                                <strong>Ano</strong>
+                                <strong>Año</strong>
                                 {{ form_widget(form.anno, {'attr': {
                                     'class': 'form-control',
-                                    'placeholder' : 'Escriba el plan de ano',
+                                    'placeholder' : 'Escriba el año',
                                     'onKeyPress' : 'return OnlyNumbers(event);',
                                     'maxlength' : '10'
                                 }}) }}
@@ -386,7 +395,7 @@
                             {{ form_widget(form.save, {'label' : ' Guardar', 'attr': {'class': 'fa fa-save btn btn-warning pull-right'}}) }}
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ path('planificaciondeleche_index') }}" class="btn btn-sm btn-danger">
+                            <a href="{{ path('venta_index') }}" class="btn btn-sm btn-danger">
                                 <i class="fa fa-ban"></i> <strong>Cancelar</strong>
                             </a>
                         </div>
@@ -408,7 +417,7 @@
         </section>
         <!-- /.content -->
     </div>
-    <input type="hidden" value="planificaciondeleches" id="seleccion">
+    <input type="hidden" value="ventas" id="seleccion">
 {% endblock %}
 
 {% block javascripts  %}
@@ -426,4 +435,3 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('public/select2/dist/css/select2.min.css') }}">
 {% endblock %}
-
